@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:security="http://www.springframework.org/schema/security"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/security
+       http://www.springframework.org/schema/security/spring-security.xsd">
+
+    <context:component-scan base-package="org.keycloak.adapters.springsecurity" />
+
+    <security:authentication-manager alias="authenticationManager">
+        <security:authentication-provider ref="keycloakAuthenticationProvider" />
+    </security:authentication-manager>
+
+    <bean id="adapterDeploymentContext" class="org.keycloak.adapters.springsecurity.AdapterDeploymentContextFactoryBean">
+        <constructor-arg value="/WEB-INF/keycloak.json" />
+    </bean>
+
+    <bean id="keycloakAuthenticationEntryPoint" class="org.keycloak.adapters.springsecurity.authentication.KeycloakAuthenticationEntryPoint" >
+        <constructor-arg ref="adapterDeploymentContext"/>
+    </bean>
+
+    <bean id="keycloakAuthenticationProvider" class="org.keycloak.adapters.springsecurity.authentication.KeycloakAuthenticationProvider" />
+    <bean id="keycloakPreAuthActionsFilter" class="org.keycloak.adapters.springsecurity.filter.KeycloakPreAuthActionsFilter" />
+    <bean id="keycloakAuthenticationProcessingFilter" class="org.keycloak.adapters.springsecurity.filter.KeycloakAuthenticationProcessingFilter">
+        <constructor-arg name="authenticationManager" ref="authenticationManager" />
+    </bean>
+
+    <bean id="keycloakLogoutHandler" class="org.keycloak.adapters.springsecurity.authentication.KeycloakLogoutHandler">
+        <constructor-arg ref="adapterDeploymentContext" />
+    </bean>
+
+    <bean id="logoutFilter" class="org.springframework.security.web.authentication.logout.LogoutFilter">
+        <constructor-arg name="logoutSuccessUrl" value="/dashboard" />
+        <constructor-arg name="handlers">
+            <list>
+                <ref bean="keycloakLogoutHandler" />
+                <bean class="org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler" />
+            </list>
+        </constructor-arg>
+        <property name="logoutRequestMatcher">
+            <bean class="org.springframework.security.web.util.matcher.AntPathRequestMatcher">
+                <constructor-arg name="pattern" value="/logout**" />
+                <constructor-arg name="httpMethod" value="GET" />
+            </bean>
+        </property>
+    </bean>
+
+    <!--    <security:http auto-config="false" entry-point-ref="keycloakAuthenticationEntryPoint" use-expressions="true">-->
+    <!--        <security:custom-filter ref="keycloakPreAuthActionsFilter" before="LOGOUT_FILTER" />-->
+    <!--        <security:custom-filter ref="keycloakAuthenticationProcessingFilter" before="FORM_LOGIN_FILTER" />-->
+    <!--        <security:intercept-url pattern="/dashboard" access="hasRole('ROLE_USER')" />-->
+    <!--        <security:intercept-url pattern="/prosumerInfo" access="hasRole('ROLE_USER')" />-->
+    <!--&lt;!&ndash;        <security:intercept-url pattern="/prosumerInfo**" access="hasRole('user')" />&ndash;&gt;-->
+    <!--&lt;!&ndash;        <security:intercept-url pattern="/dashboard**" access="hasRole('ROLE_USER')" />&ndash;&gt;-->
+    <!--&lt;!&ndash;        <security:intercept-url pattern="/admin**" access="ROLE_ADMIN" />&ndash;&gt;-->
+    <!--        <security:custom-filter ref="logoutFilter" position="LOGOUT_FILTER" />-->
+    <!--    </security:http>-->
+
+    <!--    <security:http auto-config="true">-->
+    <!--        &lt;!&ndash;        <security:custom-filter ref="keycloakPreAuthActionsFilter" before="LOGOUT_FILTER" />&ndash;&gt;-->
+    <!--        &lt;!&ndash;        <security:custom-filter ref="keycloakAuthenticationProcessingFilter" before="FORM_LOGIN_FILTER" />&ndash;&gt;-->
+    <!--        <security:intercept-url pattern="/dashboard" access="hasRole('IS_AUTHENTICATED_ANONYMOUSLY')"/>-->
+    <!--        <security:intercept-url pattern="/prosumerInfo" access="hasRole('ROLE_USER')" />-->
+    <!--        <security:form-login/>-->
+    <!--    </security:http>-->
+
+    <!--    <bean name="passwordEncoder"-->
+    <!--          class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>-->
+
+<!--  ============================================================================================================  -->
+
+<!--    <security:http auto-config="false" entry-point-ref="keycloakAuthenticationEntryPoint" use-expressions="true">-->
+<!--        <security:custom-filter ref="keycloakPreAuthActionsFilter" before="LOGOUT_FILTER" />-->
+<!--        <security:custom-filter ref="keycloakAuthenticationProcessingFilter" before="FORM_LOGIN_FILTER" />-->
+<!--        <security:intercept-url pattern="/dashboard"-->
+<!--                                access="permitAll()" />-->
+<!--        <security:intercept-url pattern="/prosumerInfo"-->
+<!--                                        access="hasAuthority('user')" />-->
+<!--&lt;!&ndash;        access="isAuthenticated()" />&ndash;&gt;-->
+<!--        <security:form-login/>-->
+<!--    </security:http>-->
+
+
+        <security:http auto-config="false" entry-point-ref="keycloakAuthenticationEntryPoint" use-expressions="true">
+            <security:custom-filter ref="keycloakPreAuthActionsFilter" before="LOGOUT_FILTER" />
+            <security:custom-filter ref="keycloakAuthenticationProcessingFilter" before="FORM_LOGIN_FILTER" />
+<!--            <security:intercept-url pattern="/dashboard" access="permitAll()" />-->
+            <security:intercept-url pattern="/dashboard" access="hasAnyAuthority('user','student','teacher')" />
+            <security:intercept-url pattern="/prosumerInfo" access="hasAuthority('admin')" />
+<!--            <security:intercept-url pattern="/courses/*" access="hasAnyAuthority('student','teacher')" />-->
+            <security:custom-filter ref="logoutFilter" position="LOGOUT_FILTER" />
+<!--            <security:csrf disabled="true" />-->
+        </security:http>
+</beans>

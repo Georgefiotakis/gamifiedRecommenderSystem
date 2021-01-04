@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC
+        "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+        "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+<!-- custom tiles schema definition to make the app work off-line
+, normally uses web dtd: http://tiles.apache.org/dtds/tiles-config_2_0.dtd -->
+<tiles-definitions>
+
+    <!-- **************************** No sidebars, template for a login page  **************************** -->
+
+    <definition name=".mainLoginTemplate" template="/WEB-INF/viewsTemplates/loginTemplate/main.jsp">
+        <put-attribute name="title" value="NobelGrid - Visual Analytics Tool" type="string" />
+        <put-attribute name="header" value="/WEB-INF/viewsTemplates/loginTemplate/header.jsp" />
+        <put-attribute name="body" value="" />
+    </definition>
+
+    <!-- *********************************** Basic Templates Left Sidebar *********************************** -->
+
+    <!-- Default Main Template -->
+    <definition name=".mainLeftSidebarTemplate" template="/WEB-INF/viewsTemplates/leftSidebar/main.jsp">
+        <!--<definition name=".mainTemplate" template="/WEB-INF/viewsTemplates/main.jsp">-->
+        <put-attribute name="title" value="NobelGrid - Visual Analytics Tool" type="string" />
+        <put-attribute name="header" value="/WEB-INF/viewsTemplates/leftSidebar/header.jsp" />
+        <put-attribute name="body" value="" />
+    </definition>
+
+
+    <!-- *********************************** Basic Templates No Sidebar *********************************** -->
+
+    <definition name=".mainFullTemplate" template="/WEB-INF/viewsTemplates/noLeftSidebar/main.jsp">
+        <put-attribute name="title" value="Dome" type="string" />
+        <put-attribute name="header" value="/WEB-INF/viewsTemplates/noLeftSidebar/header.jsp" />
+        <put-attribute name="body" value="" />
+    </definition>
+
+    <definition name=".mainFullTemplateNoHeaderNoFooter" template="/WEB-INF/viewsTemplates/noLeftSidebar/mainNoHeaderNoFooter.jsp">
+        <put-attribute name="body" value="" />
+    </definition>
+
+    <!-- *********************************** Basic Templates EMPTY *********************************** -->
+    <definition name=".mainNoMenuTemplate" template="/WEB-INF/viewsTemplates/mainNoTemplate.jsp">
+        <put-attribute name="title" value="NobelGrid - Visual Analytics Tool" type="string" />
+        <put-attribute name="body" value="" />
+    </definition>
+
+    <!-- *********************************** custom login page for monitor app *************************************** -->
+
+    <definition name="login" extends=".mainLeftSidebarTemplate">
+        <put-attribute name="body" value="/WEB-INF/views/login.jsp"/>
+    </definition>
+
+    <!-- *********************************** custom login page for monitor app *************************************** -->
+
+    <definition name="prosumerInfo" extends=".mainLeftSidebarTemplate">
+        <put-attribute name="body" value="/WEB-INF/views/prosumerInfo.jsp"/>
+    </definition>
+
+    <!-- *********************************** Home Controller *********************************** -->
+
+    <definition name="index" extends=".mainLeftSidebarTemplate">
+        <put-attribute name="body" value="/WEB-INF/views/dashboard.jsp" />
+    </definition>
+
+</tiles-definitions>

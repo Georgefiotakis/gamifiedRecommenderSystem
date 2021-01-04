@@ -1,0 +1,13 @@
+{
+  "realm": "technology-orientation",
+  "auth-server-url": "http://localhost:8080/auth/",
+  "ssl-required": "external",
+  "resource": "technology-app",
+  "verify-token-audience": true,
+  "credentials": {
+    "secret": "f2f3ed80-0d97-44ac-bb8e-1d12c032b940"
+  },
+  "use-resource-role-mappings": true,
+  "confidential-port": 0,
+  "policy-enforcer": {}
+}

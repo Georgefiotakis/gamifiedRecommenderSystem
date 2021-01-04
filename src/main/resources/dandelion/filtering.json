@@ -1,0 +1,21 @@
+{
+    "bundle" : "filtering",
+    "assets": [
+		{
+		    "name": "dandelion-filtering",
+		    "version": "0.10.0",
+		    "type": "js",
+		    "locations": {
+		        "webapp": "/resources/js/dandelion/filtering.js"
+		    }
+		},
+        {
+            "name": "jquery",
+            "version": "1.10.2",
+            "type": "js",
+            "locations": {
+                "webapp": "/resources/js/jquery-1.10.2.min.js"
+            }
+        }
+    ]
+}

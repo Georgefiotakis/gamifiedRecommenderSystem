@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:oxm="http://www.springframework.org/schema/oxm"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.0.xsd
+		http://www.springframework.org/schema/oxm http://www.springframework.org/schema/oxm/spring-oxm-1.5.xsd">
+
+    <!-- Root Context: defines shared resources visible to all other web components -->
+    <mvc:annotation-driven validator="validator" />
+
+    <!-- internationalization support -->
+    <bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+        <property name="basename" value="resources/i18n/messages_en.properties"/>
+        <property name="defaultEncoding" value="UTF-8"/>
+    </bean>
+
+    <!-- validation support -->
+
+    <bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">
+        <property name="validationMessageSource" ref="messageSource"/>
+    </bean>
+
+    <!-- queue for messages passed to the user and to be printed on the screen -->
+    <!--<bean id="messageQueue" class="gr.hypertech.nobelgridlgrid.model.gui.global.messages.MessageQueue">-->
+    <!--</bean>-->
+
+    <!--<bean id="application" class="gr.hypertech.domers.HomeController">-->
+        <!--&lt;!&ndash;<property name="marshaller" ref="castorMarshaller" />&ndash;&gt;-->
+        <!--<property name="unmarshaller" ref="castorMarshaller" />-->
+    <!--</bean>-->
+    <!--<bean id="castorMarshaller" class="org.springframework.oxm.castor.CastorMarshaller"/>-->
+
+<!--    <context:component-scan base-package="gr.gfiotakis.imlCloud.model.gui.global.messages" />-->
+</beans>
