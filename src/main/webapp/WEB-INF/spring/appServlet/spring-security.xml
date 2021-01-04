@@ -91,7 +91,7 @@
             <security:custom-filter ref="keycloakPreAuthActionsFilter" before="LOGOUT_FILTER" />
             <security:custom-filter ref="keycloakAuthenticationProcessingFilter" before="FORM_LOGIN_FILTER" />
 <!--            <security:intercept-url pattern="/dashboard" access="permitAll()" />-->
-            <security:intercept-url pattern="/dashboard" access="hasAnyAuthority('user','student','teacher')" />
+            <security:intercept-url pattern="/dashboard" access="hasAnyAuthority('user','student','offline_access','uma_authorization')" />
             <security:intercept-url pattern="/prosumerInfo" access="hasAuthority('admin')" />
 <!--            <security:intercept-url pattern="/courses/*" access="hasAnyAuthority('student','teacher')" />-->
             <security:custom-filter ref="logoutFilter" position="LOGOUT_FILTER" />
