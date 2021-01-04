@@ -8,6 +8,7 @@ import org.keycloak.KeycloakSecurityContext;
 import org.keycloak.adapters.RefreshableKeycloakSecurityContext;
 import org.keycloak.adapters.springsecurity.account.SimpleKeycloakAccount;
 import org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken;
+import org.keycloak.representations.AccessToken;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
@@ -40,14 +41,22 @@ public class HomeController {
 	public String home(Locale locale, Model model) {
 		logger.info("Welcome home! The locale is {}.", locale);
 
-		return "redirect:/dashboard";
+		return "redirect:/userProfile";
 	}
 
 	@RequestMapping(value = "/dashboard", method = RequestMethod.GET)
-	public String dashboard(Principal principal,Locale locale, Model model, HttpServletRequest request) {
-		logger.info("Welcome to dashboard!");
+	public String dashboard(Locale locale, Model model) {
+		logger.info("Welcome home! The locale is {}.", locale);
 
-		KeycloakAuthenticationToken keycloakAuthenticationToken = (KeycloakAuthenticationToken)principal;
+		return "dashboard";
+	}
+
+	@RequestMapping(value = "/userProfile", method = RequestMethod.GET)
+	public String userProfile(Principal principal,Locale locale, Model model, HttpServletRequest request) {
+		logger.info("============== User Successfully logged in!! ====================");
+		logger.info("Welcome to User Profile Page!");
+
+		KeycloakAuthenticationToken keycloakAuthenticationToken = (KeycloakAuthenticationToken) principal;
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		auth.getPrincipal();
 		auth.getCredentials();
@@ -55,22 +64,56 @@ public class HomeController {
 		auth.getPrincipal();
 
 		String userToken;
-		userToken = ((RefreshableKeycloakSecurityContext)((SimpleKeycloakAccount)((KeycloakAuthenticationToken)auth).getDetails()).getKeycloakSecurityContext()).getTokenString();
+		userToken = ((RefreshableKeycloakSecurityContext) ((SimpleKeycloakAccount) ((KeycloakAuthenticationToken) auth).getDetails()).getKeycloakSecurityContext()).getTokenString();
 		String userRealm;
 		userRealm = keycloakAuthenticationToken.getAccount().getKeycloakSecurityContext().getRealm();
+
+		String studentFirstName = ((AccessToken)((RefreshableKeycloakSecurityContext)((SimpleKeycloakAccount)((KeycloakAuthenticationToken)auth).getDetails()).getKeycloakSecurityContext()).getToken()).getGivenName();
+		String studentLastName = ((AccessToken)((RefreshableKeycloakSecurityContext)((SimpleKeycloakAccount)((KeycloakAuthenticationToken)auth).getDetails()).getKeycloakSecurityContext()).getToken()).getFamilyName();
+		String studentEmail = ((AccessToken)((RefreshableKeycloakSecurityContext)((SimpleKeycloakAccount)((KeycloakAuthenticationToken)auth).getDetails()).getKeycloakSecurityContext()).getToken()).getEmail();
+		String studentId = ((AccessToken)((RefreshableKeycloakSecurityContext)((SimpleKeycloakAccount)((KeycloakAuthenticationToken)auth).getDetails()).getKeycloakSecurityContext()).getToken()).getId();
+		String studentUserName = ((AccessToken)((RefreshableKeycloakSecurityContext)((SimpleKeycloakAccount)((KeycloakAuthenticationToken)auth).getDetails()).getKeycloakSecurityContext()).getToken()).getPreferredUsername();
+
+		model.addAttribute("studentId",studentId);
+		model.addAttribute("studentFirstName",studentFirstName);
+		model.addAttribute("studentLastName",studentLastName);
+		model.addAttribute("studentEmail",studentEmail);
+		model.addAttribute("studentUserName",studentUserName);
 
 		Map<String, Object> attributesMap = new HashMap<String, Object>();
 		attributesMap = ((SimpleKeycloakAccount) ((KeycloakAuthenticationToken) auth).getDetails()).getKeycloakSecurityContext().getIdToken().getOtherClaims();
 
 		String userClaims = "";
+		String userAttributes = "";
 
 		for (Map.Entry<String, Object> entry : attributesMap.entrySet()) {
 			System.out.println(entry.getKey() + " : " + entry.getValue());
 			logger.info(entry.getKey() + " : " + entry.getValue());
-			userClaims = userClaims + entry.getKey() + "_" + entry.getValue() + "_";
+			userClaims = userClaims + entry.getKey() + "_" + entry.getValue() + "-";
+//			userClaims = userClaims + entry.getValue() + "-";
+			userAttributes = userClaims.substring(0, userClaims.length() - 1);
 		}
 
-		return "index";
+		String[] splittedUserAttributes = userAttributes.split("-");
+
+		String studentAge = "";
+		String studentSchoolName = "";
+
+		for (int i = 0; i < splittedUserAttributes.length; i++) {
+
+			if (splittedUserAttributes[i].toLowerCase().contains("age")) {
+				studentAge = splittedUserAttributes[i].split("_")[1];
+			}
+
+			if (splittedUserAttributes[i].toLowerCase().contains("school")) {
+				studentSchoolName = splittedUserAttributes[i].split("_")[1];
+			}
+		}
+
+		model.addAttribute("studentAge",studentAge);
+		model.addAttribute("studentSchoolName",studentSchoolName);
+
+		return "userProfile";
 	}
 
 

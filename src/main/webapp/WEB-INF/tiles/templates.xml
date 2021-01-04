@@ -57,8 +57,12 @@
 
     <!-- *********************************** Home Controller *********************************** -->
 
-    <definition name="index" extends=".mainLeftSidebarTemplate">
+    <definition name="dashboard" extends=".mainLeftSidebarTemplate">
         <put-attribute name="body" value="/WEB-INF/views/dashboard.jsp" />
+    </definition>
+
+    <definition name="userProfile" extends=".mainLeftSidebarTemplate">
+        <put-attribute name="body" value="/WEB-INF/views/userProfile.jsp" />
     </definition>
 
 </tiles-definitions>

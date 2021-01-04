@@ -36,7 +36,7 @@
     </bean>
 
     <bean id="logoutFilter" class="org.springframework.security.web.authentication.logout.LogoutFilter">
-        <constructor-arg name="logoutSuccessUrl" value="/dashboard" />
+        <constructor-arg name="logoutSuccessUrl" value="/userProfile" />
         <constructor-arg name="handlers">
             <list>
                 <ref bean="keycloakLogoutHandler" />
@@ -91,7 +91,8 @@
             <security:custom-filter ref="keycloakPreAuthActionsFilter" before="LOGOUT_FILTER" />
             <security:custom-filter ref="keycloakAuthenticationProcessingFilter" before="FORM_LOGIN_FILTER" />
 <!--            <security:intercept-url pattern="/dashboard" access="permitAll()" />-->
-            <security:intercept-url pattern="/dashboard" access="hasAnyAuthority('user','student','offline_access','uma_authorization')" />
+            <security:intercept-url pattern="/userProfile" access="hasAnyAuthority('user','student')" />
+            <security:intercept-url pattern="/dashboard" access="hasAnyAuthority('user','student')" />
             <security:intercept-url pattern="/prosumerInfo" access="hasAuthority('admin')" />
 <!--            <security:intercept-url pattern="/courses/*" access="hasAnyAuthority('student','teacher')" />-->
             <security:custom-filter ref="logoutFilter" position="LOGOUT_FILTER" />
