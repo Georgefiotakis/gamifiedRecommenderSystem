@@ -65,4 +65,16 @@
         <put-attribute name="body" value="/WEB-INF/views/userProfile.jsp" />
     </definition>
 
+    <definition name="greenPlanet" extends=".mainLeftSidebarTemplate">
+        <put-attribute name="body" value="/WEB-INF/views/greenPlanet.jsp" />
+    </definition>
+
+    <definition name="purplePlanet" extends=".mainLeftSidebarTemplate">
+        <put-attribute name="body" value="/WEB-INF/views/purplePlanet.jsp" />
+    </definition>
+
+    <definition name="orangePlanet" extends=".mainLeftSidebarTemplate">
+        <put-attribute name="body" value="/WEB-INF/views/orangePlanet.jsp" />
+    </definition>
+
 </tiles-definitions>

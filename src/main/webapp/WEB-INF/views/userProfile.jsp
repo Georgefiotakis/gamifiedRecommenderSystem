@@ -154,6 +154,10 @@
         }
     }
 
+    body {
+        overflow-y: hidden;
+    }
+
 </style>
 
     <div class="pcoded-container navbar-wrapper">
@@ -191,7 +195,7 @@
                                                                     <div class="form-group">
                                                                         <label>Student Id</label>
                                                                         <input type="text"
-                                                                               class="form-control form-control-primary"
+                                                                               class="form-control form-control-success"
                                                                                disabled="true"
                                                                                placeholder="<c:out value="${studentId}"/>">
                                                                     </div>
@@ -199,14 +203,14 @@
                                                                         <div class="col-sm-6">
                                                                             <label>Student Firstname</label>
                                                                             <input type="text"
-                                                                                   class="form-control form-control-warning"
+                                                                                   class="form-control form-control-success"
                                                                                    disabled="true"
                                                                                    placeholder="<c:out value="${studentFirstName}"/>">
                                                                         </div>
                                                                         <div class="col-sm-6">
                                                                             <label>Student Lastname</label>
                                                                             <input type="text"
-                                                                                   class="form-control form-control-default"
+                                                                                   class="form-control form-control-success"
                                                                                    disabled="true"
                                                                                    placeholder="<c:out value="${studentLastName}"/>">
                                                                         </div>
@@ -215,7 +219,7 @@
                                                                         <div class="col-sm-6">
                                                                             <label>Student Username</label>
                                                                             <input type="text"
-                                                                                   class="form-control form-control-danger"
+                                                                                   class="form-control form-control-success"
                                                                                    disabled="true"
                                                                                    placeholder="<c:out value="${studentUserName}"/>">
                                                                         </div>
@@ -231,14 +235,14 @@
                                                                         <div class="col-sm-6">
                                                                             <label>Student Age</label>
                                                                             <input type="text"
-                                                                                   class="form-control form-control-inverse"
+                                                                                   class="form-control form-control-success"
                                                                                    disabled="true"
                                                                                    placeholder="<c:out value="${studentAge}"/>">
                                                                         </div>
                                                                         <div class="col-sm-6">
                                                                             <label>Student Current School Name</label>
                                                                             <input type="text"
-                                                                                   class="form-control form-control-info"
+                                                                                   class="form-control form-control-success"
                                                                                    disabled="true"
                                                                                    placeholder="<c:out value="${studentSchoolName}"/>">
                                                                         </div>

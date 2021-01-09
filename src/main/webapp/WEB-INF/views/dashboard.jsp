@@ -26,6 +26,44 @@
         background: #133a47;
     }
 
+    .purplePlanetButton {
+        position: relative;
+        margin-left: auto;
+        margin-right: auto;
+        display: block;
+    }
+
+    .purplePlanetButton:hover {
+        -webkit-filter: drop-shadow(10px 10px 10px #222);
+        filter: drop-shadow(10px 10px 10px #5f5e5e);
+    }
+
+    .orangePlanetButton {
+        position: absolute;
+        top: 100%;
+        right: 0;
+    }
+
+    .orangePlanetButton:hover {
+        -webkit-filter: drop-shadow(10px 10px 10px #222);
+        filter: drop-shadow(10px 10px 10px #5f5e5e);
+    }
+
+    .greenPlanetButton {
+        position: absolute;
+        top: 100%;
+        left: 0;
+    }
+
+    .greenPlanetButton:hover {
+        -webkit-filter: drop-shadow(10px 10px 10px #222);
+        filter: drop-shadow(10px 10px 10px #5f5e5e);
+    }
+
+    body {
+        overflow-y: hidden;
+    }
+
 </style>
 
 <div class="pcoded-main-container">
@@ -38,42 +76,41 @@
                             <div class="col-lg-12">
                                 <div class="row">
                                     <div class="col-lg-4">
-                                        <div class="notificationsCard ticket-card">
+                                        <div class="greenPlanet">
 <%--                                            <div class="card-header">--%>
 <%--                                                <h5 class="card-title">Notification Alarm</h5>--%>
 <%--                                            </div>--%>
 <%--                                            <div class="card-block text-center NotificationCircle">--%>
-                                                <input class="startGameButton" type="image"
+                                                <input class="greenPlanetButton" type="image"
                                                        src="./resources/img/green-planet.png" alt="Submit"
-                                                       width="400" height="250"
-                                                       onclick="startingTheJourney()">
+                                                       width="350" height="200"
+                                                       onclick="goToGreenPlanet()">
 <%--                                            </div>--%>
                                         </div>
                                     </div>
                                     <div class="col-lg-4">
-                                        <div class="heatMapCard">
+                                        <div class="purplePlanet">
 <%--                                            <div class="card-header">--%>
 <%--                                                <h5 class="card-title">HeatMap</h5>--%>
 <%--                                            </div>--%>
 <%--                                            <div class="card-block">--%>
-                                                <input class="startGameButton" type="image"
+                                                <input class="purplePlanetButton" type="image"
                                                        src="./resources/img/purple-planet.png" alt="Submit"
-                                                       width="400" height="250"
-                                                       onclick="startingTheJourney()">
+                                                       width="350" height="200"
+                                                       onclick="goToPurplePlanet()">
 <%--                                            </div>--%>
                                         </div>
                                     </div>
                                     <div class="col-lg-4">
-                                        <div class="heatMapCard">
+                                        <div class="orangePlanet">
                                             <%--                                            <div class="card-header">--%>
                                             <%--                                                <h5 class="card-title">HeatMap</h5>--%>
                                             <%--                                            </div>--%>
                                             <%--                                            <div class="card-block">--%>
-                                            <input class="startGameButton" type="image"
+                                            <input class="orangePlanetButton" type="image"
                                                    src="./resources/img/orange-planet.png" alt="Submit"
-                                                   width="400" height="250"
-                                                   onclick="startingTheJourney()">
-                                            <%--                                            </div>--%>
+                                                   width="350" height="200"
+                                                   onclick="goToOrangePlanet()">
                                         </div>
                                     </div>
                                 </div>
@@ -85,3 +122,15 @@
         </div>
     </div>
 </div>
+
+<script>
+    function goToGreenPlanet() {
+        location.replace("./greenPlanet");
+    }
+    function goToOrangePlanet() {
+        location.replace("./orangePlanet");
+    }
+    function goToPurplePlanet() {
+        location.replace("./purplePlanet");
+    }
+</script>

@@ -51,6 +51,27 @@ public class HomeController {
 		return "dashboard";
 	}
 
+	@RequestMapping(value = "/greenPlanet", method = RequestMethod.GET)
+	public String greenPlanet(Locale locale, Model model) {
+		logger.info("Welcome to the green planet!!!", locale);
+
+		return "greenPlanet";
+	}
+
+	@RequestMapping(value = "/purplePlanet", method = RequestMethod.GET)
+	public String purplePlanet(Locale locale, Model model) {
+		logger.info("Welcome to the purple planet!!!", locale);
+
+		return "purplePlanet";
+	}
+
+	@RequestMapping(value = "/orangePlanet", method = RequestMethod.GET)
+	public String orangePlanet(Locale locale, Model model) {
+		logger.info("Welcome to the orange planet!!!", locale);
+
+		return "orangePlanet";
+	}
+
 	@RequestMapping(value = "/userProfile", method = RequestMethod.GET)
 	public String userProfile(Principal principal,Locale locale, Model model, HttpServletRequest request) {
 		logger.info("============== User Successfully logged in!! ====================");
