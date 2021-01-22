@@ -63,6 +63,5 @@
 <script src="${pageContext.request.contextPath}/resources/js/bootstrap/bootstrap.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/dashboard.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/iCheck/iCheck.js"></script>
-<script src="${pageContext.request.contextPath}/resources/js/heatMapChart.js"></script>
 
 </html>

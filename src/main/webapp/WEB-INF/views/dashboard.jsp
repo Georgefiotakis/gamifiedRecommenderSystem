@@ -64,6 +64,14 @@
         overflow-y: hidden;
     }
 
+    .orangePlanetButton {
+        opacity: 0.3;
+    }
+
+    .purplePlanetButton {
+        opacity: 0.3;
+    }
+
 </style>
 
 <div class="pcoded-main-container">
@@ -94,7 +102,7 @@
 <%--                                                <h5 class="card-title">HeatMap</h5>--%>
 <%--                                            </div>--%>
 <%--                                            <div class="card-block">--%>
-                                                <input class="purplePlanetButton" type="image"
+                                                <input class="purplePlanetButton" type="image" disabled
                                                        src="./resources/img/purple-planet.png" alt="Submit"
                                                        width="350" height="200"
                                                        onclick="goToPurplePlanet()">
@@ -107,7 +115,7 @@
                                             <%--                                                <h5 class="card-title">HeatMap</h5>--%>
                                             <%--                                            </div>--%>
                                             <%--                                            <div class="card-block">--%>
-                                            <input class="orangePlanetButton" type="image"
+                                            <input class="orangePlanetButton" type="image" disabled
                                                    src="./resources/img/orange-planet.png" alt="Submit"
                                                    width="350" height="200"
                                                    onclick="goToOrangePlanet()">

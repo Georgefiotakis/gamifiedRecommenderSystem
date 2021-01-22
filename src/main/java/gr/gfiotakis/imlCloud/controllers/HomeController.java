@@ -1,27 +1,24 @@
 package gr.gfiotakis.imlCloud.controllers;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import gr.gfiotakis.imlCloud.model.gui.Course;
-import gr.gfiotakis.imlCloud.model.gui.ProsumerInformation;
-import org.keycloak.AuthorizationContext;
-import org.keycloak.KeycloakSecurityContext;
+import gr.gfiotakis.imlCloud.model.managementService.*;
+import gr.gfiotakis.imlCloud.model.persistence.*;
 import org.keycloak.adapters.RefreshableKeycloakSecurityContext;
 import org.keycloak.adapters.springsecurity.account.SimpleKeycloakAccount;
 import org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken;
 import org.keycloak.representations.AccessToken;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.MediaType;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import sun.java2d.pipe.SpanShapeRenderer;
-
 import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * View Controller that handles requests for the application home page.
@@ -30,12 +27,33 @@ import java.util.*;
 public class HomeController {	
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 	public static final Map<Long, Course> userClaimsMap = new LinkedHashMap<Long, Course>();
-    /**
-	 * View Handler for the home page of the application.
-	 * @param locale locale settings
-	 * @param model object used to carry data object into the view layer
-	 * @return string with name of the view (e.g. jsp) to be rendered (resolved into Apache Tile name)
-	 */
+
+	@Autowired
+	UserManagementService userManagementService;
+	@Autowired
+	SurveyManagementService surveyManagementService;
+	@Autowired
+	GreenPlanetManagementService greenPlanetManagementService;
+	@Autowired
+	PurplePlanetManagementService purplePlanetManagementService;
+	@Autowired
+	OrangePlanetManagementService orangePlanetManagementService;
+	@Autowired
+	RecommendationManagementService recommendationManagementService ;
+
+	private Integer currentSurveyId;
+	private Integer currentUserId;
+	private String currentUsername;
+	private String finalRecommendationPath;
+	String frontEnd = "Web Frontend Developer";
+	String backEnd = "Web Backend Developer";
+	String fullStackWebEngineer = "Fullstack Web Engineer";
+	String mobileEngineer = "Mobile Engineer";
+	String gameGraphicDeveloper = "Game/Graphics Development";
+	String dataEngineer = "Data Engineer";
+	String machineLearning = "Machine Learning";
+//	List<String> allSelectedPaths = new ArrayList<>();
+	ArrayList<String> allSelectedPaths = new ArrayList<String>();
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
@@ -51,9 +69,22 @@ public class HomeController {
 		return "dashboard";
 	}
 
+	@RequestMapping(value = "/analytics", method = RequestMethod.GET)
+	public String analytics(Locale locale, Model model) {
+		logger.info("Welcome to analytics page!!!", locale);
+
+		model.addAttribute("currentUserId",currentUserId);
+		model.addAttribute("currentSurveyId",currentSurveyId);
+
+		return "analytics";
+	}
+
 	@RequestMapping(value = "/greenPlanet", method = RequestMethod.GET)
 	public String greenPlanet(Locale locale, Model model) {
 		logger.info("Welcome to the green planet!!!", locale);
+
+		model.addAttribute("currentUserId",currentUserId);
+		model.addAttribute("currentSurveyId",currentSurveyId);
 
 		return "greenPlanet";
 	}
@@ -62,6 +93,9 @@ public class HomeController {
 	public String purplePlanet(Locale locale, Model model) {
 		logger.info("Welcome to the purple planet!!!", locale);
 
+		model.addAttribute("currentUserId",currentUserId);
+		model.addAttribute("currentSurveyId",currentSurveyId);
+
 		return "purplePlanet";
 	}
 
@@ -69,7 +103,21 @@ public class HomeController {
 	public String orangePlanet(Locale locale, Model model) {
 		logger.info("Welcome to the orange planet!!!", locale);
 
+		model.addAttribute("currentUserId",currentUserId);
+		model.addAttribute("currentSurveyId",currentSurveyId);
+
 		return "orangePlanet";
+	}
+
+	@RequestMapping(value = "/studentRecommendation", method = RequestMethod.GET)
+	public String studentRecommendation(Locale locale, Model model) {
+		logger.info("Welcome to student's recommendation page!", locale);
+
+		model.addAttribute("currentUserId",currentUserId);
+		model.addAttribute("currentSurveyId",currentSurveyId);
+		model.addAttribute("finalRecommendationPath",finalRecommendationPath);
+
+		return "studentRecommendation";
 	}
 
 	@RequestMapping(value = "/userProfile", method = RequestMethod.GET)
@@ -100,6 +148,28 @@ public class HomeController {
 		model.addAttribute("studentLastName",studentLastName);
 		model.addAttribute("studentEmail",studentEmail);
 		model.addAttribute("studentUserName",studentUserName);
+
+		if (userManagementService.getUserbyUsername(studentUserName).get(0).getUserId() == null) {
+			User user = new User();
+			user.setUsername(studentUserName);
+			userManagementService.saveUser(user);
+
+			Survey survey = new Survey();
+			survey.setUser(user);
+			surveyManagementService.saveSurvey(survey);
+			Survey savedSurvey = surveyManagementService.saveSurvey(survey);
+			currentSurveyId = savedSurvey.getSurveyId();
+		} else {
+			Survey survey = new Survey();
+			survey.setUser(userManagementService.getUserbyUsername(studentUserName).get(0));
+			Survey savedSurvey = surveyManagementService.saveSurvey(survey);
+			currentSurveyId = savedSurvey.getSurveyId();
+		}
+
+		currentUsername = studentUserName;
+		currentUserId = userManagementService.getUserbyUsername(studentUserName).get(0).getUserId();
+//		model.addAttribute("currentUserId",userManagementService.getUserbyUsername(studentUserName).get(0).getUserId());
+//		model.addAttribute("currentSurveyId",currentSurveyId);
 
 		Map<String, Object> attributesMap = new HashMap<String, Object>();
 		attributesMap = ((SimpleKeycloakAccount) ((KeycloakAuthenticationToken) auth).getDetails()).getKeycloakSecurityContext().getIdToken().getOtherClaims();
@@ -137,81 +207,461 @@ public class HomeController {
 		return "userProfile";
 	}
 
+	@RequestMapping(value = "/greenPlanet/greenAnswers", method = RequestMethod.GET)
+	public @ResponseBody void greenAnswers(Locale locale, Model model,
+										   @RequestParam(value = "questionOne") String questionOne,
+										   @RequestParam(value = "questionTwo") String questionTwo,
+										   @RequestParam(value = "questionThree") String questionThree,
+										   @RequestParam(value = "questionFour") String questionFour,
+										   @RequestParam(value = "questionFive") String questionFive,
+										   @RequestParam(value = "currentUserId") String currentUserId,
+										   @RequestParam(value = "currentSurveyId") String currentSurveyId) {
 
-	@RequestMapping(value = "/prosumerInfo", method = RequestMethod.GET)
-	public String prosumerInfo(Principal principal, Locale locale, Model model,HttpServletRequest request) {
-		logger.info("Welcome to prosumerInfo page!");
+		allSelectedPaths.clear();
+		//Converting Strings to Integers
+		int userIdtoInteger;
+		userIdtoInteger = Integer.parseInt(currentUserId);
+		int surveyIdtoInteger;
+		surveyIdtoInteger = Integer.parseInt(currentSurveyId);
 
-		return "prosumerInfo";
+		//Checking the Answers of Question One
+		if (questionOne.equals("1")) {
+			allSelectedPaths.add(backEnd);
+		}
+
+		if (questionOne.equals("2")) {
+			allSelectedPaths.add(frontEnd);
+		}
+
+		if (questionOne.equals("3")) {
+			allSelectedPaths.add(mobileEngineer);
+		}
+
+		if (questionOne.equals("4")) {
+			allSelectedPaths.add(dataEngineer);
+		}
+
+		if (questionOne.equals("5")) {
+			allSelectedPaths.add(backEnd);
+		}
+
+		//Checking the Answers of Question Two
+		if (questionTwo.equals("1")) {
+			allSelectedPaths.add(backEnd);
+		}
+
+		if (questionTwo.equals("2")) {
+			allSelectedPaths.add(frontEnd);
+		}
+
+		if (questionTwo.equals("3")) {
+			allSelectedPaths.add(mobileEngineer);
+		}
+
+		if (questionTwo.equals("4")) {
+			allSelectedPaths.add(dataEngineer);
+		}
+
+		if (questionTwo.equals("5")) {
+			allSelectedPaths.add(backEnd);
+		}
+
+		//Checking the Answers of Question Three
+		if (questionThree.equals("1")) {
+			allSelectedPaths.add(backEnd);
+		}
+
+		if (questionThree.equals("2")) {
+			allSelectedPaths.add(frontEnd);
+		}
+
+		if (questionThree.equals("3")) {
+			allSelectedPaths.add(mobileEngineer);
+		}
+
+		if (questionThree.equals("4")) {
+			allSelectedPaths.add(dataEngineer);
+		}
+
+		if (questionThree.equals("5")) {
+			allSelectedPaths.add(backEnd);
+		}
+
+		//Checking the Answers of Question Four
+		if (questionFour.equals("1")) {
+			allSelectedPaths.add(backEnd);
+		}
+
+		if (questionFour.equals("2")) {
+			allSelectedPaths.add(frontEnd);
+		}
+
+		if (questionFour.equals("3")) {
+			allSelectedPaths.add(mobileEngineer);
+		}
+
+		if (questionFour.equals("4")) {
+			allSelectedPaths.add(dataEngineer);
+		}
+
+		if (questionFour.equals("5")) {
+			allSelectedPaths.add(backEnd);
+		}
+
+		//Checking the Answers of Question Five
+		if (questionFive.equals("1")) {
+			allSelectedPaths.add(backEnd);
+		}
+
+		if (questionFive.equals("2")) {
+			allSelectedPaths.add(frontEnd);
+		}
+
+		if (questionFive.equals("3")) {
+			allSelectedPaths.add(mobileEngineer);
+		}
+
+		if (questionFive.equals("4")) {
+			allSelectedPaths.add(dataEngineer);
+		}
+
+		if (questionFive.equals("5")) {
+			allSelectedPaths.add(backEnd);
+		}
+
+		//Initializing the GreenPlanet object in order to save the answers from the client's Ajax request.
+		GreenPlanet greenPlanet = new GreenPlanet();
+
+		greenPlanet.setQuestionOne(questionOne);
+		greenPlanet.setQuestionTwo(questionTwo);
+		greenPlanet.setQuestionThree(questionThree);
+		greenPlanet.setQuestionFour(questionFour);
+		greenPlanet.setQuestionFive(questionFive);
+		User user = new User();
+		user.setUserId(userIdtoInteger);
+		user.setUsername(currentUsername);
+		Survey survey = new Survey();
+		survey.setSurveyId(surveyIdtoInteger);
+		survey.setUser(user);
+		greenPlanet.setSurvey(survey);
+		greenPlanet.setUser(user);
+
+		greenPlanetManagementService.saveGreenPlanetAnswers(greenPlanet);
+
 	}
 
-	@RequestMapping(value = "/getProsumersByCountry", method = RequestMethod.GET)
-	public @ResponseBody
-	List<ProsumerInformation> mapResponse(@RequestParam(value = "country_id") int country_id) {
+	@RequestMapping(value = "/purplePlanet/purpleAnswers", method = RequestMethod.GET)
+	public @ResponseBody void purpleAnswers(Locale locale, Model model,
+										   @RequestParam(value = "questionOne") String questionOne,
+										   @RequestParam(value = "questionTwo") String questionTwo,
+										   @RequestParam(value = "questionThree") String questionThree,
+										   @RequestParam(value = "questionFour") String questionFour,
+										   @RequestParam(value = "questionFive") String questionFive,
+										   @RequestParam(value = "currentUserId") String currentUserId,
+										   @RequestParam(value = "currentSurveyId") String currentSurveyId) {
 
-		List<ProsumerInformation> pinfo = new ArrayList<>();
+		//Converting Strings to Integers
+		int userIdtoInteger;
+		userIdtoInteger = Integer.parseInt(currentUserId);
+		int surveyIdtoInteger;
+		surveyIdtoInteger = Integer.parseInt(currentSurveyId);
 
-		ProsumerInformation prosumerInformation = new ProsumerInformation();
-		prosumerInformation.setLongtitude("23.756862");
-		prosumerInformation.setLatitude("38.018748");
-		prosumerInformation.setProsumerName("GFio");
+		//Checking the Answers of Question One
+		if (questionOne.equals("1")) {
+			allSelectedPaths.add(backEnd);
+		}
 
-		prosumerInformation.setProsumerType("Residential");
+		if (questionOne.equals("2")) {
+			allSelectedPaths.add(frontEnd);
+		}
 
-		prosumerInformation.setProsumerDeviceMeteringType("res1");
-		prosumerInformation.setValue("1600");
-		prosumerInformation.setTimestamp("12/08/2020");
-		pinfo.add(prosumerInformation);
+		if (questionOne.equals("3")) {
+			allSelectedPaths.add(mobileEngineer);
+		}
 
-		ProsumerInformation prosumerInformation1 = new ProsumerInformation();
-		prosumerInformation1.setLongtitude("23.764471");
-		prosumerInformation1.setLatitude("37.983805");
-		prosumerInformation1.setProsumerType("Residential");
-		prosumerInformation1.setProsumerName("KV");
-		prosumerInformation1.setProsumerDeviceMeteringType("res2");
-		prosumerInformation1.setValue("4600");
-		prosumerInformation1.setTimestamp("12/08/2020");
-		pinfo.add(prosumerInformation1);
+		if (questionOne.equals("4")) {
+			allSelectedPaths.add(dataEngineer);
+		}
 
-		ProsumerInformation prosumerInformation2 = new ProsumerInformation();
-		prosumerInformation2.setLongtitude("23.697650");
-		prosumerInformation2.setLatitude("38.008486");
-		prosumerInformation2.setProsumerType("Commercial");
-		prosumerInformation2.setProsumerName("KV");
-		prosumerInformation2.setProsumerDeviceMeteringType("res3");
-		prosumerInformation2.setValue("3200");
-		prosumerInformation2.setTimestamp("12/08/2020");
-		pinfo.add(prosumerInformation2);
+		if (questionOne.equals("5")) {
+			allSelectedPaths.add(backEnd);
+		}
 
-		ProsumerInformation prosumerInformation3 = new ProsumerInformation();
-		prosumerInformation3.setLongtitude("23.720311");
-		prosumerInformation3.setLatitude("37.988688");
-		prosumerInformation3.setProsumerType("Commercial");
-		prosumerInformation3.setProsumerName("KV");
-		prosumerInformation3.setProsumerDeviceMeteringType("res4");
-		prosumerInformation3.setValue("4800");
-		prosumerInformation3.setTimestamp("12/08/2020");
-		pinfo.add(prosumerInformation3);
+		//Checking the Answers of Question Two
+		if (questionTwo.equals("1")) {
+			allSelectedPaths.add(backEnd);
+		}
 
-		ProsumerInformation prosumerInformation4 = new ProsumerInformation();
-		prosumerInformation4.setLongtitude("23.733295");
-		prosumerInformation4.setLatitude("37.998559");
-		prosumerInformation4.setProsumerType("Commercial");
-		prosumerInformation4.setProsumerName("KV");
-		prosumerInformation4.setProsumerDeviceMeteringType("res5");
-		prosumerInformation4.setValue("5600");
-		prosumerInformation4.setTimestamp("12/08/2020");
-		pinfo.add(prosumerInformation4);
+		if (questionTwo.equals("2")) {
+			allSelectedPaths.add(frontEnd);
+		}
 
-		ProsumerInformation prosumerInformation5 = new ProsumerInformation();
-		prosumerInformation5.setLongtitude("23.741466");
-		prosumerInformation5.setLatitude("37.992307");
-		prosumerInformation5.setProsumerType("Residential");
-		prosumerInformation5.setProsumerName("Gourgio");
-		prosumerInformation5.setProsumerDeviceMeteringType("res6");
-		prosumerInformation5.setValue("2500");
-		prosumerInformation5.setTimestamp("12/08/2020");
-		pinfo.add(prosumerInformation5);
-		return pinfo;
+		if (questionTwo.equals("3")) {
+			allSelectedPaths.add(mobileEngineer);
+		}
+
+		if (questionTwo.equals("4")) {
+			allSelectedPaths.add(dataEngineer);
+		}
+
+		if (questionTwo.equals("5")) {
+			allSelectedPaths.add(backEnd);
+		}
+
+		//Checking the Answers of Question Three
+		if (questionThree.equals("1")) {
+			allSelectedPaths.add(backEnd);
+		}
+
+		if (questionThree.equals("2")) {
+			allSelectedPaths.add(frontEnd);
+		}
+
+		if (questionThree.equals("3")) {
+			allSelectedPaths.add(mobileEngineer);
+		}
+
+		if (questionThree.equals("4")) {
+			allSelectedPaths.add(dataEngineer);
+		}
+
+		if (questionThree.equals("5")) {
+			allSelectedPaths.add(backEnd);
+		}
+
+		//Checking the Answers of Question Four
+		if (questionFour.equals("1")) {
+			allSelectedPaths.add(backEnd);
+		}
+
+		if (questionFour.equals("2")) {
+			allSelectedPaths.add(frontEnd);
+		}
+
+		if (questionFour.equals("3")) {
+			allSelectedPaths.add(mobileEngineer);
+		}
+
+		if (questionFour.equals("4")) {
+			allSelectedPaths.add(dataEngineer);
+		}
+
+		if (questionFour.equals("5")) {
+			allSelectedPaths.add(backEnd);
+		}
+
+		//Checking the Answers of Question Five
+		if (questionFive.equals("1")) {
+			allSelectedPaths.add(backEnd);
+		}
+
+		if (questionFive.equals("2")) {
+			allSelectedPaths.add(frontEnd);
+		}
+
+		if (questionFive.equals("3")) {
+			allSelectedPaths.add(mobileEngineer);
+		}
+
+		if (questionFive.equals("4")) {
+			allSelectedPaths.add(dataEngineer);
+		}
+
+		if (questionFive.equals("5")) {
+			allSelectedPaths.add(backEnd);
+		}
+
+		//Initializing the GreenPlanet object in order to save the answers from the client's Ajax request.
+		PurplePlanet purplePlanet = new PurplePlanet();
+
+		purplePlanet.setQuestionOne(questionOne);
+		purplePlanet.setQuestionTwo(questionTwo);
+		purplePlanet.setQuestionThree(questionThree);
+		purplePlanet.setQuestionFour(questionFour);
+		purplePlanet.setQuestionFive(questionFive);
+		User user = new User();
+		user.setUserId(userIdtoInteger);
+		user.setUsername(currentUsername);
+		Survey survey = new Survey();
+		survey.setSurveyId(surveyIdtoInteger);
+		survey.setUser(user);
+		purplePlanet.setSurvey(survey);
+		purplePlanet.setUser(user);
+
+		purplePlanetManagementService.savePurplePlanetAnswers(purplePlanet);
+
+	}
+
+	@RequestMapping(value = "/orangePlanet/orangeAnswers", method = RequestMethod.GET)
+	public @ResponseBody void orangeAnswers(Locale locale, Model model,
+											@RequestParam(value = "questionOne") String questionOne,
+											@RequestParam(value = "questionTwo") String questionTwo,
+											@RequestParam(value = "questionThree") String questionThree,
+											@RequestParam(value = "questionFour") String questionFour,
+											@RequestParam(value = "questionFive") String questionFive,
+											@RequestParam(value = "currentUserId") String currentUserId,
+											@RequestParam(value = "currentSurveyId") String currentSurveyId) {
+
+		//Converting Strings to Integers
+		int userIdtoInteger;
+		userIdtoInteger = Integer.parseInt(currentUserId);
+		int surveyIdtoInteger;
+		surveyIdtoInteger = Integer.parseInt(currentSurveyId);
+
+		//Checking the Answers of Question One
+		if (questionOne.equals("1")) {
+			allSelectedPaths.add(backEnd);
+		}
+
+		if (questionOne.equals("2")) {
+			allSelectedPaths.add(frontEnd);
+		}
+
+		if (questionOne.equals("3")) {
+			allSelectedPaths.add(mobileEngineer);
+		}
+
+		if (questionOne.equals("4")) {
+			allSelectedPaths.add(dataEngineer);
+		}
+
+		if (questionOne.equals("5")) {
+			allSelectedPaths.add(backEnd);
+		}
+
+		//Checking the Answers of Question Two
+		if (questionTwo.equals("1")) {
+			allSelectedPaths.add(backEnd);
+		}
+
+		if (questionTwo.equals("2")) {
+			allSelectedPaths.add(frontEnd);
+		}
+
+		if (questionTwo.equals("3")) {
+			allSelectedPaths.add(mobileEngineer);
+		}
+
+		if (questionTwo.equals("4")) {
+			allSelectedPaths.add(dataEngineer);
+		}
+
+		if (questionTwo.equals("5")) {
+			allSelectedPaths.add(backEnd);
+		}
+
+		//Checking the Answers of Question Three
+		if (questionThree.equals("1")) {
+			allSelectedPaths.add(backEnd);
+		}
+
+		if (questionThree.equals("2")) {
+			allSelectedPaths.add(frontEnd);
+		}
+
+		if (questionThree.equals("3")) {
+			allSelectedPaths.add(mobileEngineer);
+		}
+
+		if (questionThree.equals("4")) {
+			allSelectedPaths.add(dataEngineer);
+		}
+
+		if (questionThree.equals("5")) {
+			allSelectedPaths.add(backEnd);
+		}
+
+		//Checking the Answers of Question Four
+		if (questionFour.equals("1")) {
+			allSelectedPaths.add(backEnd);
+		}
+
+		if (questionFour.equals("2")) {
+			allSelectedPaths.add(frontEnd);
+		}
+
+		if (questionFour.equals("3")) {
+			allSelectedPaths.add(mobileEngineer);
+		}
+
+		if (questionFour.equals("4")) {
+			allSelectedPaths.add(dataEngineer);
+		}
+
+		if (questionFour.equals("5")) {
+			allSelectedPaths.add(backEnd);
+		}
+
+		//Checking the Answers of Question Five
+		if (questionFive.equals("1")) {
+			allSelectedPaths.add(backEnd);
+		}
+
+		if (questionFive.equals("2")) {
+			allSelectedPaths.add(frontEnd);
+		}
+
+		if (questionFive.equals("3")) {
+			allSelectedPaths.add(mobileEngineer);
+		}
+
+		if (questionFive.equals("4")) {
+			allSelectedPaths.add(dataEngineer);
+		}
+
+		if (questionFive.equals("5")) {
+			allSelectedPaths.add(backEnd);
+		}
+
+		//Initializing the GreenPlanet object in order to save the answers from the client's Ajax request.
+		OrangePlanet orangePlanet = new OrangePlanet();
+
+		orangePlanet.setQuestionOne(questionOne);
+		orangePlanet.setQuestionTwo(questionTwo);
+		orangePlanet.setQuestionThree(questionThree);
+		orangePlanet.setQuestionFour(questionFour);
+		orangePlanet.setQuestionFive(questionFive);
+		User user = new User();
+		user.setUserId(userIdtoInteger);
+		user.setUsername(currentUsername);
+		Survey survey = new Survey();
+		survey.setSurveyId(surveyIdtoInteger);
+		survey.setUser(user);
+		orangePlanet.setSurvey(survey);
+		orangePlanet.setUser(user);
+
+		orangePlanetManagementService.saveOrangePlanetAnswers(orangePlanet);
+
+//		Set<String> unique = new HashSet<String>(allSelectedPaths);
+//		for (String key : unique) {
+//			System.out.println(key + ": " + Collections.frequency(allSelectedPaths, key));
+//		}
+
+		Map<String, Long> recommendationsMap = allSelectedPaths.stream().collect(Collectors.groupingBy(e -> e.toString(),Collectors.counting()));
+		System.out.println(recommendationsMap);
+
+//		TreeMap<String, Long> sortedRecommendationsMap = new TreeMap<>(recommendationsMap);
+//		System.out.println(sortedRecommendationsMap);
+
+
+		LinkedHashMap<String, Long> sortedRecommendationsMap = new LinkedHashMap<>();
+
+//Use Comparator.reverseOrder() for reverse ordering
+		recommendationsMap.entrySet()
+				.stream()
+				.sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
+				.forEachOrdered(x -> sortedRecommendationsMap.put(x.getKey(), x.getValue()));
+
+		Map.Entry<String,Long> entry = sortedRecommendationsMap.entrySet().iterator().next();
+		finalRecommendationPath = entry.getKey();
+		System.out.println("Reverse Sorted Map   : " + sortedRecommendationsMap);
+
+		//Saving the recommendation into the Database
+		Recommendation recommendation = new Recommendation();
+		recommendation.setUser(user);
+		recommendation.setTitle(finalRecommendationPath);
+
+		recommendationManagementService.saveRecommendation(recommendation);
+
 	}
 }

@@ -27,10 +27,10 @@
     </bean>
 
     <!-- queue for messages passed to the user and to be printed on the screen -->
-    <!--<bean id="messageQueue" class="gr.hypertech.nobelgridlgrid.model.gui.global.messages.MessageQueue">-->
+    <!--<bean id="messageQueue" class="gr.gfiotakis.nobelgridlgrid.model.gui.global.messages.MessageQueue">-->
     <!--</bean>-->
 
-    <!--<bean id="application" class="gr.hypertech.domers.HomeController">-->
+    <!--<bean id="application" class="gr.gfiotakis.domers.HomeController">-->
         <!--&lt;!&ndash;<property name="marshaller" ref="castorMarshaller" />&ndash;&gt;-->
         <!--<property name="unmarshaller" ref="castorMarshaller" />-->
     <!--</bean>-->

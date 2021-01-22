@@ -15,72 +15,91 @@
 
 
 
-<!--    &lt;!&ndash; hibernate persistance beans &ndash;&gt;-->
-<!--    <beans:bean id="propertyConfigurer"-->
-<!--                class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">-->
-<!--        <beans:property name="location" value="/WEB-INF/jdbc.properties" />-->
-<!--    </beans:bean>-->
+        <!-- hibernate persistance beans -->
+        <beans:bean id="propertyConfigurer"
+                    class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+            <beans:property name="location" value="/WEB-INF/jdbc.properties" />
+        </beans:bean>
 
-<!--    &lt;!&ndash;<beans:bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">&ndash;&gt;-->
-<!--    &lt;!&ndash;<beans:bean id="dataSource" class="org.apache.tomcat.jdbc.pool.DataSource" destroy-method="close">&ndash;&gt;-->
-<!--    <beans:bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">-->
-<!--        <beans:property name="driverClass" value="${jdbc.driverClassName}" />-->
-<!--        <beans:property name="jdbcUrl" value="${jdbc.databaseurl}" />-->
-<!--        <beans:property name="user" value="${jdbc.username}" />-->
-<!--        <beans:property name="password" value="${jdbc.password}" />-->
-<!--        &lt;!&ndash;<beans:property name="preferredTestQuery" value="SELECT 1" />&ndash;&gt;-->
+        <!--<beans:bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">-->
+        <!--<beans:bean id="dataSource" class="org.apache.tomcat.jdbc.pool.DataSource" destroy-method="close">-->
+        <beans:bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
+            <beans:property name="driverClass" value="${jdbc.driverClassName}" />
+            <beans:property name="jdbcUrl" value="${jdbc.databaseurl}" />
+            <beans:property name="user" value="${jdbc.username}" />
+            <beans:property name="password" value="${jdbc.password}" />
+            <!--<beans:property name="preferredTestQuery" value="SELECT 1" />-->
 
-<!--        <beans:property name="maxPoolSize" value="70" />-->
-<!--        <beans:property name="minPoolSize" value="10" />-->
-<!--        <beans:property name="maxConnectionAge" value="50" />-->
-<!--        <beans:property name="maxIdleTime" value="20" />-->
-<!--    </beans:bean>-->
+            <beans:property name="maxPoolSize" value="20" />
+            <beans:property name="minPoolSize" value="5" />
+            <beans:property name="maxConnectionAge" value="50" />
+            <beans:property name="maxIdleTime" value="30000" />
+        </beans:bean>
 
-<!--    &lt;!&ndash;Add spring post processor in order to monitoring tha Database transactions&ndash;&gt;-->
-<!--    &lt;!&ndash;<beans:bean class="net.bull.javamelody.SpringDataSourceBeanPostProcessor"/>&ndash;&gt;-->
+        <!--Add spring post processor in order to monitoring tha Database transactions-->
+        <!--<beans:bean class="net.bull.javamelody.SpringDataSourceBeanPostProcessor"/>-->
 
-<!--    <beans:bean id="sessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">-->
-<!--        <beans:property name="dataSource" ref="dataSource"></beans:property>-->
-<!--        <beans:property name="hibernateProperties">-->
-<!--            <beans:props>-->
-<!--                <beans:prop key="hibernate.dialect">${jdbc.dialect}</beans:prop>-->
-<!--                <beans:prop key="hibernate.show_sql">false</beans:prop>-->
-<!--                <beans:prop key="hibernate.id.new_generator_mappings">false</beans:prop>-->
-<!--                <beans:prop key="hibernate.connection.driver_class">com.mysql.jdbc.Driver</beans:prop>-->
-<!--                &lt;!&ndash;new generator mapping added only for migration hibernate 4 to 5. Without this property error-->
-<!--                occured on auto generation of ids in save object.&ndash;&gt;-->
-<!--            </beans:props>-->
-<!--        </beans:property>-->
-<!--        <beans:property name="packagesToScan" value="gr.hypertech.imlCloud.model.persistence" />-->
-<!--    </beans:bean>-->
+        <beans:bean id="sessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+            <beans:property name="dataSource" ref="dataSource"></beans:property>
+            <beans:property name="hibernateProperties">
+                <beans:props>
+                    <beans:prop key="hibernate.dialect">${jdbc.dialect}</beans:prop>
+                    <beans:prop key="hibernate.show_sql">false</beans:prop>
+                    <beans:prop key="hibernate.id.new_generator_mappings">false</beans:prop>
+                    <beans:prop key="hibernate.connection.driver_class">com.mysql.jdbc.Driver</beans:prop>
+                    <!--new generator mapping added only for migration hibernate 4 to 5. Without this property error
+                    occured on auto generation of ids in save object.-->
+                </beans:props>
+            </beans:property>
+            <beans:property name="packagesToScan" value="gr.gfiotakis.imlCloud.model.persistence" />
+        </beans:bean>
 
-<!--    <beans:bean id="transactionManager"-->
-<!--                class="org.springframework.orm.hibernate5.HibernateTransactionManager">-->
-<!--        <beans:property name="sessionFactory" ref="sessionFactory"></beans:property>-->
-<!--    </beans:bean>-->
+        <beans:bean id="transactionManager"
+                    class="org.springframework.orm.hibernate5.HibernateTransactionManager">
+            <beans:property name="sessionFactory" ref="sessionFactory"></beans:property>
+        </beans:bean>
 
     <!-- Data Base Persistent Mapping -->
-    <!--<beans:bean name="configurationDAO" class="gr.hypertech.imlCloud.model.persistence.dao.impl.ConfigurationDaoImpl" />-->
-    <!--<beans:bean name="imlDataDAO" class="gr.hypertech.imlCloud.model.persistence.dao.impl.IMLDataDaoImpl" />-->
-    <!--<beans:bean name="monitoringDAO" class="gr.hypertech.imlCloud.model.persistence.dao.impl.MonitoringDaoImpl" />-->
 
-    <!--<beans:bean name="configurationManagementService" class="gr.hypertech.imlCloud.model.managementService.impl.ConfigurationManagementServiceImpl" />-->
-    <!--<beans:bean name="imlDataManagementService" class="gr.hypertech.imlCloud.model.managementService.impl.IMLDataManagementServiceImpl" />-->
-    <!--<beans:bean name="monitoringManagementService" class="gr.hypertech.imlCloud.model.managementService.impl.MonitoringManagementServiceImpl" />-->
-    <!--<beans:bean name="sensorDAO" class="gr.hypertech.imlCloud.model.persistence.dao.impl.SensorDAOImpl" />-->
-    <!--<beans:bean name="deviceDAO" class="gr.hypertech.imlCloud.model.persistence.dao.impl.DeviceDAOImpl" />-->
-    <!--<beans:bean name="systemUserDAO" class="gr.hypertech.imlCloud.model.persistence.dao.impl.SystemUserDAOImpl" />-->
-    <!--<beans:bean name="temperatureDataDAO" class="gr.hypertech.imlCloud.model.persistence.dao.impl.views.TemperatureDataDAOImpl" />-->
-    <!--<beans:bean name="profileDAO" class="gr.hypertech.imlCloud.model.persistence.dao.impl.ProfileDAOImpl" />-->
+    <beans:bean name="userDAO" class="gr.gfiotakis.imlCloud.model.persistence.dao.impl.UserDAOImpl"/>
+    <beans:bean name="userManagementService" class="gr.gfiotakis.imlCloud.model.managementService.impl.UserManagementServiceImpl"/>
 
-    <!--<beans:bean name="assetManagementService" class="gr.hypertech.imlCloud.model.managementService.impl.AssetManagementServiceImpl" />-->
-    <!--<beans:bean name="sensorManagementService" class="gr.hypertech.imlCloud.model.managementService.impl.SensorManagementServiceImpl" />-->
-    <!--<beans:bean name="deviceManagementService" class="gr.hypertech.imlCloud.model.managementService.impl.DeviceManagementServiceImpl" />-->
-    <!--<beans:bean name="systemUserManagementService" class="gr.hypertech.imlCloud.model.managementService.impl.SystemUserManagementServiceImpl" />-->
-    <!--<beans:bean name="temperatureDataManagementService" class="gr.hypertech.imlCloud.model.managementService.impl.views.TemperatureDataServiceImpl" />-->
-    <!--<beans:bean name="profileManagementService" class="gr.hypertech.imlCloud.model.managementService.impl.ProfileManagementServiceImpl" />-->
+    <beans:bean name="surveyDAO" class="gr.gfiotakis.imlCloud.model.persistence.dao.impl.SurveyDAOImpl"/>
+    <beans:bean name="surveyManagementService" class="gr.gfiotakis.imlCloud.model.managementService.impl.SurveyManagementServiceImpl"/>
+
+    <beans:bean name="greenPlanetDAO" class="gr.gfiotakis.imlCloud.model.persistence.dao.impl.GreenPlanetDAOImpl"/>
+    <beans:bean name="greenPlanetManagementService" class="gr.gfiotakis.imlCloud.model.managementService.impl.GreenPlanetManagementServiceImpl"/>
+
+    <beans:bean name="purplePlanetDAO" class="gr.gfiotakis.imlCloud.model.persistence.dao.impl.PurplePlanetDAOImpl"/>
+    <beans:bean name="purplePlanetManagementService" class="gr.gfiotakis.imlCloud.model.managementService.impl.PurplePlanetManagementServiceImpl"/>
+
+    <beans:bean name="orangePlanetDAO" class="gr.gfiotakis.imlCloud.model.persistence.dao.impl.OrangePlanetDAOImpl"/>
+    <beans:bean name="orangePlanetManagementService" class="gr.gfiotakis.imlCloud.model.managementService.impl.OrangePlanetManagementServiceImpl"/>
+
+    <beans:bean name="recommendationDAO" class="gr.gfiotakis.imlCloud.model.persistence.dao.impl.RecommendationDAOImpl"/>
+    <beans:bean name="recommendationManagementService" class="gr.gfiotakis.imlCloud.model.managementService.impl.RecommendationManagementServiceImpl"/>
+
+    <!--<beans:bean name="configurationDAO" class="gr.gfiotakis.imlCloud.model.persistence.dao.impl.ConfigurationDaoImpl" />-->
+    <!--<beans:bean name="imlDataDAO" class="gr.gfiotakis.imlCloud.model.persistence.dao.impl.IMLDataDaoImpl" />-->
+    <!--<beans:bean name="monitoringDAO" class="gr.gfiotakis.imlCloud.model.persistence.dao.impl.MonitoringDaoImpl" />-->
+
+    <!--<beans:bean name="configurationManagementService" class="gr.gfiotakis.imlCloud.model.managementService.impl.ConfigurationManagementServiceImpl" />-->
+    <!--<beans:bean name="imlDataManagementService" class="gr.gfiotakis.imlCloud.model.managementService.impl.IMLDataManagementServiceImpl" />-->
+    <!--<beans:bean name="monitoringManagementService" class="gr.gfiotakis.imlCloud.model.managementService.impl.MonitoringManagementServiceImpl" />-->
+    <!--<beans:bean name="sensorDAO" class="gr.gfiotakis.imlCloud.model.persistence.dao.impl.SensorDAOImpl" />-->
+    <!--<beans:bean name="deviceDAO" class="gr.gfiotakis.imlCloud.model.persistence.dao.impl.DeviceDAOImpl" />-->
+    <!--<beans:bean name="systemUserDAO" class="gr.gfiotakis.imlCloud.model.persistence.dao.impl.SystemUserDAOImpl" />-->
+    <!--<beans:bean name="temperatureDataDAO" class="gr.gfiotakis.imlCloud.model.persistence.dao.impl.views.TemperatureDataDAOImpl" />-->
+    <!--<beans:bean name="profileDAO" class="gr.gfiotakis.imlCloud.model.persistence.dao.impl.ProfileDAOImpl" />-->
+
+    <!--<beans:bean name="assetManagementService" class="gr.gfiotakis.imlCloud.model.managementService.impl.AssetManagementServiceImpl" />-->
+    <!--<beans:bean name="sensorManagementService" class="gr.gfiotakis.imlCloud.model.managementService.impl.SensorManagementServiceImpl" />-->
+    <!--<beans:bean name="deviceManagementService" class="gr.gfiotakis.imlCloud.model.managementService.impl.DeviceManagementServiceImpl" />-->
+    <!--<beans:bean name="systemUserManagementService" class="gr.gfiotakis.imlCloud.model.managementService.impl.SystemUserManagementServiceImpl" />-->
+    <!--<beans:bean name="temperatureDataManagementService" class="gr.gfiotakis.imlCloud.model.managementService.impl.views.TemperatureDataServiceImpl" />-->
+    <!--<beans:bean name="profileManagementService" class="gr.gfiotakis.imlCloud.model.managementService.impl.ProfileManagementServiceImpl" />-->
 
 
-    <!--<context:component-scan base-package="gr.hypertech.imlCloud.model.managementService.impl" use-default-filters="true"/>-->
-    <!--<context:component-scan base-package="gr.hypertech.imlCloud.model.persistence.dao.impl" use-default-filters="true"/>-->
+    <!--<context:component-scan base-package="gr.gfiotakis.imlCloud.model.managementService.impl" use-default-filters="true"/>-->
+    <!--<context:component-scan base-package="gr.gfiotakis.imlCloud.model.persistence.dao.impl" use-default-filters="true"/>-->
 </beans:beans>

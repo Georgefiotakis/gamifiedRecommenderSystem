@@ -50,7 +50,8 @@
           <element id="library" level="project" name="Maven: log4j:log4j:1.2.15" />
           <element id="library" level="project" name="Maven: javax.inject:javax.inject:1" />
           <element id="library" level="project" name="Maven: javax.servlet:jstl:1.2" />
-          <element id="library" level="project" name="Maven: mysql:mysql-connector-java:5.1.34" />
+          <element id="library" level="project" name="Maven: mysql:mysql-connector-java:8.0.13" />
+          <element id="library" level="project" name="Maven: com.google.protobuf:protobuf-java:3.6.1" />
           <element id="library" level="project" name="Maven: org.hibernate:hibernate-core:5.2.5.Final" />
           <element id="library" level="project" name="Maven: org.jboss.logging:jboss-logging:3.3.0.Final" />
           <element id="library" level="project" name="Maven: org.hibernate.javax.persistence:hibernate-jpa-2.1-api:1.0.0.Final" />
@@ -67,7 +68,6 @@
           <element id="library" level="project" name="Maven: javax.annotation:jsr250-api:1.0" />
           <element id="library" level="project" name="Maven: org.hibernate:hibernate-c3p0:5.3.7.Final" />
           <element id="library" level="project" name="Maven: com.mchange:c3p0:0.9.5.2" />
-          <element id="library" level="project" name="Maven: com.mchange:mchange-commons-java:0.2.11" />
           <element id="library" level="project" name="Maven: org.apache.tiles:tiles-core:3.0.7" />
           <element id="library" level="project" name="Maven: org.apache.tiles:tiles-api:3.0.7" />
           <element id="library" level="project" name="Maven: org.apache.tiles:tiles-request-api:1.0.6" />
@@ -90,11 +90,13 @@
           <element id="library" level="project" name="Maven: com.github.dandelion:dandelion-jsp:0.10.1" />
           <element id="library" level="project" name="Maven: org.hibernate:hibernate-validator:4.3.1.Final" />
           <element id="library" level="project" name="Maven: javax.validation:validation-api:1.0.0.GA" />
-          <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-core:2.5.1" />
-          <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-databind:2.5.1" />
-          <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-annotations:2.5.1" />
-          <element id="library" level="project" name="Maven: org.quartz-scheduler:quartz:2.2.1" />
-          <element id="library" level="project" name="Maven: org.quartz-scheduler:quartz-jobs:2.2.1" />
+          <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-core:2.9.5" />
+          <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-databind:2.9.5" />
+          <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-annotations:2.9.5" />
+          <element id="library" level="project" name="Maven: org.quartz-scheduler:quartz:2.3.2" />
+          <element id="library" level="project" name="Maven: com.mchange:mchange-commons-java:0.2.15" />
+          <element id="library" level="project" name="Maven: com.zaxxer:HikariCP-java7:2.4.13" />
+          <element id="library" level="project" name="Maven: org.quartz-scheduler:quartz-jobs:2.3.2" />
           <element id="library" level="project" name="Maven: joda-time:joda-time:2.9.9" />
           <element id="library" level="project" name="Maven: de.jollyday:jollyday:0.5.2" />
           <element id="library" level="project" name="Maven: org.threeten:threeten-extra:1.0" />

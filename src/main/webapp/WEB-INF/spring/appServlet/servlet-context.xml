@@ -32,10 +32,10 @@
     <beans:bean id="homeController" class="gr.gfiotakis.imlCloud.controllers.HomeController">
     </beans:bean>
 
-<!--    <beans:bean id="globalAppController" class="gr.hypertech.imlCloud.controllers.GlobalAppController">-->
+<!--    <beans:bean id="globalAppController" class="gr.gfiotakis.imlCloud.controllers.GlobalAppController">-->
 <!--    </beans:bean>-->
 
-    <!--<beans:bean id="eventManagerService" class="gr.hypertech.thor.core.events.EventManagerService"/>-->
+    <!--<beans:bean id="eventManagerService" class="gr.gfiotakis.thor.core.events.EventManagerService"/>-->
 
     <!-- file uploader bean -->
 
@@ -67,8 +67,8 @@
 
     <!-- servlet context packages - exclude packages of other servlets/global root-context etc.  -->
     <context:component-scan base-package="gr.gfiotakis.imlCloud">
-        <context:exclude-filter type="regex" expression="gr.hypertech.imlCloud.model.gui.global.*" />
-        <context:exclude-filter type="regex" expression="gr.hypertech.imlCloud.controller.FloorMonitoringController" />
+        <context:exclude-filter type="regex" expression="gr.gfiotakis.imlCloud.model.gui.global.*" />
+        <context:exclude-filter type="regex" expression="gr.gfiotakis.imlCloud.controller.FloorMonitoringController" />
     </context:component-scan>
 
     

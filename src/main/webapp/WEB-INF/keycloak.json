@@ -5,7 +5,7 @@
   "resource": "technology-app",
   "verify-token-audience": true,
   "credentials": {
-    "secret": "f2f3ed80-0d97-44ac-bb8e-1d12c032b940"
+    "secret": "ca763b93-8a50-4daa-98fc-cce620316090"
   },
   "use-resource-role-mappings": true,
   "confidential-port": 0,

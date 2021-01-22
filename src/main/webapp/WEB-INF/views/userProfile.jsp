@@ -158,6 +158,10 @@
         overflow-y: hidden;
     }
 
+    .button:focus {
+        outline: 0;
+    }
+
 </style>
 
     <div class="pcoded-container navbar-wrapper">
