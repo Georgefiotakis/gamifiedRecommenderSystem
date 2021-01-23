@@ -244,11 +244,11 @@
                                                                                    placeholder="<c:out value="${studentAge}"/>">
                                                                         </div>
                                                                         <div class="col-sm-6">
-                                                                            <label>Student Current School Name</label>
+                                                                            <label>Student Country</label>
                                                                             <input type="text"
                                                                                    class="form-control form-control-success"
                                                                                    disabled="true"
-                                                                                   placeholder="<c:out value="${studentSchoolName}"/>">
+                                                                                   placeholder="<c:out value="${studentCountry}"/>">
                                                                         </div>
                                                                     </div>
                                                                 </form>

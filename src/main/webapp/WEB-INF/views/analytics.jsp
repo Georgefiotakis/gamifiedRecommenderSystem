@@ -24,6 +24,16 @@
         background-color: #2e2e31;
     }
 
+    #countryBarChart {
+        width: 100%;
+        height: 500px;
+    }
+
+    #userBarChart {
+        width: 100%;
+        height: 500px;
+    }
+
 </style>
 
 <div class="pcoded-main-container">
@@ -35,17 +45,15 @@
                         <div class="page-body">
                             <div class="col-lg-12">
                                 <div class="row">
-                                    <div class="col-lg-12">
-
-                                    </div>
                                     <div class="currentUserId" id="currentUserId"style="display: none"><c:out value="${currentUserId}"/></div>
                                     <div class="currentSurveyId" id="currentSurveyId" style="display: none"><c:out value="${currentSurveyId}"/></div>
-<%--                                    <div class="col-lg-6">--%>
-<%--                                        --%>
-<%--                                    </div>--%>
-<%--                                    <div class="col-lg-3">--%>
-<%--                                        --%>
-<%--                                    </div>--%>
+                                        <div id="countryBarChart" class="col-lg-6">
+
+                                        </div>
+
+                                        <div id="userBarChart" class="col-lg-6">
+
+                                        </div>
                                 </div>
                             </div>
                         </div>

@@ -211,23 +211,31 @@
                         <div class="page-body">
                             <div class="col-lg-12">
                                 <div class="row">
-                                    <div class="col-lg-3 backButtonDiv">
+                                    <div class="col-lg-2 backButtonDiv">
 
                                     </div>
                                     <div class="currentUserId" id="currentUserId"style="display: none"><c:out value="${currentUserId}"/></div>
                                     <div class="currentSurveyId" id="currentSurveyId" style="display: none"><c:out value="${currentSurveyId}"/></div>
-                                    <div class="col-lg-6 restartGame">
-                                        <h3 style="padding-bottom: 250px" class="titlePlanet">Congratulations, <br> You have finished your journey successfully
-                                        <br> Your most suitable path in Software Engineer sector according to your answers is ... </h3>
-                                        <br>
-                                        <br>
-                                        <a><c:out value="${finalRecommendationPath}"/></a>
-                                        <div class="wrap">
-                                            <button class="button" onclick="startingTheJourney()">Take another Journey</button>
+                                    <div class="col-lg-8 restartGame">
+                                        <div class="row">
+                                            <div class="12">
+                                                <h3 style="padding-bottom: 250px" class="titlePlanet">Congratulations, <br> You have completed your journey successfully
+                                                    <br> Your Technology Orientation path according to your answers is ... </h3>
+                                                <a><c:out value="${finalRecommendationPath}"/></a>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-12">
+                                                <div style="float: left" class="col-lg-6 wrap">
+                                                    <button class="button" onclick="startingTheJourney()">Take another Journey</button>
+                                                </div>
+                                                <div style="float: right" class="col-lg-6 wrap">
+                                                    <button class="button" onclick="analyticsPage()">Check some Analytics</button>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="col-lg-3">
-                                        <button class="button" onclick="analyticsPage()">Check some Analytics</button>
+                                    <div class="col-lg-2">
                                     </div>
                                 </div>
                             </div>

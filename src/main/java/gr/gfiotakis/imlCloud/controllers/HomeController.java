@@ -45,14 +45,12 @@ public class HomeController {
 	private Integer currentUserId;
 	private String currentUsername;
 	private String finalRecommendationPath;
-	String frontEnd = "Web Frontend Developer";
-	String backEnd = "Web Backend Developer";
-	String fullStackWebEngineer = "Fullstack Web Engineer";
-	String mobileEngineer = "Mobile Engineer";
-	String gameGraphicDeveloper = "Game/Graphics Development";
-	String dataEngineer = "Data Engineer";
-	String machineLearning = "Machine Learning";
-//	List<String> allSelectedPaths = new ArrayList<>();
+	String dataScience = "Data Science";
+	String graphicDesigner = "Graphic Designer";
+	String softwareDeveloper = "Software Developer";
+	String networkAdmin = "Network Administrator";
+	String databaseAdmin = "Database Administrator";
+
 	ArrayList<String> allSelectedPaths = new ArrayList<String>();
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
@@ -64,14 +62,14 @@ public class HomeController {
 
 	@RequestMapping(value = "/dashboard", method = RequestMethod.GET)
 	public String dashboard(Locale locale, Model model) {
-		logger.info("Welcome home! The locale is {}.", locale);
+		logger.info("The student has reached the dashboard page.", locale);
 
 		return "dashboard";
 	}
 
 	@RequestMapping(value = "/analytics", method = RequestMethod.GET)
 	public String analytics(Locale locale, Model model) {
-		logger.info("Welcome to analytics page!!!", locale);
+		logger.info("Student has reached the analytics page!!!", locale);
 
 		model.addAttribute("currentUserId",currentUserId);
 		model.addAttribute("currentSurveyId",currentSurveyId);
@@ -81,7 +79,7 @@ public class HomeController {
 
 	@RequestMapping(value = "/greenPlanet", method = RequestMethod.GET)
 	public String greenPlanet(Locale locale, Model model) {
-		logger.info("Welcome to the green planet!!!", locale);
+		logger.info("Student has reached the green planet!!!", locale);
 
 		model.addAttribute("currentUserId",currentUserId);
 		model.addAttribute("currentSurveyId",currentSurveyId);
@@ -91,7 +89,7 @@ public class HomeController {
 
 	@RequestMapping(value = "/purplePlanet", method = RequestMethod.GET)
 	public String purplePlanet(Locale locale, Model model) {
-		logger.info("Welcome to the purple planet!!!", locale);
+		logger.info("Student has reached the purple planet!!!", locale);
 
 		model.addAttribute("currentUserId",currentUserId);
 		model.addAttribute("currentSurveyId",currentSurveyId);
@@ -101,7 +99,7 @@ public class HomeController {
 
 	@RequestMapping(value = "/orangePlanet", method = RequestMethod.GET)
 	public String orangePlanet(Locale locale, Model model) {
-		logger.info("Welcome to the orange planet!!!", locale);
+		logger.info("Student has reached the orange planet!!!", locale);
 
 		model.addAttribute("currentUserId",currentUserId);
 		model.addAttribute("currentSurveyId",currentSurveyId);
@@ -111,7 +109,7 @@ public class HomeController {
 
 	@RequestMapping(value = "/studentRecommendation", method = RequestMethod.GET)
 	public String studentRecommendation(Locale locale, Model model) {
-		logger.info("Welcome to student's recommendation page!", locale);
+		logger.info("Student has reached the recommendation page!", locale);
 
 		model.addAttribute("currentUserId",currentUserId);
 		model.addAttribute("currentSurveyId",currentSurveyId);
@@ -188,7 +186,7 @@ public class HomeController {
 		String[] splittedUserAttributes = userAttributes.split("-");
 
 		String studentAge = "";
-		String studentSchoolName = "";
+		String studentCountry = "";
 
 		for (int i = 0; i < splittedUserAttributes.length; i++) {
 
@@ -196,13 +194,13 @@ public class HomeController {
 				studentAge = splittedUserAttributes[i].split("_")[1];
 			}
 
-			if (splittedUserAttributes[i].toLowerCase().contains("school")) {
-				studentSchoolName = splittedUserAttributes[i].split("_")[1];
+			if (splittedUserAttributes[i].toLowerCase().contains("country")) {
+				studentCountry = splittedUserAttributes[i].split("_")[1];
 			}
 		}
 
 		model.addAttribute("studentAge",studentAge);
-		model.addAttribute("studentSchoolName",studentSchoolName);
+		model.addAttribute("studentCountry",studentCountry);
 
 		return "userProfile";
 	}
@@ -226,107 +224,107 @@ public class HomeController {
 
 		//Checking the Answers of Question One
 		if (questionOne.equals("1")) {
-			allSelectedPaths.add(backEnd);
+			allSelectedPaths.add(graphicDesigner);
 		}
 
 		if (questionOne.equals("2")) {
-			allSelectedPaths.add(frontEnd);
+			allSelectedPaths.add(databaseAdmin);
 		}
 
 		if (questionOne.equals("3")) {
-			allSelectedPaths.add(mobileEngineer);
+			allSelectedPaths.add(networkAdmin);
 		}
 
 		if (questionOne.equals("4")) {
-			allSelectedPaths.add(dataEngineer);
+			allSelectedPaths.add(softwareDeveloper);
 		}
 
 		if (questionOne.equals("5")) {
-			allSelectedPaths.add(backEnd);
+			allSelectedPaths.add(dataScience);
 		}
 
 		//Checking the Answers of Question Two
 		if (questionTwo.equals("1")) {
-			allSelectedPaths.add(backEnd);
+			allSelectedPaths.add(graphicDesigner);
 		}
 
 		if (questionTwo.equals("2")) {
-			allSelectedPaths.add(frontEnd);
+			allSelectedPaths.add(databaseAdmin);
 		}
 
 		if (questionTwo.equals("3")) {
-			allSelectedPaths.add(mobileEngineer);
+			allSelectedPaths.add(networkAdmin);
 		}
 
 		if (questionTwo.equals("4")) {
-			allSelectedPaths.add(dataEngineer);
+			allSelectedPaths.add(dataScience);
 		}
 
 		if (questionTwo.equals("5")) {
-			allSelectedPaths.add(backEnd);
+			allSelectedPaths.add(softwareDeveloper);
 		}
 
 		//Checking the Answers of Question Three
 		if (questionThree.equals("1")) {
-			allSelectedPaths.add(backEnd);
+			allSelectedPaths.add(dataScience);
 		}
 
 		if (questionThree.equals("2")) {
-			allSelectedPaths.add(frontEnd);
+			allSelectedPaths.add(networkAdmin);
 		}
 
 		if (questionThree.equals("3")) {
-			allSelectedPaths.add(mobileEngineer);
+			allSelectedPaths.add(graphicDesigner);
 		}
 
 		if (questionThree.equals("4")) {
-			allSelectedPaths.add(dataEngineer);
+			allSelectedPaths.add(softwareDeveloper);
 		}
 
 		if (questionThree.equals("5")) {
-			allSelectedPaths.add(backEnd);
+			allSelectedPaths.add(databaseAdmin);
 		}
 
 		//Checking the Answers of Question Four
 		if (questionFour.equals("1")) {
-			allSelectedPaths.add(backEnd);
+			allSelectedPaths.add(graphicDesigner);
 		}
 
 		if (questionFour.equals("2")) {
-			allSelectedPaths.add(frontEnd);
+			allSelectedPaths.add(networkAdmin);
 		}
 
 		if (questionFour.equals("3")) {
-			allSelectedPaths.add(mobileEngineer);
+			allSelectedPaths.add(softwareDeveloper);
 		}
 
 		if (questionFour.equals("4")) {
-			allSelectedPaths.add(dataEngineer);
+			allSelectedPaths.add(dataScience);
 		}
 
 		if (questionFour.equals("5")) {
-			allSelectedPaths.add(backEnd);
+			allSelectedPaths.add(databaseAdmin);
 		}
 
 		//Checking the Answers of Question Five
 		if (questionFive.equals("1")) {
-			allSelectedPaths.add(backEnd);
+			allSelectedPaths.add(graphicDesigner);
 		}
 
 		if (questionFive.equals("2")) {
-			allSelectedPaths.add(frontEnd);
+			allSelectedPaths.add(dataScience);
 		}
 
 		if (questionFive.equals("3")) {
-			allSelectedPaths.add(mobileEngineer);
+			allSelectedPaths.add(softwareDeveloper);
 		}
 
 		if (questionFive.equals("4")) {
-			allSelectedPaths.add(dataEngineer);
+			allSelectedPaths.add(databaseAdmin);
 		}
 
 		if (questionFive.equals("5")) {
-			allSelectedPaths.add(backEnd);
+			allSelectedPaths.add(networkAdmin);
 		}
 
 		//Initializing the GreenPlanet object in order to save the answers from the client's Ajax request.
@@ -368,107 +366,107 @@ public class HomeController {
 
 		//Checking the Answers of Question One
 		if (questionOne.equals("1")) {
-			allSelectedPaths.add(backEnd);
+			allSelectedPaths.add(softwareDeveloper);
 		}
 
 		if (questionOne.equals("2")) {
-			allSelectedPaths.add(frontEnd);
+			allSelectedPaths.add(networkAdmin);
 		}
 
 		if (questionOne.equals("3")) {
-			allSelectedPaths.add(mobileEngineer);
+			allSelectedPaths.add(databaseAdmin);
 		}
 
 		if (questionOne.equals("4")) {
-			allSelectedPaths.add(dataEngineer);
+			allSelectedPaths.add(graphicDesigner);
 		}
 
 		if (questionOne.equals("5")) {
-			allSelectedPaths.add(backEnd);
+			allSelectedPaths.add(dataScience);
 		}
 
 		//Checking the Answers of Question Two
 		if (questionTwo.equals("1")) {
-			allSelectedPaths.add(backEnd);
+			allSelectedPaths.add(graphicDesigner);
 		}
 
 		if (questionTwo.equals("2")) {
-			allSelectedPaths.add(frontEnd);
+			allSelectedPaths.add(softwareDeveloper);
 		}
 
 		if (questionTwo.equals("3")) {
-			allSelectedPaths.add(mobileEngineer);
+			allSelectedPaths.add(dataScience);
 		}
 
 		if (questionTwo.equals("4")) {
-			allSelectedPaths.add(dataEngineer);
+			allSelectedPaths.add(databaseAdmin);
 		}
 
 		if (questionTwo.equals("5")) {
-			allSelectedPaths.add(backEnd);
+			allSelectedPaths.add(networkAdmin);
 		}
 
 		//Checking the Answers of Question Three
 		if (questionThree.equals("1")) {
-			allSelectedPaths.add(backEnd);
+			allSelectedPaths.add(networkAdmin);
 		}
 
 		if (questionThree.equals("2")) {
-			allSelectedPaths.add(frontEnd);
+			allSelectedPaths.add(graphicDesigner);
 		}
 
 		if (questionThree.equals("3")) {
-			allSelectedPaths.add(mobileEngineer);
+			allSelectedPaths.add(databaseAdmin);
 		}
 
 		if (questionThree.equals("4")) {
-			allSelectedPaths.add(dataEngineer);
+			allSelectedPaths.add(softwareDeveloper);
 		}
 
 		if (questionThree.equals("5")) {
-			allSelectedPaths.add(backEnd);
+			allSelectedPaths.add(dataScience);
 		}
 
 		//Checking the Answers of Question Four
 		if (questionFour.equals("1")) {
-			allSelectedPaths.add(backEnd);
+			allSelectedPaths.add(dataScience);
 		}
 
 		if (questionFour.equals("2")) {
-			allSelectedPaths.add(frontEnd);
+			allSelectedPaths.add(databaseAdmin);
 		}
 
 		if (questionFour.equals("3")) {
-			allSelectedPaths.add(mobileEngineer);
+			allSelectedPaths.add(networkAdmin);
 		}
 
 		if (questionFour.equals("4")) {
-			allSelectedPaths.add(dataEngineer);
+			allSelectedPaths.add(softwareDeveloper);
 		}
 
 		if (questionFour.equals("5")) {
-			allSelectedPaths.add(backEnd);
+			allSelectedPaths.add(graphicDesigner);
 		}
 
 		//Checking the Answers of Question Five
 		if (questionFive.equals("1")) {
-			allSelectedPaths.add(backEnd);
+			allSelectedPaths.add(dataScience);
 		}
 
 		if (questionFive.equals("2")) {
-			allSelectedPaths.add(frontEnd);
+			allSelectedPaths.add(databaseAdmin);
 		}
 
 		if (questionFive.equals("3")) {
-			allSelectedPaths.add(mobileEngineer);
+			allSelectedPaths.add(networkAdmin);
 		}
 
 		if (questionFive.equals("4")) {
-			allSelectedPaths.add(dataEngineer);
+			allSelectedPaths.add(softwareDeveloper);
 		}
 
 		if (questionFive.equals("5")) {
-			allSelectedPaths.add(backEnd);
+			allSelectedPaths.add(graphicDesigner);
 		}
 
 		//Initializing the GreenPlanet object in order to save the answers from the client's Ajax request.
@@ -510,107 +508,107 @@ public class HomeController {
 
 		//Checking the Answers of Question One
 		if (questionOne.equals("1")) {
-			allSelectedPaths.add(backEnd);
+			allSelectedPaths.add(databaseAdmin);
 		}
 
 		if (questionOne.equals("2")) {
-			allSelectedPaths.add(frontEnd);
+			allSelectedPaths.add(networkAdmin);
 		}
 
 		if (questionOne.equals("3")) {
-			allSelectedPaths.add(mobileEngineer);
+			allSelectedPaths.add(dataScience);
 		}
 
 		if (questionOne.equals("4")) {
-			allSelectedPaths.add(dataEngineer);
+			allSelectedPaths.add(graphicDesigner);
 		}
 
 		if (questionOne.equals("5")) {
-			allSelectedPaths.add(backEnd);
+			allSelectedPaths.add(softwareDeveloper);
 		}
 
 		//Checking the Answers of Question Two
 		if (questionTwo.equals("1")) {
-			allSelectedPaths.add(backEnd);
+			allSelectedPaths.add(graphicDesigner);
 		}
 
 		if (questionTwo.equals("2")) {
-			allSelectedPaths.add(frontEnd);
+			allSelectedPaths.add(networkAdmin);
 		}
 
 		if (questionTwo.equals("3")) {
-			allSelectedPaths.add(mobileEngineer);
+			allSelectedPaths.add(databaseAdmin);
 		}
 
 		if (questionTwo.equals("4")) {
-			allSelectedPaths.add(dataEngineer);
+			allSelectedPaths.add(softwareDeveloper);
 		}
 
 		if (questionTwo.equals("5")) {
-			allSelectedPaths.add(backEnd);
+			allSelectedPaths.add(dataScience);
 		}
 
 		//Checking the Answers of Question Three
 		if (questionThree.equals("1")) {
-			allSelectedPaths.add(backEnd);
+			allSelectedPaths.add(databaseAdmin);
 		}
 
 		if (questionThree.equals("2")) {
-			allSelectedPaths.add(frontEnd);
+			allSelectedPaths.add(networkAdmin);
 		}
 
 		if (questionThree.equals("3")) {
-			allSelectedPaths.add(mobileEngineer);
+			allSelectedPaths.add(softwareDeveloper);
 		}
 
 		if (questionThree.equals("4")) {
-			allSelectedPaths.add(dataEngineer);
+			allSelectedPaths.add(graphicDesigner);
 		}
 
 		if (questionThree.equals("5")) {
-			allSelectedPaths.add(backEnd);
+			allSelectedPaths.add(dataScience);
 		}
 
 		//Checking the Answers of Question Four
 		if (questionFour.equals("1")) {
-			allSelectedPaths.add(backEnd);
+			allSelectedPaths.add(graphicDesigner);
 		}
 
 		if (questionFour.equals("2")) {
-			allSelectedPaths.add(frontEnd);
+			allSelectedPaths.add(dataScience);
 		}
 
 		if (questionFour.equals("3")) {
-			allSelectedPaths.add(mobileEngineer);
+			allSelectedPaths.add(databaseAdmin);
 		}
 
 		if (questionFour.equals("4")) {
-			allSelectedPaths.add(dataEngineer);
+			allSelectedPaths.add(softwareDeveloper);
 		}
 
 		if (questionFour.equals("5")) {
-			allSelectedPaths.add(backEnd);
+			allSelectedPaths.add(networkAdmin);
 		}
 
 		//Checking the Answers of Question Five
 		if (questionFive.equals("1")) {
-			allSelectedPaths.add(backEnd);
+			allSelectedPaths.add(databaseAdmin);
 		}
 
 		if (questionFive.equals("2")) {
-			allSelectedPaths.add(frontEnd);
+			allSelectedPaths.add(dataScience);
 		}
 
 		if (questionFive.equals("3")) {
-			allSelectedPaths.add(mobileEngineer);
+			allSelectedPaths.add(softwareDeveloper);
 		}
 
 		if (questionFive.equals("4")) {
-			allSelectedPaths.add(dataEngineer);
+			allSelectedPaths.add(networkAdmin);
 		}
 
 		if (questionFive.equals("5")) {
-			allSelectedPaths.add(backEnd);
+			allSelectedPaths.add(graphicDesigner);
 		}
 
 		//Initializing the GreenPlanet object in order to save the answers from the client's Ajax request.
@@ -632,21 +630,12 @@ public class HomeController {
 
 		orangePlanetManagementService.saveOrangePlanetAnswers(orangePlanet);
 
-//		Set<String> unique = new HashSet<String>(allSelectedPaths);
-//		for (String key : unique) {
-//			System.out.println(key + ": " + Collections.frequency(allSelectedPaths, key));
-//		}
-
 		Map<String, Long> recommendationsMap = allSelectedPaths.stream().collect(Collectors.groupingBy(e -> e.toString(),Collectors.counting()));
 		System.out.println(recommendationsMap);
 
-//		TreeMap<String, Long> sortedRecommendationsMap = new TreeMap<>(recommendationsMap);
-//		System.out.println(sortedRecommendationsMap);
-
-
 		LinkedHashMap<String, Long> sortedRecommendationsMap = new LinkedHashMap<>();
 
-//Use Comparator.reverseOrder() for reverse ordering
+		//Use Comparator.reverseOrder() for reverse ordering
 		recommendationsMap.entrySet()
 				.stream()
 				.sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
@@ -661,6 +650,7 @@ public class HomeController {
 		recommendation.setUser(user);
 		recommendation.setTitle(finalRecommendationPath);
 
+		//Save the title into the recommendation table
 		recommendationManagementService.saveRecommendation(recommendation);
 
 	}

@@ -309,10 +309,10 @@
                                     <div class="currentUserId" id="currentUserId"style="display: none"><c:out value="${currentUserId}"/></div>
                                     <div class="currentSurveyId" id="currentSurveyId" style="display: none"><c:out value="${currentSurveyId}"/></div>
                                     <div class="col-lg-6 orangePlanetTitle">
-                                        <h3 class="titlePlanet">Welcome to Planet Orange, <br> Please Answer the below questions!!!</h3>
+                                        <h3 class="titlePlanet">Welcome to Planet Orange, <br> Please rate the below questions from one to five <br> where 1 is 'I have no idea how to do this' and 5 is 'I am completely sure' </h3>
 
                                         <form id="questionOne" class="questionOne">
-                                            <h3 class="questionTitle">Do you like drawing?</h3>
+                                            <h3 class="questionTitle">I know how to test and debug web sites for quality assurance.</h3>
                                             <label class="container">1
                                                 <input type="radio" name="radio">
                                                 <span class="checkmark"></span>
@@ -336,7 +336,7 @@
                                         </form>
 
                                         <form id="questionTwo" class="questionTwo">
-                                            <h3 class="questionTitle">Do you like maths and numbers?</h3>
+                                            <h3 class="questionTitle">I understand what appropriate and responsible use of communication tools is (i.e. chats, instant messaging, texting</h3>
                                             <label class="container">1
                                                 <input type="radio" name="radio">
                                                 <span class="checkmark"></span>
@@ -360,7 +360,7 @@
                                         </form>
 
                                         <form id="questionThree" class="questionThree">
-                                            <h3 class="questionTitle">Do you like physics?</h3>
+                                            <h3 class="questionTitle">I use practices to protect my personal safety online.</h3>
                                             <label class="container">1
                                                 <input type="radio" name="radio">
                                                 <span class="checkmark"></span>
@@ -384,7 +384,7 @@
                                         </form>
 
                                         <form id="questionFour" class="questionFour">
-                                            <h3 class="questionTitle">Which is your favorite color from the options below?</h3>
+                                            <h3 class="questionTitle">I understand and could evaluate work environments in terms of ergonomic practices.</h3>
                                             <label class="container">1
                                                 <input type="radio" name="radio">
                                                 <span class="checkmark"></span>
@@ -408,7 +408,7 @@
                                         </form>
 
                                         <form id="questionFive" class="questionFive">
-                                            <h3 class="questionTitle">Which is your favorite shape from the below options?</h3>
+                                            <h3 class="questionTitle">I can analyze the points of view that are presented in media messages.</h3>
                                             <label class="container">1
                                                 <input type="radio" name="radio">
                                                 <span class="checkmark"></span>

@@ -312,12 +312,12 @@
 <%--                                        <h4 class="latitudeCountry" value="<c:out value="${currentSurveyId}"/>"><c:out value="${currentSurveyId}"/></h4>--%>
                                     </div>
                                     <div class="col-lg-6 greenPlanetTitle">
-                                        <h3 class="titlePlanet">Welcome to Planet Green, <br> Please Answer the below questions!!!</h3>
+                                        <h3 class="titlePlanet">Welcome to Planet Green, <br> Please rate the below questions from one to five <br> where 1 is 'I have no idea how to do this' and 5 is 'I am completely sure' </h3>
 
                                         <form id="questionOne" class="questionOne">
-                                        <h3 class="questionTitle">Do you like drawing?</h3>
-                                            <label value="backend" class="container">1
-                                                <input class="backend" type="radio" name="radio">
+                                        <h3 class="questionTitle">I know what effective backup and recovery strategies are for my computer data.</h3>
+                                            <label class="container">1
+                                                <input type="radio" name="radio">
                                                 <span class="checkmark"></span>
                                             </label>
                                             <label class="container">2
@@ -339,7 +339,7 @@
                                         </form>
 
                                         <form id="questionTwo" class="questionTwo">
-                                        <h3 class="questionTitle">Do you like maths and numbers?</h3>
+                                        <h3 class="questionTitle">I know how to choose between several options the best hardware/software for a given task</h3>
                                             <label class="container">1
                                                 <input type="radio" name="radio">
                                                 <span class="checkmark"></span>
@@ -363,7 +363,7 @@
                                         </form>
 
                                         <form id="questionThree" class="questionThree">
-                                        <h3 class="questionTitle">Do you like physics?</h3>
+                                        <h3 class="questionTitle">I am aware of emerging technologies and understand the capabilities and limitations of using emerging technology</h3>
                                             <label class="container">1
                                                 <input type="radio" name="radio">
                                                 <span class="checkmark"></span>
@@ -387,7 +387,7 @@
                                         </form>
 
                                         <form id="questionFour" class="questionFour">
-                                            <h3 class="questionTitle">Which is your favorite color from the options below?</h3>
+                                            <h3 class="questionTitle">I know how to create a database.</h3>
                                             <label class="container">1
                                                 <input type="radio" name="radio">
                                                 <span class="checkmark"></span>
@@ -411,7 +411,7 @@
                                         </form>
 
                                         <form id="questionFive" class="questionFive">
-                                        <h3 class="questionTitle">Which is your favorite shape from the below options?</h3>
+                                        <h3 class="questionTitle">I can create a mailing label, and merge form letters for a mail merge.</h3>
                                             <label class="container">1
                                                 <input type="radio" name="radio">
                                                 <span class="checkmark"></span>
