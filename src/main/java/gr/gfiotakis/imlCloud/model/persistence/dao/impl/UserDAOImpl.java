@@ -1,5 +1,6 @@
 package gr.gfiotakis.imlCloud.model.persistence.dao.impl;
 
+import gr.gfiotakis.imlCloud.model.persistence.Recommendation;
 import gr.gfiotakis.imlCloud.model.persistence.User;
 import gr.gfiotakis.imlCloud.model.persistence.dao.UserDAO;
 import org.hibernate.Session;
@@ -51,6 +52,17 @@ public class UserDAOImpl implements UserDAO {
             user.setUsername(null);
             userList.add(user);
         }
+
+        return userList;
+    }
+
+    @Override
+    public List<User> getAllUsers(){
+        CriteriaBuilder builder = getSession().getCriteriaBuilder();
+        CriteriaQuery<User> criteria = builder.createQuery(User.class);
+        Root<User> rootAsset = criteria.from(User.class);
+
+        List<User> userList = getSession().createQuery(criteria).getResultList();
 
         return userList;
     }

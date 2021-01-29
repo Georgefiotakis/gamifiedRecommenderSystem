@@ -7,6 +7,7 @@ import javax.persistence.*;
 public class User {
     Integer userId;
     String username;
+    String country;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -27,5 +28,15 @@ public class User {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    @Basic
+    @Column(name = "country")
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
     }
 }

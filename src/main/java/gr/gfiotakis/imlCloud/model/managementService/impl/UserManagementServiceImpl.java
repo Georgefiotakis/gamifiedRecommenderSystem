@@ -1,6 +1,7 @@
 package gr.gfiotakis.imlCloud.model.managementService.impl;
 
 import gr.gfiotakis.imlCloud.model.managementService.UserManagementService;
+import gr.gfiotakis.imlCloud.model.persistence.Recommendation;
 import gr.gfiotakis.imlCloud.model.persistence.User;
 import gr.gfiotakis.imlCloud.model.persistence.dao.UserDAO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,5 +23,11 @@ public class UserManagementServiceImpl implements UserManagementService {
     @Transactional
     public List<User> getUserbyUsername(String username) {
         return userDAO.getUserbyUsername(username);
+    }
+
+    @Override
+    @Transactional
+    public List<User> getAllUsers() {
+        return userDAO.getAllUsers();
     }
 }

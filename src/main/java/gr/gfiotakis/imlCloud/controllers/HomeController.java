@@ -1,8 +1,15 @@
 package gr.gfiotakis.imlCloud.controllers;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import gr.gfiotakis.imlCloud.model.gui.Course;
+import gr.gfiotakis.imlCloud.model.gui.RecommendationBarChart;
+import gr.gfiotakis.imlCloud.model.gui.UserBarChart;
 import gr.gfiotakis.imlCloud.model.managementService.*;
 import gr.gfiotakis.imlCloud.model.persistence.*;
+import org.json.simple.JSONObject;
 import org.keycloak.adapters.RefreshableKeycloakSecurityContext;
 import org.keycloak.adapters.springsecurity.account.SimpleKeycloakAccount;
 import org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken;
@@ -15,9 +22,14 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
+
 import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 /**
@@ -141,34 +153,6 @@ public class HomeController {
 		String studentId = ((AccessToken)((RefreshableKeycloakSecurityContext)((SimpleKeycloakAccount)((KeycloakAuthenticationToken)auth).getDetails()).getKeycloakSecurityContext()).getToken()).getId();
 		String studentUserName = ((AccessToken)((RefreshableKeycloakSecurityContext)((SimpleKeycloakAccount)((KeycloakAuthenticationToken)auth).getDetails()).getKeycloakSecurityContext()).getToken()).getPreferredUsername();
 
-		model.addAttribute("studentId",studentId);
-		model.addAttribute("studentFirstName",studentFirstName);
-		model.addAttribute("studentLastName",studentLastName);
-		model.addAttribute("studentEmail",studentEmail);
-		model.addAttribute("studentUserName",studentUserName);
-
-		if (userManagementService.getUserbyUsername(studentUserName).get(0).getUserId() == null) {
-			User user = new User();
-			user.setUsername(studentUserName);
-			userManagementService.saveUser(user);
-
-			Survey survey = new Survey();
-			survey.setUser(user);
-			surveyManagementService.saveSurvey(survey);
-			Survey savedSurvey = surveyManagementService.saveSurvey(survey);
-			currentSurveyId = savedSurvey.getSurveyId();
-		} else {
-			Survey survey = new Survey();
-			survey.setUser(userManagementService.getUserbyUsername(studentUserName).get(0));
-			Survey savedSurvey = surveyManagementService.saveSurvey(survey);
-			currentSurveyId = savedSurvey.getSurveyId();
-		}
-
-		currentUsername = studentUserName;
-		currentUserId = userManagementService.getUserbyUsername(studentUserName).get(0).getUserId();
-//		model.addAttribute("currentUserId",userManagementService.getUserbyUsername(studentUserName).get(0).getUserId());
-//		model.addAttribute("currentSurveyId",currentSurveyId);
-
 		Map<String, Object> attributesMap = new HashMap<String, Object>();
 		attributesMap = ((SimpleKeycloakAccount) ((KeycloakAuthenticationToken) auth).getDetails()).getKeycloakSecurityContext().getIdToken().getOtherClaims();
 
@@ -201,6 +185,37 @@ public class HomeController {
 
 		model.addAttribute("studentAge",studentAge);
 		model.addAttribute("studentCountry",studentCountry);
+
+		model.addAttribute("studentId",studentId);
+		model.addAttribute("studentFirstName",studentFirstName);
+		model.addAttribute("studentLastName",studentLastName);
+		model.addAttribute("studentEmail",studentEmail);
+		model.addAttribute("studentUserName",studentUserName);
+
+		if (userManagementService.getUserbyUsername(studentUserName).get(0).getUserId() == null) {
+			User user = new User();
+			user.setUsername(studentUserName);
+			user.setCountry(studentCountry);
+			userManagementService.saveUser(user);
+
+			Survey survey = new Survey();
+			survey.setUser(user);
+			surveyManagementService.saveSurvey(survey);
+			Survey savedSurvey = surveyManagementService.saveSurvey(survey);
+			currentSurveyId = savedSurvey.getSurveyId();
+		} else {
+			Survey survey = new Survey();
+			survey.setUser(userManagementService.getUserbyUsername(studentUserName).get(0));
+			Survey savedSurvey = surveyManagementService.saveSurvey(survey);
+			currentSurveyId = savedSurvey.getSurveyId();
+		}
+
+		currentUsername = studentUserName;
+		currentUserId = userManagementService.getUserbyUsername(studentUserName).get(0).getUserId();
+//		model.addAttribute("currentUserId",userManagementService.getUserbyUsername(studentUserName).get(0).getUserId());
+//		model.addAttribute("currentSurveyId",currentSurveyId);
+
+
 
 		return "userProfile";
 	}
@@ -498,7 +513,7 @@ public class HomeController {
 											@RequestParam(value = "questionFour") String questionFour,
 											@RequestParam(value = "questionFive") String questionFive,
 											@RequestParam(value = "currentUserId") String currentUserId,
-											@RequestParam(value = "currentSurveyId") String currentSurveyId) {
+											@RequestParam(value = "currentSurveyId") String currentSurveyId) throws JsonProcessingException {
 
 		//Converting Strings to Integers
 		int userIdtoInteger;
@@ -654,4 +669,73 @@ public class HomeController {
 		recommendationManagementService.saveRecommendation(recommendation);
 
 	}
+
+	@RequestMapping(value = "/analytics/recommendationAnalytics", method = RequestMethod.GET)
+	public @ResponseBody
+	String recommendationAnalytics()
+	{
+
+		List<Recommendation> recommendationList;
+		recommendationList = recommendationManagementService.getRecommendations();
+
+		HashMap<String,Integer> recommendationListMap = new HashMap<>();
+		List<RecommendationBarChart> recommendationBarChartList = new ArrayList<>();
+
+		for (int i = 0; i < recommendationList.size(); i++) {
+			recommendationListMap.put(recommendationList.get(i).getTitle(),recommendationList.get(i).getUser().getUserId());
+		}
+
+		for (Map.Entry<String, Integer> entry : recommendationListMap.entrySet()) {
+//			System.out.println(entry.getKey() + "/" + entry.getValue());
+			RecommendationBarChart recommendationBarChart = new RecommendationBarChart();
+			recommendationBarChart.setTitle(entry.getKey());
+			recommendationBarChart.setUsers(entry.getValue());
+			recommendationBarChartList.add(recommendationBarChart);
+		}
+
+		GsonBuilder gsonMapBuilder = new GsonBuilder();
+
+		Gson gsonObject = gsonMapBuilder.create();
+
+		String recommendationPerUserJson = gsonObject.toJson(recommendationBarChartList);
+
+		System.out.println("JSON" + recommendationPerUserJson);
+
+		return recommendationPerUserJson;
+	}
+
+	@RequestMapping(value = "/analytics/countryAnalytics", method = RequestMethod.GET)
+	public @ResponseBody
+	String countryAnalytics()
+	{
+
+		List<User> userList;
+		userList = userManagementService.getAllUsers();
+
+		HashMap<String,Integer> usersListMap = new HashMap<>();
+		List<UserBarChart> userBarChartList = new ArrayList<>();
+
+		for (int i = 0; i < userList.size(); i++) {
+			usersListMap.put(userList.get(i).getCountry(),userList.get(i).getUserId());
+		}
+
+		for (Map.Entry<String, Integer> entry : usersListMap.entrySet()) {
+//			System.out.println(entry.getKey() + "/" + entry.getValue());
+			UserBarChart userBarChart = new UserBarChart();
+			userBarChart.setCountry(entry.getKey());
+			userBarChart.setUsers(entry.getValue());
+			userBarChartList.add(userBarChart);
+		}
+
+		GsonBuilder gsonMapBuilder = new GsonBuilder();
+
+		Gson gsonObject = gsonMapBuilder.create();
+
+		String countryPerUserJson = gsonObject.toJson(userBarChartList);
+
+		System.out.println("JSON" + countryPerUserJson);
+
+		return countryPerUserJson;
+	}
+
 }

@@ -2,6 +2,7 @@ package gr.gfiotakis.imlCloud.model.managementService.impl;
 
 import gr.gfiotakis.imlCloud.model.managementService.RecommendationManagementService;
 import gr.gfiotakis.imlCloud.model.persistence.Recommendation;
+import gr.gfiotakis.imlCloud.model.persistence.RecommendationAnalytics;
 import gr.gfiotakis.imlCloud.model.persistence.dao.RecommendationDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,7 +21,7 @@ public class RecommendationManagementServiceImpl implements RecommendationManage
 
     @Override
     @Transactional
-    public List<Recommendation> getRecommendationByUser(Integer userId) {
-        return recommendationDAO.getRecommendationByUser(userId);
+    public List<Recommendation> getRecommendations() {
+        return recommendationDAO.getRecommendations();
     }
 }

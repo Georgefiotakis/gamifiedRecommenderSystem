@@ -1,6 +1,7 @@
 package gr.gfiotakis.imlCloud.model.persistence;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
 @Table(name = "recommendation")
