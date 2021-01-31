@@ -7,20 +7,19 @@ $(document).ready(function () {
             buildRecommendationsBarChart(data)
         },
         complete: function (data, status) {
-
+            buildSecondDiagram(data)
         }
     });
 
-    // $.ajax({
-    //     type: "GET",
-    //     url: "./analytics/countryAnalytics",
-    //     success: function (data, status) {
-    //         buildCountryBarChart(data);
-    //     },
-    //     complete: function (data, status) {
-    //
-    //     }
-    // });
+    function buildSecondDiagram(data) {
+        $.ajax({
+            type: "GET",
+            url: "./analytics/countryAnalytics",
+            success: function (data, status) {
+                buildCountryBarChart(data);
+            }
+        });
+    }
 
 });
 
@@ -32,27 +31,21 @@ function buildCountryBarChart(data) {
     var chart = am4core.create("countryBarChart", am4charts.XYChart);
     chart.scrollbarX = new am4core.Scrollbar();
 
-// Add data
-    chart.data =
-        [{
-            "country": "Greece",
-            "users": 12
-        }, {
-            "country": "Spain",
-            "users": 22
-        }, {
-            "country": "England",
-            "users": 35
-        }, {
-            "country": "Germany",
-            "users": 6
-        }, {
-            "country": "Italy",
-            "users": 18
-        }, {
-            "country": "France",
-            "users": 28
-        }];
+    var title = chart.titles.create();
+    title.text = "How many users are from the same Country";
+    title.fontSize = 21;
+    title.marginBottom = 30;
+
+    var tempData2 = {};
+    tempData2['data'] = [];
+
+    for (var j = 0; j < data.length; j++) {
+        tempData2["data"][j] = {};
+        tempData2.data[j]["country"] = data[j].country;
+        tempData2.data[j]["users"] = data[j].users;
+    }
+
+    chart.data = tempData2.data;
 
 // Create axes
     var categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
@@ -108,22 +101,23 @@ function buildRecommendationsBarChart(data) {
     var tempData = {};
     tempData['data'] = [];
 
+    var title = chart2.titles.create();
+    title.text = "How many users have the same Technology Orientation";
+    title.fontSize = 21;
+    title.marginBottom = 30;
+
     for (var j = 0; j < data.length; j++) {
         tempData["data"][j] = {};
         tempData.data[j]["title"] = data[j].title;
         tempData.data[j]["users"] = data[j].users;
     }
 
-    console.log("Temp:" + tempData.data);
-    chart2.data = data;
-    console.log("Chart Data:" + chart2.data);
-    // console.log("Data:" + data);
-    // chart2.data = data;
+    chart2.data = tempData.data;
 
 // Add and configure Series
     var pieSeries = chart2.series.push(new am4charts.PieSeries());
-    pieSeries.dataFields.value = "title";
-    pieSeries.dataFields.category = "users";
+    pieSeries.dataFields.value = "users";
+    pieSeries.dataFields.category = "title";
     pieSeries.innerRadius = am4core.percent(50);
     pieSeries.ticks.template.disabled = true;
     pieSeries.labels.template.disabled = true;

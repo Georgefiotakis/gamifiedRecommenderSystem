@@ -672,70 +672,76 @@ public class HomeController {
 
 	@RequestMapping(value = "/analytics/recommendationAnalytics", method = RequestMethod.GET)
 	public @ResponseBody
-	String recommendationAnalytics()
+	RecommendationBarChart[] recommendationAnalytics()
 	{
 
-		List<Recommendation> recommendationList;
-		recommendationList = recommendationManagementService.getRecommendations();
+		List<Recommendation> recommendationList = recommendationManagementService.getRecommendations();
 
-		HashMap<String,Integer> recommendationListMap = new HashMap<>();
-		List<RecommendationBarChart> recommendationBarChartList = new ArrayList<>();
-
+		HashMap<Integer,String> recommendationListMap = new HashMap<>();
 		for (int i = 0; i < recommendationList.size(); i++) {
-			recommendationListMap.put(recommendationList.get(i).getTitle(),recommendationList.get(i).getUser().getUserId());
+			recommendationListMap.put(i,recommendationList.get(i).getTitle());
 		}
 
-		for (Map.Entry<String, Integer> entry : recommendationListMap.entrySet()) {
-//			System.out.println(entry.getKey() + "/" + entry.getValue());
+		Map<String, Integer> result = new TreeMap<String, Integer>();
+		for (Map.Entry<Integer, String> entry : recommendationListMap.entrySet()) {
+			String value = entry.getValue();
+			Integer count = result.get(value);
+			if (count == null)
+				result.put(value, new Integer(1));
+			else
+				result.put(value, new Integer(count+1));
+		}
+
+		Integer i = 0;
+		RecommendationBarChart[] recommendationBarChartsArray = new RecommendationBarChart[result.size()];
+
+		for (Map.Entry<String, Integer> entry : result.entrySet()) {
 			RecommendationBarChart recommendationBarChart = new RecommendationBarChart();
 			recommendationBarChart.setTitle(entry.getKey());
 			recommendationBarChart.setUsers(entry.getValue());
-			recommendationBarChartList.add(recommendationBarChart);
+			recommendationBarChartsArray[i] = recommendationBarChart;
+			i++;
 		}
 
-		GsonBuilder gsonMapBuilder = new GsonBuilder();
 
-		Gson gsonObject = gsonMapBuilder.create();
-
-		String recommendationPerUserJson = gsonObject.toJson(recommendationBarChartList);
-
-		System.out.println("JSON" + recommendationPerUserJson);
-
-		return recommendationPerUserJson;
+		return recommendationBarChartsArray;
 	}
 
 	@RequestMapping(value = "/analytics/countryAnalytics", method = RequestMethod.GET)
 	public @ResponseBody
-	String countryAnalytics()
+	UserBarChart[] countryAnalytics()
 	{
 
-		List<User> userList;
-		userList = userManagementService.getAllUsers();
+		List<User> userList = userManagementService.getAllUsers();
 
-		HashMap<String,Integer> usersListMap = new HashMap<>();
-		List<UserBarChart> userBarChartList = new ArrayList<>();
-
+		HashMap<Integer,String> usersListMap = new HashMap<>();
 		for (int i = 0; i < userList.size(); i++) {
-			usersListMap.put(userList.get(i).getCountry(),userList.get(i).getUserId());
+			usersListMap.put(i,userList.get(i).getCountry());
 		}
 
-		for (Map.Entry<String, Integer> entry : usersListMap.entrySet()) {
-//			System.out.println(entry.getKey() + "/" + entry.getValue());
+		Map<String, Integer> result = new TreeMap<String, Integer>();
+		for (Map.Entry<Integer, String> entry : usersListMap.entrySet()) {
+
+			String value = entry.getValue();
+			Integer count = result.get(value);
+			if (count == null)
+				result.put(value, new Integer(1));
+			else
+				result.put(value, new Integer(count+1));
+		}
+
+		Integer i = 0;
+		UserBarChart[] userBarChartsArray = new UserBarChart[result.size()];
+
+		for (Map.Entry<String, Integer> entry : result.entrySet()) {
 			UserBarChart userBarChart = new UserBarChart();
 			userBarChart.setCountry(entry.getKey());
 			userBarChart.setUsers(entry.getValue());
-			userBarChartList.add(userBarChart);
+			userBarChartsArray[i] = userBarChart;
+			i++;
 		}
 
-		GsonBuilder gsonMapBuilder = new GsonBuilder();
-
-		Gson gsonObject = gsonMapBuilder.create();
-
-		String countryPerUserJson = gsonObject.toJson(userBarChartList);
-
-		System.out.println("JSON" + countryPerUserJson);
-
-		return countryPerUserJson;
+		return userBarChartsArray;
 	}
 
 }
