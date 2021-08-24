@@ -4,280 +4,253 @@
 <%@ taglib prefix="s" uri="http://www.springframework.org/tags" %>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <title>Technology Literacy</title>
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
+    <meta name="viewport" content="width=device-width" />
+    <link href="http://netdna.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="${pageContext.request.contextPath}/resources/css/gsdk-bootstrap-wizard.css" rel="stylesheet" />
+    <link href="${pageContext.request.contextPath}/resources/css/demo.css" rel="stylesheet" />
+
+    <nav class="navbar navbar-inverse " role="navigation">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+
+            </div>
+<%--            <a class="navbar-brand" href="./dashboard">Welcome To Technology Literacy </a>--%>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="navbar-collapse-1">
+
+                <ul class="nav navbar-nav navbar-left">
+                    <li><a href="./dashboard">Welcome To Technology Literacy</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="./dashboard"><i class="fa fa-home fa-lg"></i> Home</a></li>
+                    <li><a href="#">Link</a></li>
+                    <li><a href="#">Link</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">Action</a></li>
+                            <li><a href="#">Another action</a></li>
+                            <li><a href="#">Something else here</a></li>
+                            <li class="divider"></li>
+                            <li><a href="#">Separated link</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div><!-- /.navbar-collapse -->
+        </div><!-- /.navbar-container -->
+    </nav>
+
+</head>
 
 <style>
-
-    .startGame {
+    .navbar-brand
+    {
+        position: absolute;
+        width: 100%;
+        left: 0;
+        top: 0;
         text-align: center;
+        margin: auto;
     }
 
-    .pcoded-main-container{
-        background: url(./resources/img/space-rocker-background.jpg) no-repeat center center fixed;
-        -webkit-background-size: cover;
-        -moz-background-size: cover;
-        -o-background-size: cover;
-        background-size: cover;
-        height: auto;
-        max-width: 100%;
-    }
-
-    .student-inputs label {
-        font-size: 20px;
-        font-family: Comic Sans MS, Comic Sans, cursive;
-        color: black;
-    }
-
-    .student-inputs ::placeholder {
-        font-size: 17px;
-        font-family: Comic Sans MS, Comic Sans, cursive;
-        color: black;
-        font-weight: bold;
-    }
-
-    .personalInfoCard h3 {
-        font-family: Comic Sans MS, Comic Sans, cursive;
-        font-weight: bold;
-        color: black;
-    }
-
-    .student-inputs input {
-        border: 5px solid;
-        border-radius: 10px;
-    }
-
-    .welcomeCard h3 {
-        font-family: Comic Sans MS, Comic Sans, cursive;
-        font-weight: bold;
-        color: black;
-    }
-
-    .welcomeCard {
-        opacity: 0.8;
-    }
-
-    .personalInfoCard {
-        opacity: 0.8
-    }
-
-    .pcoded .pcoded-header[header-theme=theme6] {
-        background: #133a47;
-    }
-
-    .header-navbar .navbar-wrapper .navbar-logo[logo-theme=theme6] {
-        background: #133a47;
-    }
-
-    html, body {
-        height: 100%;
-    }
-
-    .wrap {
-        height: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-
-    .button {
-        min-width: 300px;
-        min-height: 60px;
-        font-family: 'Nunito', sans-serif;
-        font-size: 22px;
-        text-transform: uppercase;
-        letter-spacing: 1.3px;
-        font-weight: 700;
-        color: #313133;
-        background: #4FD1C5;
-        background: linear-gradient(90deg, rgba(129,230,217,1) 0%, rgba(79,209,197,1) 100%);
-        border: none;
-        border-radius: 1000px;
-        box-shadow: 12px 12px 24px rgba(79,209,197,.64);
-        transition: all 0.3s ease-in-out 0s;
-        cursor: pointer;
-        outline: none;
-        position: relative;
-        padding: 10px;
-    }
-
-    button::before {
-        content: '';
-        border-radius: 1000px;
-        min-width: calc(300px + 12px);
-        min-height: calc(60px + 12px);
-        border: 6px solid #00FFCB;
-        box-shadow: 0 0 60px rgba(0,255,203,.64);
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        opacity: 0;
-        transition: all .3s ease-in-out 0s;
-    }
-
-    .button:hover, .button:focus {
-        color: #313133;
-        transform: translateY(-6px);
-    }
-
-    button:hover::before, button:focus::before {
-        opacity: 1;
-    }
-
-    button::after {
-        content: '';
-        width: 30px; height: 30px;
-        border-radius: 100%;
-        border: 6px solid #00FFCB;
-        position: absolute;
-        z-index: -1;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        animation: ring 1.5s infinite;
-    }
-
-    button:hover::after, button:focus::after {
-        animation: none;
-        display: none;
-    }
-
-    @keyframes ring {
-        0% {
-            width: 30px;
-            height: 30px;
-            opacity: 1;
-        }
-        100% {
-            width: 300px;
-            height: 300px;
-            opacity: 0;
-        }
-    }
-
-    body {
-        overflow-y: hidden;
-    }
-
-    .button:focus {
-        outline: 0;
+    .navbar {
+        margin-bottom: 0px!important;
+        min-height: 80px!important;
     }
 
 </style>
 
-    <div class="pcoded-container navbar-wrapper">
-        <div class="pcoded-main-container">
-            <div class="pcoded-wrapper">
-                <div class="pcoded-content">
-                    <div class="page-header card"></div>
-                    <div class="pcoded-inner-content">
-                        <div class="main-body">
-                            <div class="page-wrapper">
-                                <div class="page-body">
-                                        <div class="row">
-                                            <div class="col-xs-12 col-md-4 col-lg-4 col-xl-4">
-                                                <div class="card welcomeCard">
-                                                    <div class="card-header">
-                                                        <h3 class="card-title">Welcome <c:out value="${studentFirstName}"/> <c:out value="${studentLastName}"/></h3>
-                                                    </div>
-                                                    <div class="card-block" style="display: none">
-                                                        <div class="row">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-xs-12 col-md-12 col-lg-12 col-xl-12">
-                                                <div class="card personalInfoCard">
-                                                    <div class="card-header">
-                                                        <h3 class="card-title">Your Personal Information</h3>
-                                                    </div>
-                                                    <div class="card-block">
-                                                        <div class="row">
-                                                            <div class="col-sm-6 student-inputs">
-                                                                <form>
-                                                                    <div class="form-group">
-                                                                        <label>Student Id</label>
-                                                                        <input type="text"
-                                                                               class="form-control form-control-success"
-                                                                               disabled="true"
-                                                                               placeholder="<c:out value="${studentId}"/>">
-                                                                    </div>
-                                                                    <div class="form-group row">
-                                                                        <div class="col-sm-6">
-                                                                            <label>Student Firstname</label>
-                                                                            <input type="text"
-                                                                                   class="form-control form-control-success"
-                                                                                   disabled="true"
-                                                                                   placeholder="<c:out value="${studentFirstName}"/>">
-                                                                        </div>
-                                                                        <div class="col-sm-6">
-                                                                            <label>Student Lastname</label>
-                                                                            <input type="text"
-                                                                                   class="form-control form-control-success"
-                                                                                   disabled="true"
-                                                                                   placeholder="<c:out value="${studentLastName}"/>">
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="form-group row">
-                                                                        <div class="col-sm-6">
-                                                                            <label>Student Username</label>
-                                                                            <input type="text"
-                                                                                   class="form-control form-control-success"
-                                                                                   disabled="true"
-                                                                                   placeholder="<c:out value="${studentUserName}"/>">
-                                                                        </div>
-                                                                        <div class="col-sm-6">
-                                                                            <label>Student Email</label>
-                                                                            <input type="text"
-                                                                                   class="form-control form-control-success"
-                                                                                   disabled="true"
-                                                                                   placeholder="<c:out value="${studentEmail}"/>">
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="form-group row">
-                                                                        <div class="col-sm-6">
-                                                                            <label>Student Age</label>
-                                                                            <input type="text"
-                                                                                   class="form-control form-control-success"
-                                                                                   disabled="true"
-                                                                                   placeholder="<c:out value="${studentAge}"/>">
-                                                                        </div>
-                                                                        <div class="col-sm-6">
-                                                                            <label>Student Country</label>
-                                                                            <input type="text"
-                                                                                   class="form-control form-control-success"
-                                                                                   disabled="true"
-                                                                                   placeholder="<c:out value="${studentCountry}"/>">
-                                                                        </div>
-                                                                    </div>
-                                                                </form>
-                                                            </div>
-                                                            <div class="col-sm-6 startGame">
-<%--                                                                <input class="startGameButton" type="image"--%>
-<%--                                                                       src="./resources/img/start-game.png" alt="Submit"--%>
-<%--                                                                       width="350" height="100"--%>
-<%--                                                                       onclick="startingTheJourney()">--%>
-                                                                <div class="wrap">
-                                                                    <button class="button" onclick="startingTheJourney()">Start your Journey</button>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+<body>
+<div class="image-container set-full-height" style="background-image: url('https://acegif.com/wp-content/gif/outerspace-70.gif')">
+    <!--   Big container   -->
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-8 col-sm-offset-2">
 
-<script>
-    function startingTheJourney() {
-        location.replace("./dashboard");
-    }
-</script>
+                <!--      Wizard container        -->
+                <div class="wizard-container">
+
+                    <div class="card wizard-card" data-color="orange" id="wizardProfile">
+                        <form action="" method="">
+                            <!--        You can switch ' data-color="orange" '  with one of the next bright colors: "blue", "green", "orange", "red"          -->
+
+                            <div class="wizard-header">
+                                <h3>
+                                    <b>CHECK</b> YOUR ACCOUNT INFORMATION <br>
+<%--                                    <small>This information concerning your personality.</small>--%>
+                                </h3>
+                            </div>
+
+                            <div class="wizard-navigation">
+                                <ul>
+                                    <li><a href="#about" data-toggle="tab">Profile Details</a></li>
+<%--                                    <li><a href="#account" data-toggle="tab">Account Details</a></li>--%>
+<%--                                    <li><a href="#address" data-toggle="tab">Address</a></li>--%>
+                                </ul>
+
+                            </div>
+
+                            <div class="tab-content">
+                                <div class="tab-pane" id="about">
+                                    <div class="row">
+                                        <h4 class="info-text"> This information concerning your personality.</h4>
+                                        <div class="col-sm-6 col-sm-offset-1">
+                                            <div class="form-group">
+                                                <label><strong>Student Username </strong></label>
+                                                <label><c:out value="${currentUsername}"/></label>
+                                            </div>
+                                            <div class="form-group">
+                                                <label><strong> Student Name: </strong> </label>
+                                                <label><c:out value="${currentFirstName}"/></label>
+                                            </div>
+<%--                                        </div>--%>
+<%--                                        <div class="col-sm-10 col-sm-offset-1">--%>
+                                            <div class="form-group">
+                                                <label><strong> Email :</strong> </label>
+                                                <label><label><c:out value="${currentStudentEmail}"/></label> </label>
+                                            </div>
+                                            <div class="form-group">
+                                                <label><strong> Country :</strong> </label>
+                                                <label><label><c:out value="${currentCountry}"/></label> </label>
+                                            </div>
+                                            <div class="form-group">
+                                                <label><strong> Gender :</strong> </label>
+                                                <label><label><c:out value="${currentGender}"/></label> </label>
+                                            </div>
+                                            <div class="form-group">
+                                                <label><strong> Age :</strong> </label>
+                                                <label><label><c:out value="${currentAge}"/></label> </label>
+                                            </div>
+                                        </div>
+                                    <div class="col-sm-4 col-sm-offset-1 rightColumnProfile">
+                                    </div>
+                                    </div>
+                                </div>
+<%--                                <div class="tab-pane" id="account">--%>
+<%--                                    <h4 class="info-text"> What are you doing? (checkboxes) </h4>--%>
+<%--                                    <div class="row">--%>
+
+<%--                                        <div class="col-sm-10 col-sm-offset-1">--%>
+<%--                                            <div class="col-sm-4">--%>
+<%--                                                <div class="choice" data-toggle="wizard-checkbox">--%>
+<%--                                                    <input type="checkbox" name="jobb" value="Design">--%>
+<%--                                                    <div class="icon">--%>
+<%--                                                        <i class="fa fa-pencil"></i>--%>
+<%--                                                    </div>--%>
+<%--                                                    <h6>Design</h6>--%>
+<%--                                                </div>--%>
+<%--                                            </div>--%>
+<%--                                            <div class="col-sm-4">--%>
+<%--                                                <div class="choice" data-toggle="wizard-checkbox">--%>
+<%--                                                    <input type="checkbox" name="jobb" value="Code">--%>
+<%--                                                    <div class="icon">--%>
+<%--                                                        <i class="fa fa-terminal"></i>--%>
+<%--                                                    </div>--%>
+<%--                                                    <h6>Code</h6>--%>
+<%--                                                </div>--%>
+
+<%--                                            </div>--%>
+<%--                                            <div class="col-sm-4">--%>
+<%--                                                <div class="choice" data-toggle="wizard-checkbox">--%>
+<%--                                                    <input type="checkbox" name="jobb" value="Develop">--%>
+<%--                                                    <div class="icon">--%>
+<%--                                                        <i class="fa fa-laptop"></i>--%>
+<%--                                                    </div>--%>
+<%--                                                    <h6>Develop</h6>--%>
+<%--                                                </div>--%>
+
+<%--                                            </div>--%>
+<%--                                        </div>--%>
+
+<%--                                    </div>--%>
+<%--                                </div>--%>
+<%--                                <div class="tab-pane" id="address">--%>
+<%--                                    <div class="row">--%>
+<%--                                        <div class="col-sm-12">--%>
+<%--                                            <h4 class="info-text"> Are you living in a nice area? </h4>--%>
+<%--                                        </div>--%>
+<%--                                        <div class="col-sm-7 col-sm-offset-1">--%>
+<%--                                            <div class="form-group">--%>
+<%--                                                <label>Street Name</label>--%>
+<%--                                                <input type="text" class="form-control" placeholder="5h Avenue">--%>
+<%--                                            </div>--%>
+<%--                                        </div>--%>
+<%--                                        <div class="col-sm-3">--%>
+<%--                                            <div class="form-group">--%>
+<%--                                                <label>Street Number</label>--%>
+<%--                                                <input type="text" class="form-control" placeholder="242">--%>
+<%--                                            </div>--%>
+<%--                                        </div>--%>
+<%--                                        <div class="col-sm-5 col-sm-offset-1">--%>
+<%--                                            <div class="form-group">--%>
+<%--                                                <label>City</label>--%>
+<%--                                                <input type="text" class="form-control" placeholder="New York...">--%>
+<%--                                            </div>--%>
+<%--                                        </div>--%>
+<%--                                        <div class="col-sm-5">--%>
+<%--                                            <div class="form-group">--%>
+<%--                                                <label>Country</label><br>--%>
+<%--                                                <select name="country" class="form-control">--%>
+<%--                                                    <option value="Afghanistan"> Afghanistan </option>--%>
+<%--                                                    <option value="Albania"> Albania </option>--%>
+<%--                                                    <option value="Algeria"> Algeria </option>--%>
+<%--                                                    <option value="American Samoa"> American Samoa </option>--%>
+<%--                                                    <option value="Andorra"> Andorra </option>--%>
+<%--                                                    <option value="Angola"> Angola </option>--%>
+<%--                                                    <option value="Anguilla"> Anguilla </option>--%>
+<%--                                                    <option value="Antarctica"> Antarctica </option>--%>
+<%--                                                    <option value="...">...</option>--%>
+<%--                                                </select>--%>
+<%--                                            </div>--%>
+<%--                                        </div>--%>
+<%--                                    </div>--%>
+<%--                                </div>--%>
+                            </div>
+<%--                            <div class="wizard-footer height-wizard">--%>
+<%--                                <div class="pull-right">--%>
+<%--                                    <input type='button' class='btn btn-next btn-fill btn-warning btn-wd btn-sm' name='next' value='Next' />--%>
+<%--                                    <input type='button' class='btn btn-finish btn-fill btn-warning btn-wd btn-sm' name='finish' value='Finish' />--%>
+
+<%--                                </div>--%>
+
+<%--                                <div class="pull-left">--%>
+<%--                                    <input type='button' class='btn btn-previous btn-fill btn-default btn-wd btn-sm' name='previous' value='Previous' />--%>
+<%--                                </div>--%>
+<%--                                <div class="clearfix"></div>--%>
+<%--                            </div>--%>
+
+                        </form>
+                    </div>
+                </div> <!-- wizard container -->
+            </div>
+        </div><!-- end row -->
+    </div> <!--  big container -->
+
+</div>
+
+</body>
+
+<!--   Core JS Files   -->
+<script src="${pageContext.request.contextPath}/resources/js/jquery-2.2.4.min.js" type="text/javascript"></script>
+<script src="${pageContext.request.contextPath}/resources/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="${pageContext.request.contextPath}/resources/js/jquery.bootstrap.wizard.js" type="text/javascript"></script>
+
+<!--  Plugin for the Wizard -->
+<script src="${pageContext.request.contextPath}/resources/js/gsdk-bootstrap-wizard.js"></script>
+
+<!--  More information about jquery.validate here: http://jqueryvalidation.org/	 -->
+<script src="${pageContext.request.contextPath}/resources/js/jquery.validate.min.js"></script>

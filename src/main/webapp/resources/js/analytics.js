@@ -102,7 +102,7 @@ function buildRecommendationsBarChart(data) {
     tempData['data'] = [];
 
     var title = chart2.titles.create();
-    title.text = "How many users have the same Technology Orientation";
+    title.text = "How many times the system has recommended each Technology Orientation";
     title.fontSize = 21;
     title.marginBottom = 30;
 

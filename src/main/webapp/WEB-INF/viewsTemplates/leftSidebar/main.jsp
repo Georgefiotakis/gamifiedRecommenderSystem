@@ -20,6 +20,18 @@
 
     <link type="text/css" rel="stylesheet"
           href="${pageContext.request.contextPath}/resources/css/bootstrap/bootstrap.min.css"/>
+    <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/material/material-kit.min.css"/>
+    <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/animate.min.css"/>
+<%--    <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/demo.css"/>--%>
+<%--    <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/gsdk-bootstrap-wizard.css"/>--%>
+    <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css"/>
+    <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/fontawesome-all.css"/>
+    <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/colors/switch.css"/>
+    <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/colors/default.css"/>
+    <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/colors/color-5.css"/>
+    <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/colors/color-4.css"/>
+    <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/colors/color-3.css"/>
+    <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/colors/color-2.css"/>
     <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/waves.min.css"/>
     <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/feather/feather.css"/>
     <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/all.css"/>
@@ -38,6 +50,8 @@
     <script src="${pageContext.request.contextPath}/resources/js/accordion.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/pcoded.min.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/vertical-layout.min.js"></script>
+<%--    <script src="${pageContext.request.contextPath}/resources/js/jquery.bootstrap.wizard.js"></script>--%>
+<%--    <script src="${pageContext.request.contextPath}/resources/js/gsdk-bootstrap-wizard.js"></script>--%>
     <script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
 
     <script src="//www.amcharts.com/lib/4/core.js"></script>
@@ -59,7 +73,7 @@
     </div>
 </div>
 
-
+<script src="${pageContext.request.contextPath}/resources/js/material/material-kit.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/bootstrap/bootstrap.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/dashboard.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/iCheck/iCheck.js"></script>

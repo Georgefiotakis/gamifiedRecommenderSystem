@@ -36,7 +36,7 @@
     </bean>
 
     <bean id="logoutFilter" class="org.springframework.security.web.authentication.logout.LogoutFilter">
-        <constructor-arg name="logoutSuccessUrl" value="/userProfile" />
+        <constructor-arg name="logoutSuccessUrl" value="/dashboard" />
         <constructor-arg name="handlers">
             <list>
                 <ref bean="keycloakLogoutHandler" />
@@ -90,8 +90,14 @@
         <security:http auto-config="false" entry-point-ref="keycloakAuthenticationEntryPoint" use-expressions="true">
             <security:custom-filter ref="keycloakPreAuthActionsFilter" before="LOGOUT_FILTER" />
             <security:custom-filter ref="keycloakAuthenticationProcessingFilter" before="FORM_LOGIN_FILTER" />
-            <security:intercept-url pattern="/userProfile" access="hasAnyAuthority('user','student')" />
+<!--            <security:intercept-url pattern="/userProfile" access="hasAnyAuthority('user','student')" />-->
+<!--            <security:intercept-url pattern="/dashboard" access="hasAnyAuthority('user','student')" />-->
             <security:intercept-url pattern="/dashboard" access="hasAnyAuthority('user','student')" />
+<!--            <security:intercept-url pattern="/firstQuiz/*" access="hasAnyAuthority('user','student')" />-->
+<!--            <security:intercept-url pattern="/userProfile" access="hasAnyAuthority('user','student')" />-->
+<!--            <security:intercept-url pattern="/analytics" access="hasAnyAuthority('user','student')" />-->
+<!--            <security:intercept-url pattern="/firstQuiz/answers" access="hasAnyAuthority('user','student')" />-->
             <security:custom-filter ref="logoutFilter" position="LOGOUT_FILTER" />
+            <security:csrf disabled="true" />
         </security:http>
 </beans>

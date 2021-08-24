@@ -16,13 +16,13 @@
 
     <!-- *********************************** Home Controller *********************************** -->
 
-    <definition name="dashboard" extends=".mainLeftSidebarTemplate">
-        <put-attribute name="body" value="/WEB-INF/views/dashboard.jsp" />
-    </definition>
+<!--    <definition name="dashboard" extends=".mainLeftSidebarTemplate">-->
+<!--        <put-attribute name="body" value="/WEB-INF/views/dashboard.jsp" />-->
+<!--    </definition>-->
 
-    <definition name="userProfile" extends=".mainLeftSidebarTemplate">
-        <put-attribute name="body" value="/WEB-INF/views/userProfile.jsp" />
-    </definition>
+<!--    <definition name="userProfile" extends=".mainLeftSidebarTemplate">-->
+<!--        <put-attribute name="body" value="/WEB-INF/views/userProfile.jsp" />-->
+<!--    </definition>-->
 
     <definition name="greenPlanet" extends=".mainLeftSidebarTemplate">
         <put-attribute name="body" value="/WEB-INF/views/greenPlanet.jsp" />
@@ -43,5 +43,9 @@
     <definition name="analytics" extends=".mainLeftSidebarTemplate">
         <put-attribute name="body" value="/WEB-INF/views/analytics.jsp" />
     </definition>
+
+<!--    <definition name="firstQuiz" extends=".mainLeftSidebarTemplate">-->
+<!--        <put-attribute name="body" value="/WEB-INF/views/firstQuiz.jsp" />-->
+<!--    </definition>-->
 
 </tiles-definitions>

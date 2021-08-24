@@ -1,15 +1,11 @@
 package gr.gfiotakis.imlCloud.controllers;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import gr.gfiotakis.imlCloud.model.gui.Course;
 import gr.gfiotakis.imlCloud.model.gui.RecommendationBarChart;
 import gr.gfiotakis.imlCloud.model.gui.UserBarChart;
 import gr.gfiotakis.imlCloud.model.managementService.*;
 import gr.gfiotakis.imlCloud.model.persistence.*;
-import org.json.simple.JSONObject;
 import org.keycloak.adapters.RefreshableKeycloakSecurityContext;
 import org.keycloak.adapters.springsecurity.account.SimpleKeycloakAccount;
 import org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken;
@@ -22,15 +18,14 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.RestTemplate;
+import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.*;
-import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
+
+import static org.apache.commons.lang3.Range.is;
 
 /**
  * View Controller that handles requests for the application home page.
@@ -56,6 +51,27 @@ public class HomeController {
 	private Integer currentSurveyId;
 	private Integer currentUserId;
 	private String currentUsername;
+	private String currentStudentEmail;
+	private Integer currentAge;
+	private String currentGender;
+	private String currentCountry;
+	private String currentFirstName;
+	private String currentStudentGoal;
+	private Integer currentUserCoins;
+	private Integer currentUserLevel;
+	private Boolean catOneLesOneCompleted;
+	private Boolean catOneLesTwoCompleted;
+	private Boolean catOneLesThreeCompleted;
+	private Boolean catTwoLesOneCompleted;
+	private Boolean catTwoLesTwoCompleted;
+	private Boolean catTwoLesThreeCompleted;
+	private Boolean catThreeLesOneCompleted;
+	private Boolean catThreeLesTwoCompleted;
+	private Boolean catThreeLesThreeCompleted;
+	private Boolean catFourLesOneCompleted;
+	private Boolean catFourLesTwoCompleted;
+	private Boolean catFourLesThreeCompleted;
+
 	private String finalRecommendationPath;
 	String dataScience = "Data Science";
 	String graphicDesigner = "Graphic Designer";
@@ -65,16 +81,73 @@ public class HomeController {
 
 	ArrayList<String> allSelectedPaths = new ArrayList<String>();
 
+	protected HomeController() {
+		super();
+	}
+
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
 		logger.info("Welcome home! The locale is {}.", locale);
 
-		return "redirect:/userProfile";
+		return "dashboard";
 	}
 
 	@RequestMapping(value = "/dashboard", method = RequestMethod.GET)
-	public String dashboard(Locale locale, Model model) {
-		logger.info("The student has reached the dashboard page.", locale);
+	public String dashboard(Principal principal, Model model) {
+
+		KeycloakAuthenticationToken keycloakAuthenticationToken = (KeycloakAuthenticationToken) principal;
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
+		String studentEmail = ((AccessToken)((RefreshableKeycloakSecurityContext)((SimpleKeycloakAccount)((KeycloakAuthenticationToken)auth).getDetails()).getKeycloakSecurityContext()).getToken()).getEmail();
+		String studentUserName = ((AccessToken)((RefreshableKeycloakSecurityContext)((SimpleKeycloakAccount)((KeycloakAuthenticationToken)auth).getDetails()).getKeycloakSecurityContext()).getToken()).getPreferredUsername();
+
+		model.addAttribute("studentEmail",studentEmail);
+		model.addAttribute("studentUserName",studentUserName);
+
+		currentStudentEmail = studentEmail;
+		currentUsername = studentUserName;
+		currentUserId = userManagementService.getUserbyUsername(studentUserName).get(0).getUserId();
+
+//		if (userManagementService.getUserbyUsername(studentUserName).get(0).getFirstQuizCompleted() == null || userManagementService.getUserbyUsername(studentUserName).get(0).getFirstQuizCompleted() == 0) {
+		if (userManagementService.getUserbyUsername(currentUsername).get(0).getUserId() == null) {
+			return "firstQuiz";
+		}
+
+		List<User> userList = userManagementService.getUserbyUsername(currentUsername);
+		User user = userList.get(0);
+
+		currentStudentEmail = user.getEmail();
+		currentAge = user.getAge();
+		currentGender = user.getGender();
+		currentCountry = user.getCountry();
+		currentFirstName = user.getStudentName();
+		currentStudentGoal = user.getStudentGoal();
+		currentUserCoins = user.getCoins();
+		currentUserLevel = user.getLevel();
+
+		model.addAttribute("currentStudentEmail",currentStudentEmail);
+		model.addAttribute("currentAge",currentAge);
+		model.addAttribute("currentGender",currentGender);
+		model.addAttribute("currentCountry",currentCountry);
+		model.addAttribute("currentFirstName",currentFirstName);
+		model.addAttribute("currentStudentGoal",currentStudentGoal);
+		model.addAttribute("currentUsername",currentUsername);
+		model.addAttribute("currentUserCoins",currentUserCoins);
+		model.addAttribute("currentUserLevel",currentUserLevel);
+		model.addAttribute("currentUserId",currentUserId);
+		model.addAttribute("userCoins", currentUserCoins);
+		model.addAttribute("catOneLesOneCompleted", catOneLesOneCompleted);
+		model.addAttribute("catOneLesTwoCompleted", catOneLesTwoCompleted);
+		model.addAttribute("catOneLesThreeCompleted", catOneLesThreeCompleted);
+		model.addAttribute("catTwoLesOneCompleted", catTwoLesOneCompleted);
+		model.addAttribute("catTwoLesTwoCompleted", catTwoLesTwoCompleted);
+		model.addAttribute("catTwoLesThreeCompleted", catTwoLesThreeCompleted);
+		model.addAttribute("catThreeLesOneCompleted", catThreeLesOneCompleted);
+		model.addAttribute("catThreeLesTwoCompleted", catThreeLesTwoCompleted);
+		model.addAttribute("catThreeLesThreeCompleted", catThreeLesThreeCompleted);
+		model.addAttribute("catFourLesOneCompleted", catFourLesOneCompleted);
+		model.addAttribute("catFourLesTwoCompleted", catFourLesTwoCompleted);
+		model.addAttribute("catFourLesThreeCompleted", catFourLesThreeCompleted);
 
 		return "dashboard";
 	}
@@ -89,9 +162,20 @@ public class HomeController {
 		return "analytics";
 	}
 
+	@RequestMapping(value = "/firstQuiz", method = RequestMethod.GET)
+	public String firstQuiz(Locale locale, Model model) {
+
+
+//	if (userManagementService.getUserbyUsername(currentUsername).get(0).getUserId() != null || userManagementService.getUserbyUsername(currentUsername).get(0).getFirstQuizCompleted() != null) {
+		if (userManagementService.getUserbyUsername(currentUsername).get(0).getFirstQuizCompleted() == 1) {
+			return "dashboard";
+		}
+//	}
+		return "firstQuiz";
+	}
+
 	@RequestMapping(value = "/greenPlanet", method = RequestMethod.GET)
 	public String greenPlanet(Locale locale, Model model) {
-		logger.info("Student has reached the green planet!!!", locale);
 
 		model.addAttribute("currentUserId",currentUserId);
 		model.addAttribute("currentSurveyId",currentSurveyId);
@@ -101,7 +185,6 @@ public class HomeController {
 
 	@RequestMapping(value = "/purplePlanet", method = RequestMethod.GET)
 	public String purplePlanet(Locale locale, Model model) {
-		logger.info("Student has reached the purple planet!!!", locale);
 
 		model.addAttribute("currentUserId",currentUserId);
 		model.addAttribute("currentSurveyId",currentSurveyId);
@@ -109,9 +192,14 @@ public class HomeController {
 		return "purplePlanet";
 	}
 
+	@RequestMapping(value = "/achievement", method = RequestMethod.GET)
+	public String achievement(Model model) {
+
+		return "achievement";
+	}
+
 	@RequestMapping(value = "/orangePlanet", method = RequestMethod.GET)
 	public String orangePlanet(Locale locale, Model model) {
-		logger.info("Student has reached the orange planet!!!", locale);
 
 		model.addAttribute("currentUserId",currentUserId);
 		model.addAttribute("currentSurveyId",currentSurveyId);
@@ -135,89 +223,216 @@ public class HomeController {
 		logger.info("============== User Successfully logged in!! ====================");
 		logger.info("Welcome to User Profile Page!");
 
-		KeycloakAuthenticationToken keycloakAuthenticationToken = (KeycloakAuthenticationToken) principal;
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		auth.getPrincipal();
-		auth.getCredentials();
-		auth.getDetails();
-		auth.getPrincipal();
+		List<User> userList = userManagementService.getUserbyUsername(currentUsername);
+		User user = userList.get(0);
 
-		String userToken;
-		userToken = ((RefreshableKeycloakSecurityContext) ((SimpleKeycloakAccount) ((KeycloakAuthenticationToken) auth).getDetails()).getKeycloakSecurityContext()).getTokenString();
-		String userRealm;
-		userRealm = keycloakAuthenticationToken.getAccount().getKeycloakSecurityContext().getRealm();
-
-		String studentFirstName = ((AccessToken)((RefreshableKeycloakSecurityContext)((SimpleKeycloakAccount)((KeycloakAuthenticationToken)auth).getDetails()).getKeycloakSecurityContext()).getToken()).getGivenName();
-		String studentLastName = ((AccessToken)((RefreshableKeycloakSecurityContext)((SimpleKeycloakAccount)((KeycloakAuthenticationToken)auth).getDetails()).getKeycloakSecurityContext()).getToken()).getFamilyName();
-		String studentEmail = ((AccessToken)((RefreshableKeycloakSecurityContext)((SimpleKeycloakAccount)((KeycloakAuthenticationToken)auth).getDetails()).getKeycloakSecurityContext()).getToken()).getEmail();
-		String studentId = ((AccessToken)((RefreshableKeycloakSecurityContext)((SimpleKeycloakAccount)((KeycloakAuthenticationToken)auth).getDetails()).getKeycloakSecurityContext()).getToken()).getId();
-		String studentUserName = ((AccessToken)((RefreshableKeycloakSecurityContext)((SimpleKeycloakAccount)((KeycloakAuthenticationToken)auth).getDetails()).getKeycloakSecurityContext()).getToken()).getPreferredUsername();
-
-		Map<String, Object> attributesMap = new HashMap<String, Object>();
-		attributesMap = ((SimpleKeycloakAccount) ((KeycloakAuthenticationToken) auth).getDetails()).getKeycloakSecurityContext().getIdToken().getOtherClaims();
-
-		String userClaims = "";
-		String userAttributes = "";
-
-		for (Map.Entry<String, Object> entry : attributesMap.entrySet()) {
-			System.out.println(entry.getKey() + " : " + entry.getValue());
-			logger.info(entry.getKey() + " : " + entry.getValue());
-			userClaims = userClaims + entry.getKey() + "_" + entry.getValue() + "-";
-//			userClaims = userClaims + entry.getValue() + "-";
-			userAttributes = userClaims.substring(0, userClaims.length() - 1);
-		}
-
-		String[] splittedUserAttributes = userAttributes.split("-");
-
-		String studentAge = "";
-		String studentCountry = "";
-
-		for (int i = 0; i < splittedUserAttributes.length; i++) {
-
-			if (splittedUserAttributes[i].toLowerCase().contains("age")) {
-				studentAge = splittedUserAttributes[i].split("_")[1];
-			}
-
-			if (splittedUserAttributes[i].toLowerCase().contains("country")) {
-				studentCountry = splittedUserAttributes[i].split("_")[1];
-			}
-		}
-
-		model.addAttribute("studentAge",studentAge);
-		model.addAttribute("studentCountry",studentCountry);
-
-		model.addAttribute("studentId",studentId);
-		model.addAttribute("studentFirstName",studentFirstName);
-		model.addAttribute("studentLastName",studentLastName);
-		model.addAttribute("studentEmail",studentEmail);
-		model.addAttribute("studentUserName",studentUserName);
-
-		if (userManagementService.getUserbyUsername(studentUserName).get(0).getUserId() == null) {
-			User user = new User();
-			user.setUsername(studentUserName);
-			user.setCountry(studentCountry);
-			userManagementService.saveUser(user);
-
-			Survey survey = new Survey();
-			survey.setUser(user);
-			surveyManagementService.saveSurvey(survey);
-			Survey savedSurvey = surveyManagementService.saveSurvey(survey);
-			currentSurveyId = savedSurvey.getSurveyId();
-		} else {
-			Survey survey = new Survey();
-			survey.setUser(userManagementService.getUserbyUsername(studentUserName).get(0));
-			Survey savedSurvey = surveyManagementService.saveSurvey(survey);
-			currentSurveyId = savedSurvey.getSurveyId();
-		}
-
-		currentUsername = studentUserName;
-		currentUserId = userManagementService.getUserbyUsername(studentUserName).get(0).getUserId();
-//		model.addAttribute("currentUserId",userManagementService.getUserbyUsername(studentUserName).get(0).getUserId());
-//		model.addAttribute("currentSurveyId",currentSurveyId);
-
-
+		model.addAttribute("currentUsername",currentUsername);
+		model.addAttribute("currentFirstName",user.getStudentName());
+		model.addAttribute("currentCountry",user.getCountry());
+		model.addAttribute("currentAge",user.getAge());
+		model.addAttribute("currentGender",user.getGender());
+		model.addAttribute("currentStudentEmail",currentStudentEmail);
 
 		return "userProfile";
+	}
+
+	@RequestMapping(value = "/categoryOne", method = RequestMethod.GET)
+	public String categoryOne(Locale locale, Model model) {
+
+		return "categoryOne";
+	}
+
+	@RequestMapping(value = "/categoryTwo", method = RequestMethod.GET)
+	public String categoryTwo(Locale locale, Model model) {
+
+		return "categoryTwo";
+	}
+
+	@RequestMapping(value = "/categoryThree", method = RequestMethod.GET)
+	public String categoryThree(Locale locale, Model model) {
+
+		return "categoryThree";
+	}
+
+	@RequestMapping(value = "/categoryFour", method = RequestMethod.GET)
+	public String categoryFour(Locale locale, Model model) {
+
+		return "categoryFour";
+	}
+
+//	public User createAndGetTheCreatedUserTest() {
+//
+//		User userTest = new User();
+//		userTest.setUsername("test user");
+//		userTest.setStudentName("test test");
+//		userTest.setAge(10);
+//		userTest.setEmail("test@gmail.com");
+//		userManagementService.saveUser(userTest);
+//
+//		return userManagementService.getUserbyUsername(userTest.getUsername()).get(0);
+//	}
+
+	@RequestMapping(value = "/firstQuizAnswers", method = RequestMethod.GET)
+	public @ResponseBody
+	RedirectView firstQuizAnswers(@RequestParam(value = "studentGender" , required = false) String studentGender,
+								  @RequestParam(value = "studentCountry" , required = false) String studentCountry,
+								  @RequestParam(value = "studentAge" , required = false) Integer studentAge,
+								  @RequestParam(value = "studentName" , required = false) String studentName,
+								  @RequestParam(value = "studentGoal" , required = false) String studentGoal) {
+
+		if (userManagementService.getUserbyUsername(currentUsername).get(0).getUserId() == null) {
+
+			User user = new User();
+			user.setUsername(currentUsername);
+			user.setCountry(studentCountry);
+			user.setGender(studentGender);
+			user.setAge(studentAge);
+			user.setEmail(currentStudentEmail);
+			user.setStudentName(studentName);
+			user.setLevel(1);
+			user.setCoins(0);
+			user.setFirstQuizCompleted(1);
+			user.setStudentGoal(studentGoal);
+			userManagementService.saveUser(user);
+
+			CategoryOne categoryOne = new CategoryOne();
+			categoryOne.setUser(user);
+			categoryOne.setLessonOne(false);
+			categoryOne.setLessonTwo(false);
+			categoryOne.setLessonThree(false);
+			userManagementService.saveCategoryOne(categoryOne);
+
+			CategoryTwo categoryTwo = new CategoryTwo();
+			categoryTwo.setUser(user);
+			categoryTwo.setLessonOne(false);
+			categoryTwo.setLessonTwo(false);
+			categoryTwo.setLessonThree(false);
+			userManagementService.saveCategoryTwo(categoryTwo);
+
+			CategoryThree categoryThree = new CategoryThree();
+			categoryThree.setUser(user);
+			categoryThree.setLessonOne(false);
+			categoryThree.setLessonTwo(false);
+			categoryThree.setLessonThree(false);
+			userManagementService.saveCategoryThree(categoryThree);
+
+			CategoryFour categoryFour = new CategoryFour();
+			categoryFour.setUser(user);
+			categoryFour.setLessonOne(false);
+			categoryFour.setLessonTwo(false);
+			categoryFour.setLessonThree(false);
+			userManagementService.saveCategoryFour(categoryFour);
+
+			catOneLesOneCompleted = categoryOne.getLessonOne();
+			catOneLesTwoCompleted = categoryOne.getLessonTwo();
+			catOneLesThreeCompleted = categoryOne.getLessonThree();
+			catTwoLesOneCompleted = categoryTwo.getLessonOne();
+			catTwoLesTwoCompleted = categoryTwo.getLessonTwo();
+			catTwoLesThreeCompleted = categoryTwo.getLessonThree();
+			catThreeLesOneCompleted = categoryThree.getLessonOne();
+			catThreeLesTwoCompleted = categoryThree.getLessonTwo();
+			catThreeLesThreeCompleted = categoryThree.getLessonThree();
+			catFourLesOneCompleted = categoryFour.getLessonOne();
+			catFourLesTwoCompleted = categoryFour.getLessonTwo();
+			catFourLesThreeCompleted = categoryFour.getLessonThree();
+		}
+
+		currentAge = studentAge;
+		currentGender = studentGender;
+		currentCountry = studentCountry;
+		currentFirstName = studentName;
+		currentStudentGoal = studentGoal;
+
+
+		return new RedirectView("./dashboard");
+
+	}
+
+//	@RequestMapping(value = "/firstQuizAnswers", method = RequestMethod.GET)
+//	public @ResponseBody String firstQuizAnswers(@RequestParam(value = "studentGender" , required = false) String studentGender,
+//								 				@RequestParam(value = "studentCountry" , required = false) String studentCountry,
+//								 				@RequestParam(value = "studentAge" , required = false) Integer studentAge,
+//								 				@RequestParam(value = "studentName" , required = false) String studentName,
+//								 				@RequestParam(value = "studentGoal" , required = false) String studentGoal) {
+//
+//		if (userManagementService.getUserbyUsername(currentUsername).get(0).getUserId() == null) {
+//
+//			User user = new User();
+//			user.setUsername(currentUsername);
+//			user.setCountry(studentCountry);
+//			user.setGender(studentGender);
+//			user.setAge(studentAge);
+//			user.setEmail(currentStudentEmail);
+//			user.setStudentName(studentName);
+//			user.setLevel(1);
+//			user.setCoins(0);
+//			user.setFirstQuizCompleted(1);
+//			user.setStudentGoal(studentGoal);
+//			userManagementService.saveUser(user);
+//
+//			CategoryOne categoryOne = new CategoryOne();
+//			categoryOne.setUser(user);
+//			categoryOne.setLessonOne(false);
+//			categoryOne.setLessonTwo(false);
+//			categoryOne.setLessonThree(false);
+//			userManagementService.saveCategoryOne(categoryOne);
+//
+//			CategoryTwo categoryTwo = new CategoryTwo();
+//			categoryTwo.setUser(user);
+//			categoryTwo.setLessonOne(false);
+//			categoryTwo.setLessonTwo(false);
+//			categoryTwo.setLessonThree(false);
+//			userManagementService.saveCategoryTwo(categoryTwo);
+//
+//			CategoryThree categoryThree = new CategoryThree();
+//			categoryThree.setUser(user);
+//			categoryThree.setLessonOne(false);
+//			categoryThree.setLessonTwo(false);
+//			categoryThree.setLessonThree(false);
+//			userManagementService.saveCategoryThree(categoryThree);
+//
+//			CategoryFour categoryFour = new CategoryFour();
+//			categoryFour.setUser(user);
+//			categoryFour.setLessonOne(false);
+//			categoryFour.setLessonTwo(false);
+//			categoryFour.setLessonThree(false);
+//			userManagementService.saveCategoryFour(categoryFour);
+//
+//			catOneLesOneCompleted = categoryOne.getLessonOne();
+//			catOneLesTwoCompleted = categoryOne.getLessonTwo();
+//			catOneLesThreeCompleted = categoryOne.getLessonThree();
+//			catTwoLesOneCompleted = categoryTwo.getLessonOne();
+//			catTwoLesTwoCompleted = categoryTwo.getLessonTwo();
+//			catTwoLesThreeCompleted = categoryTwo.getLessonThree();
+//			catThreeLesOneCompleted = categoryThree.getLessonOne();
+//			catThreeLesTwoCompleted = categoryThree.getLessonTwo();
+//			catThreeLesThreeCompleted = categoryThree.getLessonThree();
+//			catFourLesOneCompleted = categoryFour.getLessonOne();
+//			catFourLesTwoCompleted = categoryFour.getLessonTwo();
+//			catFourLesThreeCompleted = categoryFour.getLessonThree();
+//		}
+//
+//		currentAge = studentAge;
+//		currentGender = studentGender;
+//		currentCountry = studentCountry;
+//		currentFirstName = studentName;
+//		currentStudentGoal = studentGoal;
+//
+//
+//		return "{'msg':'success'}";
+//
+//	}
+
+	@RequestMapping(value = "/categoryOneLessonOne", method = RequestMethod.GET)
+	public @ResponseBody String categoryOneLessonOne(Model model ,
+									   @RequestParam(value = "userCoins" , required = false) Integer userCoins,
+									   @RequestParam(value = "lessonCompleted" , required = false) Boolean lessonCompleted) {
+
+		Integer currentUserXP  = userManagementService.getUserCurrentXP(currentUserId);
+//		userManagementService.updateCategoryOne(currentUserId,lessonCompleted);
+		userManagementService.updateUserCoins(currentUserId, userCoins + currentUserXP);
+
+		return "redirect:/dashboard";
 	}
 
 	@RequestMapping(value = "/greenPlanet/greenAnswers", method = RequestMethod.GET)
@@ -709,8 +924,7 @@ public class HomeController {
 
 	@RequestMapping(value = "/analytics/countryAnalytics", method = RequestMethod.GET)
 	public @ResponseBody
-	UserBarChart[] countryAnalytics()
-	{
+	UserBarChart[] countryAnalytics() {
 
 		List<User> userList = userManagementService.getAllUsers();
 
@@ -743,5 +957,4 @@ public class HomeController {
 
 		return userBarChartsArray;
 	}
-
 }

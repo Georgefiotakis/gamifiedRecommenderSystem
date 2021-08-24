@@ -1,7 +1,6 @@
 package gr.gfiotakis.imlCloud.model.persistence.dao.impl;
 
-import gr.gfiotakis.imlCloud.model.persistence.Recommendation;
-import gr.gfiotakis.imlCloud.model.persistence.User;
+import gr.gfiotakis.imlCloud.model.persistence.*;
 import gr.gfiotakis.imlCloud.model.persistence.dao.UserDAO;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -14,6 +13,8 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Repository
@@ -65,5 +66,89 @@ public class UserDAOImpl implements UserDAO {
         List<User> userList = getSession().createQuery(criteria).getResultList();
 
         return userList;
+    }
+
+    @Override
+    public void updateCategoryOne(Integer userId, Boolean lessonCompleted) {
+        CriteriaBuilder builder = getSession().getCriteriaBuilder();
+        CriteriaQuery<CategoryOne> criteria = builder.createQuery(CategoryOne.class);
+        Root<CategoryOne> rootAsset = criteria.from(CategoryOne.class);
+
+        criteria.where(builder.and(
+                builder.equal(rootAsset.get("user"),userId)
+        ));
+
+        List<CategoryOne> categoryOneList = getSession().createQuery(criteria).getResultList();
+        categoryOneList.get(0).setLessonOne(lessonCompleted);
+
+        getSession().save(categoryOneList.get(0));
+    }
+
+    @Override
+    public void updateCategoryTwo(Integer userId, Boolean lessonCompleted) {
+
+    }
+
+    @Override
+    public void updateCategoryThree(Integer userId, Boolean lessonCompleted) {
+
+    }
+
+    @Override
+    public void updateCategoryFour(Integer userId, Boolean lessonCompleted) {
+
+    }
+
+    @Override
+    public void saveCategoryOne(CategoryOne categoryOne) {
+        getSession().save(categoryOne);
+    }
+
+    @Override
+    public void saveCategoryTwo(CategoryTwo categoryTwo) {
+        getSession().save(categoryTwo);
+    }
+
+    @Override
+    public void saveCategoryThree(CategoryThree categoryThree) {
+        getSession().save(categoryThree);
+    }
+
+    @Override
+    public void saveCategoryFour(CategoryFour categoryFour) {
+        getSession().save(categoryFour);
+    }
+
+    @Override
+    public void updateUserCoins(Integer userId, Integer xp) {
+
+        CriteriaBuilder builder = getSession().getCriteriaBuilder();
+        CriteriaQuery<User> criteria = builder.createQuery(User.class);
+        Root<User> rootAsset = criteria.from(User.class);
+
+        criteria.where(builder.and(
+                builder.equal(rootAsset.get("userId"), userId)
+        ));
+
+        List<User> userList = getSession().createQuery(criteria).getResultList();
+        userList.get(0).setCoins(xp);
+
+        getSession().save(userList.get(0));
+    }
+
+    @Override
+    public Integer getUserCurrentXP(Integer userId) {
+
+        CriteriaBuilder builder = getSession().getCriteriaBuilder();
+        CriteriaQuery<User> criteria = builder.createQuery(User.class);
+        Root<User> rootAsset = criteria.from(User.class);
+
+        criteria.where(builder.and(
+                builder.equal(rootAsset.get("userId"), userId)
+        ));
+
+        User user = getSession().createQuery(criteria).getSingleResult();
+
+        return user.getCoins();
     }
 }

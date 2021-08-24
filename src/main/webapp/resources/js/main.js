@@ -1,298 +1,266 @@
-"use strict";
-var mqtt;
-var reconnectTimeout = 50000;
-// var host = location.hostname;
-var host = "192.168.100.180";
-var port = 1884;
-$(document).ready(function() {
-    // card js start
-    $(".card-header-right .close-card").on('click', function() {
-        var $this = $(this);
-        $this.parents('.card').animate({
-            'opacity': '0',
-            '-webkit-transform': 'scale3d(.3, .3, .3)',
-            'transform': 'scale3d(.3, .3, .3)'
-        });
+$(function() {
 
-        setTimeout(function() {
-            $this.parents('.card').remove();
-        }, 800);
+    $('.wizard > .steps li a').click(function() {
+        $(this).parent().addClass('checked');
+        $(this).parent().prevAll().addClass('checked');
+        $(this).parent().nextAll().removeClass('checked');
     });
-    $(".card-header-right .reload-card").on('click', function() {
-        var $this = $(this);
-        $this.parents('.card').addClass("card-load");
-        $this.parents('.card').append('<div class="card-loader"><i class="feather icon-radio rotate-refresh"></div>');
-        setTimeout(function() {
-            $this.parents('.card').children(".card-loader").remove();
-            $this.parents('.card').removeClass("card-load");
-        }, 3000);
+    // Custome Jquery Step Button
+    $('.forward').click(function() {
+        $("#wizard").steps('next');
+    })
+    $('.backward').click(function() {
+        $("#wizard").steps('previous');
+    })
+    // Select Dropdown
+    $('html').click(function() {
+        $('.select .dropdown').hide();
     });
-    $(".card-header-right .card-option .open-card-option").on('click', function() {
-        var $this = $(this);
-        if ($this.hasClass('icon-x')) {
-            $this.parents('.card-option').animate({
-                'width': '30px',
-            });
-            $this.parents('.card-option').children('li').children(".open-card-option").removeClass("icon-x").fadeIn('slow');
-            $this.parents('.card-option').children('li').children(".open-card-option").addClass("icon-chevron-left").fadeIn('slow');
-            $this.parents('.card-option').children(".first-opt").fadeIn();
-        } else {
-            $this.parents('.card-option').animate({
-                'width': '130px',
-            });
-            $this.parents('.card-option').children('li').children(".open-card-option").addClass("icon-x").fadeIn('slow');
-            $this.parents('.card-option').children('li').children(".open-card-option").removeClass("icon-chevron-left").fadeIn('slow');
-            $this.parents('.card-option').children(".first-opt").fadeOut();
-        }
+    $('.select').click(function(event) {
+        event.stopPropagation();
     });
-    $(".card-header-right .minimize-card").on('click', function() {
-        var $this = $(this);
-        var port = $($this.parents('.card'));
-        var card = $(port).children('.card-block').slideToggle();
-        $(this).toggleClass("icon-minus").fadeIn('slow');
-        $(this).toggleClass("icon-plus").fadeIn('slow');
-    });
-    $(".card-header-right .full-card").on('click', function() {
-        var $this = $(this);
-        var port = $($this.parents('.card'));
-        port.toggleClass("full-card");
-        $(this).toggleClass("icon-minimize");
-        $(this).toggleClass("icon-maximize");
-    });
-    $("#more-details").on('click', function() {
-        $(".more-details").slideToggle(500);
-    });
-    $(".mobile-options").on('click', function() {
-        $(".navbar-container .nav-right").slideToggle('slow');
-    });
-    $(".search-btn").on('click', function() {
-        $(".main-search").addClass('open');
-        $('.main-search .form-control').animate({
-            'width': '200px',
-        });
-    });
-    $(".search-close").on('click', function() {
-        $('.main-search .form-control').animate({
-            'width': '0',
-        });
-        setTimeout(function() {
-            $(".main-search").removeClass('open');
-        }, 300);
-    });
-    // card js end
-    $("#styleSelector .style-cont").slimScroll({
-        setTop: "1px",
-        height: "calc(100vh - 480px)",
-    });
-    /*chatbar js start*/
-    /*chat box scroll*/
-    var a = $(window).height() - 80;
-    $(".main-friend-list").slimScroll({
-        height: a,
-        allowPageScroll: false,
-        wheelStep: 5
-    });
-    var a = $(window).height() - 155;
-    $(".main-friend-chat").slimScroll({
-        height: a,
-        allowPageScroll: false,
-        wheelStep: 5
-    });
+    $('.select .select-control').click(function() {
+        $(this).parent().next().toggle();
+    })
+    $('.select .dropdown li').click(function() {
+        $(this).parent().toggle();
+        var text = $(this).attr('rel');
+        $(this).parent().prev().find('div').text(text);
+    })
 
-    // search
-    $("#search-friends").on("keyup", function() {
-        var g = $(this).val().toLowerCase();
-        $(".userlist-box .media-body .chat-header").each(function() {
-            var s = $(this).text().toLowerCase();
-            $(this).closest('.userlist-box')[s.indexOf(g) !== -1 ? 'show' : 'hide']();
-        });
-    });
-
-    // open chat box
-    $('.displayChatbox').on('click', function() {
-        var my_val = $('.pcoded').attr('vertical-placement');
-        if (my_val == 'right') {
-            var options = {
-                direction: 'left'
-            };
-        } else {
-            var options = {
-                direction: 'right'
-            };
-        }
-        $('.showChat').toggle('slide', options, 500);
-    });
-
-    //open friend chat
-    $('.userlist-box').on('click', function() {
-        var my_val = $('.pcoded').attr('vertical-placement');
-        if (my_val == 'right') {
-            var options = {
-                direction: 'left'
-            };
-        } else {
-            var options = {
-                direction: 'right'
-            };
-        }
-        $('.showChat_inner').toggle('slide', options, 500);
-    });
-    //back to main chatbar
-    $('.back_chatBox').on('click', function() {
-        var my_val = $('.pcoded').attr('vertical-placement');
-        if (my_val == 'right') {
-            var options = {
-                direction: 'left'
-            };
-        } else {
-            var options = {
-                direction: 'right'
-            };
-        }
-        $('.showChat_inner').toggle('slide', options, 500);
-        $('.showChat').css('display', 'block');
-    });
-    $('.back_friendlist').on('click', function() {
-        var my_val = $('.pcoded').attr('vertical-placement');
-        if (my_val == 'right') {
-            var options = {
-                direction: 'left'
-            };
-        } else {
-            var options = {
-                direction: 'right'
-            };
-        }
-        $('.p-chat-user').toggle('slide', options, 500);
-        $('.showChat').css('display', 'block');
-    });
-    // /*chatbar js end*/
     $('[data-toggle="tooltip"]').tooltip();
 
-    // wave effect js
-    Waves.init();
-    Waves.attach('.flat-buttons', ['waves-button']);
-    Waves.attach('.float-buttons', ['waves-button', 'waves-float']);
-    Waves.attach('.float-button-light', ['waves-button', 'waves-float', 'waves-light']);
-    Waves.attach('.flat-buttons', ['waves-button', 'waves-float', 'waves-light', 'flat-buttons']);
 
-    // $('#mobile-collapse i').addClass('icon-toggle-right');
-    // $('#mobile-collapse').on('click', function() {
-    //     $('#mobile-collapse i').toggleClass('icon-toggle-right');
-    //     $('#mobile-collapse i').toggleClass('icon-toggle-left');
-    // });
-    // materia form
+    $(document).ready(function() {
+        $(".custom-file-input").on("change", function() {
+            var fileName = $(this).val().split("\\").pop();
+            $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+        });
 
-    $('.form-control').on('blur', function() {
-        if ($(this).val().length > 0) {
-            $(this).addClass("fill");
-        } else {
-            $(this).removeClass("fill");
-        }
+        $('#slider-service').slick({
+            dots: true,
+            rows: 2,
+            arrows: false,
+            infinite: true,
+            speed: 300,
+            slidesToShow: 3,
+            slidesToScroll: 3,
+            responsive: [
+                {
+                    breakpoint: 1024,
+                    settings: {
+                        rows: 2,
+                        slidesToShow: 3,
+                        slidesToScroll: 3,
+                        infinite: true,
+                        dots: true
+                    }
+                },
+                {
+                    breakpoint: 768,
+                    settings: {
+                        rows: 1,
+                        slidesToShow: 2,
+                        slidesToScroll: 2
+                    }
+                },
+                {
+                    breakpoint: 480,
+                    settings: {
+                        rows: 1,
+                        dots: false,
+                        arrows: true,
+                        slidesToShow: 1,
+                        slidesToScroll: 1
+                    }
+                }
+            ]
+        });
+
     });
-    $('.form-control').on('focus', function() {
-        $(this).addClass("fill");
+
+
+})
+
+
+
+
+//multi form ===================================
+//DOM elements
+const DOMstrings = {
+    stepsBtnClass: 'multisteps-form__progress-btn',
+    stepsBtns: document.querySelectorAll(`.multisteps-form__progress-btn`),
+    stepsBar: document.querySelector('.multisteps-form__progress'),
+    stepsForm: document.querySelector('.multisteps-form__form'),
+    stepFormPanelClass: 'multisteps-form__panel',
+    stepFormPanels: document.querySelectorAll('.multisteps-form__panel'),
+    stepPrevBtnClass: 'js-btn-prev',
+    stepNextBtnClass: 'js-btn-next'
+};
+
+
+//remove class from a set of items
+const removeClasses = (elemSet, className) => {
+
+    elemSet.forEach(elem => {
+
+        elem.classList.remove(className);
+
     });
-    $('#mobile-collapse i').addClass('icon-toggle-right');
-    $('#mobile-collapse').on('click', function() {
-        $('#mobile-collapse i').toggleClass('icon-toggle-right');
-        $('#mobile-collapse i').toggleClass('icon-toggle-left');
-    });
 
+};
 
-    // ======================== App On Click Functions ======================
-    $('.unconfigured').on('click',function () {
-        console.log('Clicked');
-        window.location="/configuration?id="+this.id;
-    });
+//return exect parent node of the element
+const findParent = (elem, parentClass) => {
 
-    // ======================== MQTT Initialization======================
- //   MQTTconnect();
-});
+    let currentNode = elem;
 
-function MQTTconnect() {
-    console.log("connecting to " + host + " " + port);
-    mqtt = new Paho.MQTT.Client(host, port, new Date().getTime().toString());
-    var options = {
-        userName: "openhab",
-        password: "imluiop7890",
-        timeout: 3,
-        onSuccess: onConnect,
-        onFailure: onFailure
-    };
-
-    mqtt.onMessageArrived = onMessage;
-
-    mqtt.connect(options);
-}
-
-function onConnect() {
-    console.log("Connected");
-    var allLoads = $('.loads');
-    allLoads.each(function (i) {
-        // console.log(allLoads[i].id);
-        mqtt.subscribe(allLoads[i].id);
-    });
-    // console.log(allLoads);
-    // mqtt.subscribe('#');
-    // var temp = $('.metrics .metricValue');
-    // temp.each(function (i) {
-    //     //console.log(temp[i].id);
-    //     mqtt.subscribe(temp[i].id);
-    // });
-}
-
-function onFailure(message) {
-    console.log("Connection Attempt to Host " + host + ": Failed");
-    // setTimeout(MQTTconnect, reconnectTimeout);
-}
-
-function onMessage(msg) {
-    console.log(msg.destinationName);
-    console.log(msg.payloadString);
-    // $('#'+msg.destinationName).html( msg.payloadString);
-    document.getElementById(msg.destinationName).innerHTML = msg.payloadString;
-}
-
-$(document).ready(function() {
-    var $window = $(window);
-    // $('.loader-bar').animate({
-    //     width: $window.width()
-    // }, 1000);
-    // setTimeout(function() {
-    // while ($('.loader-bar').width() == $window.width()) {
-    // $(window).on('load',function(){
-    $('.loader-bg').fadeOut();
-    // });
-
-    // break;
-
-    // }
-    // }, 2000);
-});
-
-// toggle full screen
-function toggleFullScreen() {
-    var a = $(window).height() - 10;
-
-    if (!document.fullscreenElement && // alternative standard method
-        !document.mozFullScreenElement && !document.webkitFullscreenElement) { // current working methods
-        if (document.documentElement.requestFullscreen) {
-            document.documentElement.requestFullscreen();
-        } else if (document.documentElement.mozRequestFullScreen) {
-            document.documentElement.mozRequestFullScreen();
-        } else if (document.documentElement.webkitRequestFullscreen) {
-            document.documentElement.webkitRequestFullscreen(Element.ALLOW_KEYBOARD_INPUT);
-        }
-    } else {
-        if (document.cancelFullScreen) {
-            document.cancelFullScreen();
-        } else if (document.mozCancelFullScreen) {
-            document.mozCancelFullScreen();
-        } else if (document.webkitCancelFullScreen) {
-            document.webkitCancelFullScreen();
-        }
+    while (!currentNode.classList.contains(parentClass)) {
+        currentNode = currentNode.parentNode;
     }
-    $('.full-screen').toggleClass('icon-maximize');
-    $('.full-screen').toggleClass('icon-minimize');
-}
+
+    return currentNode;
+
+};
+
+//get active button step number
+const getActiveStep = elem => {
+    return Array.from(DOMstrings.stepsBtns).indexOf(elem);
+};
+
+//set all steps before clicked (and clicked too) to active
+const setActiveStep = activeStepNum => {
+
+    //remove active state from all the state
+    removeClasses(DOMstrings.stepsBtns, 'js-active');
+
+    //set picked items to active
+    DOMstrings.stepsBtns.forEach((elem, index) => {
+
+        if (index <= activeStepNum) {
+            elem.classList.add('js-active');
+        }
+
+    });
+};
+
+//get active panel
+const getActivePanel = () => {
+
+    let activePanel;
+
+    DOMstrings.stepFormPanels.forEach(elem => {
+
+        if (elem.classList.contains('js-active')) {
+
+            activePanel = elem;
+
+        }
+
+    });
+
+    return activePanel;
+
+};
+
+//open active panel (and close unactive panels)
+const setActivePanel = activePanelNum => {
+
+    const animation = $(DOMstrings.stepFormPanels, 'js-active').attr("data-animation");
+
+    //remove active class from all the panels
+    removeClasses(DOMstrings.stepFormPanels, 'js-active');
+    removeClasses(DOMstrings.stepFormPanels, animation);
+    // removeClasses(DOMstrings.stepFormPanels, 'js-active', 'animate__animated', animation);
+    removeClasses(DOMstrings.stepFormPanels, 'animate__animated');
+
+    //show active panel
+    DOMstrings.stepFormPanels.forEach((elem, index) => {
+        if (index === activePanelNum) {
+
+            elem.classList.add('js-active');
+            // stepFormPanels
+            elem.classList.add('animate__animated', animation);
+
+            setTimeout(function() {
+                removeClasses(DOMstrings.stepFormPanels, 'animate__animated', animation);
+            }, 1200);
+
+            setFormHeight(elem);
+
+        }
+    });
+
+};
+
+
+//set form height equal to current panel height
+const formHeight = activePanel => {
+
+    const activePanelHeight = activePanel.offsetHeight;
+
+    DOMstrings.stepsForm.style.height = `${activePanelHeight}px`;
+
+};
+
+const setFormHeight = () => {
+    const activePanel = getActivePanel();
+
+    formHeight(activePanel);
+};
+
+//STEPS BAR CLICK FUNCTION
+DOMstrings.stepsBar.addEventListener('click', e => {
+
+    //check if click target is a step button
+    const eventTarget = e.target;
+
+    if (!eventTarget.classList.contains(`${DOMstrings.stepsBtnClass}`)) {
+        return;
+    }
+
+    //get active button step number
+    const activeStep = getActiveStep(eventTarget);
+
+    //set all steps before clicked (and clicked too) to active
+    setActiveStep(activeStep);
+
+    //open active panel
+    setActivePanel(activeStep);
+});
+
+//PREV/NEXT BTNS CLICK
+DOMstrings.stepsForm.addEventListener('click', e => {
+
+    const eventTarget = e.target;
+
+    //check if we clicked on `PREV` or NEXT` buttons
+    if (!(eventTarget.classList.contains(`${DOMstrings.stepPrevBtnClass}`) || eventTarget.classList.contains(`${DOMstrings.stepNextBtnClass}`))) {
+        return;
+    }
+
+    //find active panel
+    const activePanel = findParent(eventTarget, `${DOMstrings.stepFormPanelClass}`);
+
+    let activePanelNum = Array.from(DOMstrings.stepFormPanels).indexOf(activePanel);
+
+    //set active step and active panel onclick
+    if (eventTarget.classList.contains(`${DOMstrings.stepPrevBtnClass}`)) {
+        activePanelNum--;
+
+    } else {
+
+        activePanelNum++;
+
+    }
+
+    setActiveStep(activePanelNum);
+    setActivePanel(activePanelNum);
+
+});
+
+//SETTING PROPER FORM HEIGHT ONLOAD
+window.addEventListener('load', setFormHeight, true);
+
+//SETTING PROPER FORM HEIGHT ONRESIZE
+window.addEventListener('resize', setFormHeight, true);
