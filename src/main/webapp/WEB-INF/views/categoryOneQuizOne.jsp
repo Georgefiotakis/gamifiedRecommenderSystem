@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/neonwizard/b5/fontawesome-all.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/neonwizard/b5/quiz-questions-style.css">
     <link href="http://netdna.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.css" rel="stylesheet">
-    <script src="${pageContext.request.contextPath}/resources/js/categoryOne.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/js/categoryOneQuizOne.js"></script>
 
 <%--    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/colors/switch.css">--%>
     <!-- Color Alternatives -->
@@ -125,8 +125,31 @@
         padding-top: 10px;
     }
 
-</style>
+    .modal-full {
+        width: 500px;
+        height: 300px;
+        margin: 0 auto;
+        display: table;
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 30%;
+        /*border: 1px solid;*/
+        -webkit-transform: translateY(-50%);
+        -moz-transform: translateY(-50%);
+        -ms-transform: translateY(-50%);
+        -o-transform: translateY(-50%);
+        transform: translateY(-50%);
+    }
 
+</style>
+<script>
+
+    function returnToDashboard() {
+        location.replace("./dashboard");
+    }
+
+</script>
 <body class="dark-version">
 <%--<div id="switch-color" class="color-switcher">--%>
 <%--    <div class="open"><i class="fas fa-cog"></i></div>--%>
@@ -140,6 +163,37 @@
 <%--</div>--%>
 <div class="clearfix"></div>
 
+<%--<div class="modal fade" id="resultsModal">--%>
+<%--    <div class="modal-dialog modal-full">--%>
+<%--        <div class="modal-content">--%>
+<%--            <div class="modal-header">--%>
+<%--                <button type="button" class="close" data-dismiss="modal">×</button>--%>
+<%--&lt;%&ndash;                <h3 class="modal-title">&ndash;%&gt;--%>
+<%--&lt;%&ndash;                    Quiz Results !!!&ndash;%&gt;--%>
+<%--&lt;%&ndash;                </h3>&ndash;%&gt;--%>
+<%--            </div>--%>
+<%--            <div class="modal-body">--%>
+<%--&lt;%&ndash;                <img src="${pageContext.request.contextPath}/resources/img/textbook.png" style="width:120px;height:120px;">&ndash;%&gt;--%>
+<%--&lt;%&ndash;                <br>&ndash;%&gt;--%>
+<%--&lt;%&ndash;                <br>&ndash;%&gt;--%>
+<%--&lt;%&ndash;                <h4> Your results : </h4>&ndash;%&gt;--%>
+<%--&lt;%&ndash;                <br>&ndash;%&gt;--%>
+<%--&lt;%&ndash;                <h6> 3 / 5 Correct Answers </h6>&ndash;%&gt;--%>
+<%--&lt;%&ndash;                <br>&ndash;%&gt;--%>
+<%--&lt;%&ndash;                <h6> You have earned 60 Experienced Points </h6>&ndash;%&gt;--%>
+<%--&lt;%&ndash;                <h6> Correct answers for each answers are : </h6>&ndash;%&gt;--%>
+<%--&lt;%&ndash;                <h6> csefewewfwefew </h6>&ndash;%&gt;--%>
+<%--&lt;%&ndash;                <h6> Correct answers for each answers are : </h6>&ndash;%&gt;--%>
+<%--&lt;%&ndash;                <h6> Correct answers for each answers are : </h6>&ndash;%&gt;--%>
+<%--&lt;%&ndash;                <h6> Correct answers for each answers are : </h6>&ndash;%&gt;--%>
+
+<%--            </div>--%>
+<%--            <div class="modal-footer">--%>
+<%--                <button onclick="returnToDashboard()" type="button" class="btn btn-primary" data-dismiss="modal">Return to Dashboard</button>--%>
+<%--            </div>--%>
+<%--        </div>--%>
+<%--    </div>--%>
+<%--</div>--%>
 
 <div class="wrapper wizard d-flex clearfix multisteps-form position-relative">
     <div class="steps order-2 position-relative w-25">
@@ -153,7 +207,7 @@
             <span class="multisteps-form__progress-btn" title="Review"><i class="fa fa-question-circle"></i><span>Question 5</span></span>
         </div>
     </div>
-    <form class="multisteps-form__form w-75 order-1" style="display: block" id="lessonOne">
+    <form class="multisteps-form__form w-75 order-1" style="display: block">
         <div class="form-area position-relative">
             <!-- div 1 -->
             <div class="multisteps-form__panel js-active" data-animation="slideHorz">
@@ -169,7 +223,7 @@
                             <br>
                             <br>
                             <br>
-                            <label id="minutes">00</label>:<label id="seconds">00</label>
+<%--                            <label id="minutes">00</label>:<label id="seconds">00</label>--%>
                         </div>
                         <div class="wizard-form-input mb-60 mt-60" style="display: none;">
                             <div class="line line2"></div>
@@ -557,11 +611,15 @@
                     </div>
                     <div class="actions mt-60">
                         <ul>
-                            <li><span class="js-btn-prev" title="BACK"><i class="fa fa-arrow-left"></i> BACK </span>
-                            </li>
-                            <li>
-                                <button onclick="validateAnswersForLessonOne()" title="NEXT">SUBMIT <i class="fa fa-arrow-right"></i></button>
-                            </li>
+<%--                            <li><span class="js-btn-prev" title="BACK"><i class="fa fa-arrow-left"></i> BACK </span>--%>
+<%--                            </li>--%>
+<%--                            <li>--%>
+<%--                                <button onclick="validateAnswersForLessonOne()" title="NEXT">SUBMIT <i class="fa fa-arrow-right"></i></button>--%>
+<%--                            </li>--%>
+
+                            <li><span class="js-btn-prev" title="BACK"><i class="fa fa-arrow-left"></i> BACK </span></li>
+                            <li><span onclick="validateAnswersForLessonOne()" class="js-btn-next" title="NEXT" >SUBMIT <i class="fa fa-arrow-right"></i></span></li>
+
                         </ul>
                     </div>
                 </div>

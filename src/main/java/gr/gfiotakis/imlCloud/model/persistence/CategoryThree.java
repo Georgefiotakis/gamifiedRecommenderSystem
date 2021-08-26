@@ -6,9 +6,9 @@ import javax.persistence.*;
 @Table(name = "category_three")
 public class CategoryThree {
     Integer categoryThreeId;
-    Boolean lessonOne;
-    Boolean lessonTwo;
-    Boolean lessonThree;
+    Integer lessonOne;
+    Integer lessonTwo;
+    Integer lessonThree;
     User user;
 
     @Id
@@ -24,31 +24,31 @@ public class CategoryThree {
 
     @Basic
     @Column(name = "lesson_one")
-    public Boolean getLessonOne() {
+    public Integer getLessonOne() {
         return lessonOne;
     }
 
-    public void setLessonOne(Boolean lessonOne) {
+    public void setLessonOne(Integer lessonOne) {
         this.lessonOne = lessonOne;
     }
 
     @Basic
     @Column(name = "lesson_two")
-    public Boolean getLessonTwo() {
+    public Integer getLessonTwo() {
         return lessonTwo;
     }
 
-    public void setLessonTwo(Boolean lessonTwo) {
+    public void setLessonTwo(Integer lessonTwo) {
         this.lessonTwo = lessonTwo;
     }
 
     @Basic
     @Column(name = "lesson_three")
-    public Boolean getLessonThree() {
+    public Integer getLessonThree() {
         return lessonThree;
     }
 
-    public void setLessonThree(Boolean lessonThree) {
+    public void setLessonThree(Integer lessonThree) {
         this.lessonThree = lessonThree;
     }
 

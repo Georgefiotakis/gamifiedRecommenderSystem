@@ -31,26 +31,6 @@ public class UserManagementServiceImpl implements UserManagementService {
     }
 
     @Override
-    public void updateCategoryOne(Integer userId, Boolean lessonCompleted) {
-        userDAO.updateCategoryOne(userId, lessonCompleted);
-    }
-
-    @Override
-    public void updateCategoryTwo(Integer userId, Boolean lessonCompleted) {
-        userDAO.updateCategoryTwo(userId, lessonCompleted);
-    }
-
-    @Override
-    public void updateCategoryThree(Integer userId, Boolean lessonCompleted) {
-        userDAO.updateCategoryThree(userId, lessonCompleted);
-    }
-
-    @Override
-    public void updateCategoryFour(Integer userId, Boolean lessonCompleted) {
-        userDAO.updateCategoryFour(userId, lessonCompleted);
-    }
-
-    @Override
     @Transactional
     public void saveCategoryOne(CategoryOne categoryOne) {
         userDAO.saveCategoryOne(categoryOne);
@@ -84,5 +64,107 @@ public class UserManagementServiceImpl implements UserManagementService {
     @Transactional
     public Integer getUserCurrentXP(Integer userId) {
         return userDAO.getUserCurrentXP(userId);
+    }
+
+    @Override
+    @Transactional
+    public CategoryOne getCategoryOneLessonsByUserId(Integer userId) {
+        return userDAO.getCategoryOneLessonsByUserId(userId);
+    }
+
+    @Override
+    @Transactional
+    public CategoryTwo getCategoryTwoLessonsByUserId(Integer userId) {
+        return userDAO.getCategoryTwoLessonsByUserId(userId);
+    }
+
+    @Override
+    @Transactional
+    public CategoryThree getCategoryThreeLessonsByUserId(Integer userId) {
+        return userDAO.getCategoryThreeLessonsByUserId(userId);
+    }
+
+    @Override
+    @Transactional
+    public CategoryFour getCategoryFourLessonsByUserId(Integer userId) {
+        return userDAO.getCategoryFourLessonsByUserId(userId);
+    }
+
+    @Override
+    @Transactional
+    public void updateCategoryOneLessonOne(Integer userId, Integer lessonCompleted) {
+        userDAO.updateCategoryOneLessonOne(userId, lessonCompleted);
+    }
+
+    @Override
+    @Transactional
+    public void updateCategoryOneLessonTwo(Integer userId, Integer lessonCompleted) {
+        userDAO.updateCategoryOneLessonTwo(userId,lessonCompleted);
+    }
+
+    @Override
+    @Transactional
+    public void updateCategoryOneLessonThree(Integer userId, Integer lessonCompleted) {
+        userDAO.updateCategoryOneLessonThree(userId,lessonCompleted);
+    }
+
+    @Override
+    @Transactional
+    public void updateCategoryTwoLessonOne(Integer userId, Integer lessonCompleted) {
+        userDAO.updateCategoryTwoLessonOne(userId, lessonCompleted);
+    }
+
+    @Override
+    @Transactional
+    public void updateCategoryTwoLessonTwo(Integer userId, Integer lessonCompleted) {
+        userDAO.updateCategoryTwoLessonTwo(userId, lessonCompleted);
+    }
+
+    @Override
+    @Transactional
+    public void updateCategoryTwoLessonThree(Integer userId, Integer lessonCompleted) {
+        userDAO.updateCategoryTwoLessonThree(userId, lessonCompleted);
+    }
+
+    @Override
+    @Transactional
+    public void updateCategoryThreeLessonOne(Integer userId, Integer lessonCompleted) {
+        userDAO.updateCategoryThreeLessonOne(userId, lessonCompleted);
+    }
+
+    @Override
+    @Transactional
+    public void updateCategoryThreeLessonTwo(Integer userId, Integer lessonCompleted) {
+        userDAO.updateCategoryThreeLessonTwo(userId, lessonCompleted);
+    }
+
+    @Override
+    @Transactional
+    public void updateCategoryThreeLessonThree(Integer userId, Integer lessonCompleted) {
+        userDAO.updateCategoryThreeLessonThree(userId, lessonCompleted);
+    }
+
+    @Override
+    @Transactional
+    public void updateCategoryFourLessonOne(Integer userId, Integer lessonCompleted) {
+        userDAO.updateCategoryFourLessonOne(userId, lessonCompleted);
+    }
+
+    @Override
+    @Transactional
+    public void updateCategoryFourLessonTwo(Integer userId, Integer lessonCompleted) {
+        userDAO.updateCategoryFourLessonTwo(userId, lessonCompleted);
+    }
+
+    @Override
+    @Transactional
+    public void updateCategoryFourLessonThree(Integer userId, Integer lessonCompleted) {
+        userDAO.updateCategoryFourLessonThree(userId, lessonCompleted);
+    }
+
+    @Override
+    @Transactional
+    public void updateUserStars(Integer userId) {
+        userDAO.updateUserStars(userId);
     }
 }

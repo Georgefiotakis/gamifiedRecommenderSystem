@@ -6,6 +6,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <script src="${pageContext.request.contextPath}/resources/js/analytics.js"></script>
+<link href="${pageContext.request.contextPath}/resources/css/dashboard-style.css" rel="stylesheet">
 <style>
 
     @import url("https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css");
@@ -25,17 +26,58 @@
     }
 
     #countryBarChart {
-        width: 100%;
+        /*width: 100%;*/
         height: 500px;
     }
 
     #userBarChart {
-        width: 100%;
+        /*width: 100%;*/
         height: 500px;
     }
 
 </style>
+<header class="header black-bg">
+    <div class="sidebar-toggle-box">
+        <div class="fa fa-bars tooltips" data-placement="right" data-original-title="Toggle Navigation"></div>
+    </div>
+    <a href="./dashboard" class="logo"><b>TECHNOLOGY<span>LITERACY</span></b></a>
+    <div class="nav notify-row" id="top_menu">
+        <ul class="nav top-menu">
+<%--            <li>--%>
+<%--                <a>--%>
+<%--                    <i class="fa fa-user fa-lg"></i> XP points : <c:out value="${currentUserCoins}"/>--%>
+<%--                </a>--%>
+<%--            </li>--%>
 
+<%--            <li>--%>
+<%--                <a>--%>
+<%--                    <i class="fa fa-star fa-lg"></i> Stars : <c:out value="${currentUserLevel}"/>--%>
+<%--                </a>--%>
+<%--            </li>--%>
+<%--            <li id="header_inbox_bar" class="dropdown">--%>
+<%--                <a href="./achievement">--%>
+<%--                    <i class="fa fa-trophy fa-lg"></i> Achievements--%>
+<%--                </a>--%>
+
+<%--            </li>--%>
+<%--            <li id="header_notification_bar" class="dropdown">--%>
+<%--                <a href="./analytics">--%>
+<%--                    <i class="fa fa-bar-chart fa-lg"></i> Analytics--%>
+<%--                </a>--%>
+<%--            </li>--%>
+<%--            <li class="dropdown">--%>
+<%--                <a href="./analytics">--%>
+<%--                    <i class="fa fa-bullseye fa-lg"></i> Your Current Goal : <c:out value="${currentStudentGoal}"/>--%>
+<%--                </a>--%>
+<%--            </li>--%>
+        </ul>
+    </div>
+    <div class="top-menu">
+        <ul class="nav pull-right top-menu">
+            <li><a class="logout" href="./logout">Logout</a></li>
+        </ul>
+    </div>
+</header>
 <div class="pcoded-main-container">
     <div class="pcoded-wrapper">
         <div class="pcoded-content">

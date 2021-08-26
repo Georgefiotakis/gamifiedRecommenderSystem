@@ -52,7 +52,7 @@
     <script src="${pageContext.request.contextPath}/resources/js/vertical-layout.min.js"></script>
 <%--    <script src="${pageContext.request.contextPath}/resources/js/jquery.bootstrap.wizard.js"></script>--%>
 <%--    <script src="${pageContext.request.contextPath}/resources/js/gsdk-bootstrap-wizard.js"></script>--%>
-    <script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
+<%--    <script src="${pageContext.request.contextPath}/resources/js/main.js"></script>--%>
 
     <script src="//www.amcharts.com/lib/4/core.js"></script>
     <script src="//www.amcharts.com/lib/4/charts.js"></script>
@@ -73,7 +73,7 @@
     </div>
 </div>
 
-<script src="${pageContext.request.contextPath}/resources/js/material/material-kit.min.js"></script>
+<%--<script src="${pageContext.request.contextPath}/resources/js/material/material-kit.min.js"></script>--%>
 <script src="${pageContext.request.contextPath}/resources/js/bootstrap/bootstrap.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/dashboard.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/iCheck/iCheck.js"></script>

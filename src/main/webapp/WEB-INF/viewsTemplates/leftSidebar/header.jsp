@@ -71,50 +71,50 @@
 <%--    </nav>--%>
 <%--</header>--%>
 
-<header>
-<nav class="navbar navbar-expand-lg bg-primary">
-    <div class="navbar-container container-fluid">
-        <div class="navbar-translate navbar-logo">
-<%--            <a href="${pageContext.request.contextPath}" class="img-fluid" href="javascript:;"><img--%>
-<%--                    class="img-fluid"--%>
-<%--                    src="${pageContext.request.contextPath}/resources/img/dashboard/hypertech-logo.png"--%>
-<%--                    alt="Theme-Logo"></a>--%>
-            <a class="logout-mobile nav-link" onclick="logout()" href="javascript:;">
-                <i class="fa fa-power-off fa-2x"></i>
-            </a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" aria-expanded="false"
-                    aria-label="Toggle navigation">
-                <span class="sr-only">Toggle navigation</span>
-                                    <span class="navbar-toggler-icon"></span>
-                                    <span class="navbar-toggler-icon"></span>
-                                    <span class="navbar-toggler-icon"></span>
-                <i class="fa fa-cog fa-lg"></i>
-            </button>
-        </div>
-        <div class="collapse navbar-collapse">
-            <ul class="navbar-nav ml-auto nav-right">
-                <li class=" nav-item">
-                    <a href="javascript:;" onclick="redirectToDashboard()" class="nav-link">
-                        <i class="fa fa-home fa-lg"></i>Home
-                    </a>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link" href="javascript:;">
-                        <i class="fa fa-user fa-lg"></i>Hi <c:out
-                            value="${studentFirstName}"/>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="logout-desktop nav-link" onclick="logout()" href="javascript:;">
-                        <i class="fa fa-sign-out fa-lg"></i>
-                    </a>
-                </li>
-            </ul>
-        </div>
-    </div>
-</nav>
+<%--<header>--%>
+<%--<nav class="navbar navbar-expand-lg bg-primary">--%>
+<%--    <div class="navbar-container container-fluid">--%>
+<%--        <div class="navbar-translate navbar-logo">--%>
+<%--&lt;%&ndash;            <a href="${pageContext.request.contextPath}" class="img-fluid" href="javascript:;"><img&ndash;%&gt;--%>
+<%--&lt;%&ndash;                    class="img-fluid"&ndash;%&gt;--%>
+<%--&lt;%&ndash;                    src="${pageContext.request.contextPath}/resources/img/dashboard/hypertech-logo.png"&ndash;%&gt;--%>
+<%--&lt;%&ndash;                    alt="Theme-Logo"></a>&ndash;%&gt;--%>
+<%--            <a class="logout-mobile nav-link" onclick="logout()" href="javascript:;">--%>
+<%--                <i class="fa fa-power-off fa-2x"></i>--%>
+<%--            </a>--%>
+<%--            <button class="navbar-toggler" type="button" data-toggle="collapse" aria-expanded="false"--%>
+<%--                    aria-label="Toggle navigation">--%>
+<%--                <span class="sr-only">Toggle navigation</span>--%>
+<%--                                    <span class="navbar-toggler-icon"></span>--%>
+<%--                                    <span class="navbar-toggler-icon"></span>--%>
+<%--                                    <span class="navbar-toggler-icon"></span>--%>
+<%--                <i class="fa fa-cog fa-lg"></i>--%>
+<%--            </button>--%>
+<%--        </div>--%>
+<%--        <div class="collapse navbar-collapse">--%>
+<%--            <ul class="navbar-nav ml-auto nav-right">--%>
+<%--                <li class=" nav-item">--%>
+<%--                    <a href="javascript:;" onclick="redirectToDashboard()" class="nav-link">--%>
+<%--                        <i class="fa fa-home fa-lg"></i>Home--%>
+<%--                    </a>--%>
+<%--                </li>--%>
+<%--                <li class="nav-item dropdown">--%>
+<%--                    <a class="nav-link" href="javascript:;">--%>
+<%--                        <i class="fa fa-user fa-lg"></i>Hi <c:out--%>
+<%--                            value="${studentFirstName}"/>--%>
+<%--                    </a>--%>
+<%--                </li>--%>
+<%--                <li class="nav-item">--%>
+<%--                    <a class="logout-desktop nav-link" onclick="logout()" href="javascript:;">--%>
+<%--                        <i class="fa fa-sign-out fa-lg"></i>--%>
+<%--                    </a>--%>
+<%--                </li>--%>
+<%--            </ul>--%>
+<%--        </div>--%>
+<%--    </div>--%>
+<%--</nav>--%>
 
-</header>
+<%--</header>--%>
 
 
 <script>

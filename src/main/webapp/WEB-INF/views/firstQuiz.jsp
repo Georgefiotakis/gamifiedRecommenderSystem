@@ -1,5 +1,3 @@
-<%--<!DOCTYPE html>--%>
-<%--<html lang="en">--%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
@@ -7,36 +5,52 @@
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <%--    <meta charset="utf-8">--%>
+
+    <meta charset="utf-8">
     <title>Technology Literacy</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="${pageContext.request.contextPath}/resources/js/jquery-2.2.4.min.js"></script>
-<%--    <script src="${pageContext.request.contextPath}/resources/js/neonWizard/b4/jquery-3.3.1.min.js"></script>--%>
-<%--    <script src="${pageContext.request.contextPath}/resources/js/neonWizard/b4/jquery.validate.min.js"></script>--%>
-    <script src="${pageContext.request.contextPath}/resources/js/neonWizard/b4/bootstrap.min.js"></script>
-<%--    <script src="${pageContext.request.contextPath}/resources/js/neonWizard/b4/conditionize.flexible.jquery.min.js"></script>--%>
-    <script src="${pageContext.request.contextPath}/resources/js/neonWizard/b4/main.js"></script>
-<%--    <script src="${pageContext.request.contextPath}/resources/js/neonWizard/b4/switch.js"></script>--%>
-<%--    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>--%>
+
+
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/neonwizard/b4/bootstrap.min.css">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/neonwizard/b4/animate.min.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/neonwizard/b4/fontawesome-all.css">
-<%--    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.css">--%>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/neonwizard/b4/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link href="https://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
-        <script src="${pageContext.request.contextPath}/resources/js/firstQuiz.js"></script>
-<%--    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/colors/switch.css">--%>
-    <!-- Color Alternatives -->
-<%--    <link href="${pageContext.request.contextPath}/resources/css/colors/color-2.css" rel="alternate stylesheet" type="text/css" title="color-2">--%>
-<%--    <link href="${pageContext.request.contextPath}/resources/css/colors/color-3.css" rel="alternate stylesheet" type="text/css" title="color-3">--%>
-<%--    <link href="${pageContext.request.contextPath}/resources/css/colors/color-4.css" rel="alternate stylesheet" type="text/css" title="color-4">--%>
-<%--    <link href="${pageContext.request.contextPath}/resources/css/colors/color-5.css" rel="alternate stylesheet" type="text/css" title="color-5">--%>
+    <link href="http://netdna.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.css" rel="stylesheet">
+
+    <%--    <link rel="stylesheet" type="text/css" href="assets/css/colors/switch.css">--%>
+    <%--    <!-- Color Alternatives -->--%>
+    <%--    <link href="assets/css/colors/color-2.css" rel="alternate stylesheet" type="text/css" title="color-2">--%>
+    <%--    <link href="assets/css/colors/color-3.css" rel="alternate stylesheet" type="text/css" title="color-3">--%>
+    <%--    <link href="assets/css/colors/color-4.css" rel="alternate stylesheet" type="text/css" title="color-4">--%>
+    <%--    <link href="assets/css/colors/color-5.css" rel="alternate stylesheet" type="text/css" title="color-5">--%>
+
+
+<%--    <title>Technology Literacy</title>--%>
+<%--    <meta name="viewport" content="width=device-width, initial-scale=1.0">--%>
+<%--    <script src="${pageContext.request.contextPath}/resources/js/neonWizard/b4/jquery-3.3.1.min.js"></script>--%>
+<%--    <script src="${pageContext.request.contextPath}/resources/js/neonWizard/b4/jquery.validate.min.js"></script>--%>
+<%--    <script src="${pageContext.request.contextPath}/resources/js/neonWizard/b4/bootstrap.min.js"></script>--%>
+<%--    <script src="${pageContext.request.contextPath}/resources/js/neonWizard/b4/conditionize.flexible.jquery.min.js"></script>--%>
+<%--    <script src="${pageContext.request.contextPath}/resources/js/neonWizard/b4/main.js"></script>--%>
+<%--    <script src="${pageContext.request.contextPath}/resources/js/neonWizard/b4/switch.js"></script>--%>
+<%--    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>--%>
+<%--    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/neonwizard/b4/bootstrap.min.css">--%>
+<%--    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/neonwizard/b4/animate.min.css">--%>
+<%--    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/neonwizard/b4/fontawesome-all.css">--%>
+<%--    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/neonwizard/b4/style.css">--%>
+<%--    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">--%>
+<%--    <link href="https://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">--%>
+<%--    <script src="${pageContext.request.contextPath}/resources/js/firstQuiz.js"></script>--%>
 </head>
 
 <style>
     @import url('https://rsms.me/inter/inter.css');
+
     :root {
         --color-light: white;
         --color-dark: #212121;
@@ -54,15 +68,18 @@
         font-weight: 300;
         padding: 0 calc(var(--size-bezel) * 3);
     }
+
     h1, h2, h3 {
         font-weight: 900;
     }
+
     mark {
         background: var(--color-accent);
         color: var(--color-text);
         font-weight: bold;
         padding: 0 0.2em;
     }
+
     .card {
         background: var(--color-background);
         padding: calc(4 * var(--size-bezel));
@@ -71,11 +88,13 @@
         border: 3px solid var(--color-shadow, currentColor);
         box-shadow: 0.5rem 0.5rem 0 var(--color-shadow, currentColor);
     }
+
     .card--inverted {
         --color-background: var(--color-dark);
         color: var(--color-light);
         --color-shadow: var(--color-accent);
     }
+
     .card--accent {
         --color-background: var(--color-signal);
         --color-accent: var(--color-light);
@@ -83,17 +102,21 @@
         font-size: 12px;
         font-weight: 400;
     }
+
     .card *:first-child {
         margin-top: 0;
     }
+
     .l-design-widht {
         max-width: 40rem;
         padding: 1rem;
     }
+
     .input {
         position: relative;
         width: 300px;
     }
+
     .input__label {
         position: absolute;
         left: 0;
@@ -109,6 +132,7 @@
         font-weight: bold;
         line-height: 1.2;
     }
+
     .input__field {
         box-sizing: border-box;
         display: block;
@@ -119,13 +143,16 @@
         background: transparent;
         border-radius: var(--size-radius);
     }
+
     .input__field:focus + .input__label, .input__field:not(:placeholder-shown) + .input__label {
         transform: translate(0.25rem, -65%) scale(0.8);
         color: var(--color-accent);
     }
+
     .button-group {
         margin-top: calc(var(--size-bezel) * 2.5);
     }
+
     button {
         color: currentColor;
         padding: var(--size-bezel) calc(var(--size-bezel) * 2);
@@ -134,27 +161,26 @@
         border-radius: var(--size-radius);
         font-weight: 900;
     }
+
     button[type=reset] {
         background: var(--color-background);
         font-weight: 200;
     }
+
     button + button {
         margin-left: calc(var(--size-bezel) * 2);
     }
+
     .icon {
         display: inline-block;
         width: 1em;
         height: 1em;
         margin-right: 0.5em;
     }
+
     .hidden {
         display: none;
     }
-
-
-
-
-
 
 
     @import url('https://fonts.googleapis.com/css?family=Lato');
@@ -165,7 +191,7 @@
         overflow: auto;
     }
 
-    .ulGoal li{
+    .ulGoal li {
         color: #AAAAAA;
         display: block;
         position: relative;
@@ -175,12 +201,12 @@
         border-bottom: 1px solid #333;
     }
 
-    .ulGoal li input[type=radio]{
+    .ulGoal li input[type=radio] {
         position: absolute;
         visibility: hidden;
     }
 
-    .ulGoal li label{
+    .ulGoal li label {
         display: block;
         position: relative;
         font-weight: 600;
@@ -194,13 +220,13 @@
         -webkit-transition: all 0.25s linear;
     }
 
-    .ulGoal li:hover label{
+    .ulGoal li:hover label {
         color: #624cf9;
         /*font-size: 13px;*/
         font-weight: 600;
     }
 
-    .ulGoal li .check{
+    .ulGoal li .check {
         display: block;
         position: absolute;
         border: 5px solid #AAAAAA;
@@ -236,17 +262,17 @@
         border: 5px solid #624cf9;
     }
 
-    input[type=radio]:checked ~ .check::before{
+    input[type=radio]:checked ~ .check::before {
         background: #624cf9;
     }
 
-    input[type=radio]:checked ~ label{
+    input[type=radio]:checked ~ label {
         color: #624cf9;
         font-weight: 600;
     }
 
     .step-box-content {
-        background-color: #1d1d1d!important;
+        background-color: #1d1d1d !important;
     }
 
     .step-box-content .step-box-text {
@@ -255,26 +281,10 @@
 </style>
 
 <body>
-<%--<body class="dark-version">--%>
 
-<!-- This code is use for color chooser, you can delete -->
-<%--<div id="switch-color" class="color-switcher">--%>
-<%--    <div class="open"><i class="fas fa-cog"></i></div>--%>
-<%--    <h4>COLOR OPTION</h4>--%>
-<%--    <ul>--%>
-<%--        <li><a class="color-2" onclick="setActiveStyleSheet('color-2'); return false;" href="#"><i--%>
-<%--                class="fas fa-cog"></i></a></li>--%>
-<%--        <li><a class="color-3" onclick="setActiveStyleSheet('color-3'); return false;" href="#"><i--%>
-<%--                class="fas fa-cog"></i></a></li>--%>
-<%--        <li><a class="color-4" onclick="setActiveStyleSheet('color-4'); return false;" href="#"><i--%>
-<%--                class="fas fa-cog"></i></a></li>--%>
-<%--        <li><a class="color-5" onclick="setActiveStyleSheet('color-5'); return false;" href="#"><i--%>
-<%--                class="fas fa-cog"></i></a></li>--%>
-<%--    </ul>--%>
-<%--</div>--%>
+<%--<button onclick="goToDashboard()" title="NEXT">SUBMIT <i class="fa fa-arrow-right"></i></button>--%>
+
 <div class="clearfix"></div>
-
-
 <div class="wrapper">
     <div class="steps-area steps-area-fixed">
         <div class="image-holder">
@@ -300,7 +310,7 @@
             </ul>
         </div>
     </div>
-<%--    <form class="multisteps-form__form" style="display: block">--%>
+    <%--    <form class="multisteps-form__form" style="display: block">--%>
     <form class="multisteps-form__form w-75 order-1" id="firstQuizForm" style="display: block">
         <div class="form-area position-relative">
             <!-- div 1 -->
@@ -312,14 +322,15 @@
                                 <span class="step-no">Step 1</span>
                                 <%--                                <h2>What kind of Services You need?</h2>--%>
                                 <h2>Which is your Gender ?</h2>
-                                <p>Complete following questions in order to transform the application based on your
-                                    selections</p>
+<%--                                <p>Complete following questions in order to transform the application based on your--%>
+<%--                                    selections</p>--%>
                                 <div class="step-box">
                                     <div class="row">
                                         <div class="col-md-4 genderDiv">
                                             <label class="genderMale step-box-content bg-white text-center relative-position active">
 													<span class="step-box-icon">
-														<img src="${pageContext.request.contextPath}/resources/img/male-memoji.png" alt="">
+														<img src="${pageContext.request.contextPath}/resources/img/male-memoji.png"
+                                                             alt="">
 <%--														<img src="${pageContext.request.contextPath}/resources/img/giphy.gif" alt="">--%>
 													</span>
                                                 <span class="step-box-text">
@@ -331,11 +342,12 @@
 													</span>
                                             </label>
                                         </div>
-                                        <div class="col-md-4 genderDiv"> </div>
+                                        <div class="col-md-4 genderDiv"></div>
                                         <div class="col-md-4 genderDiv">
                                             <label class="genderFemale step-box-content bg-white text-center relative-position">
 													<span class="step-box-icon">
-														<img src="${pageContext.request.contextPath}/resources/img/female-memoji.png" alt="">
+														<img src="${pageContext.request.contextPath}/resources/img/female-memoji.png"
+                                                             alt="">
 <%--														<img src="${pageContext.request.contextPath}/resources/img/source.gif" alt="">--%>
 													</span>
                                                 <span class="step-box-text">
@@ -699,9 +711,10 @@
                                 </div>
                             </div>
                             <h2>How old are you ? <br></h2>
-                            <p> The application needs your age in order to make your profile properly. </p>
+<%--                            <p> The application needs your age in order to make your profile properly. </p>--%>
                             <div class="form-inner-area">
-                                <input id="intLimitTextBox" type="number" class="form-control" minlength="1" maxlength="2" placeholder="Your Age ">
+                                <input onchange="validateStudentAge()" id="intLimitTextBox" type="number" class="form-control" minlength="6"
+                                       maxlength="12" placeholder="Your Age ">
                             </div>
                         </div>
                     </div>
@@ -710,7 +723,7 @@
                 <div class="actions">
                     <ul>
                         <li><span class="js-btn-prev" title="BACK"><i class="fa fa-arrow-left"></i> BACK </span></li>
-                        <li><span class="js-btn-next" title="NEXT">NEXT <i class="fa fa-arrow-right"></i></span></li>
+                        <li><span id="ageNextButton" class="js-btn-next" title="NEXT">NEXT <i class="fa fa-arrow-right"></i></span></li>
                     </ul>
                 </div>
             </div>
@@ -731,17 +744,18 @@
                                 </div>
                             </div>
                             <h2>What's your name</h2>
-                            <p>The application needs your name in order to call you with it.</p>
+<%--                            <p>The application needs your name in order to call you with it.</p>--%>
                             <div class="form-inner-area">
-                                <input id="intLimitTextBox2" type="text" name="full_name" class="form-control" maxlength="50" placeholder="First and last name *">
-<%--                                <input type="text" name="phone" placeholder="Phone">--%>
+                                <input id="intLimitTextBox2" type="text" name="full_name" class="form-control"
+                                       maxlength="50" placeholder="First and last name *">
+                                <%--                                <input type="text" name="phone" placeholder="Phone">--%>
                             </div>
-<%--                            <div class="step-content-area">--%>
-<%--                                <label class="input">--%>
-<%--                                    <input id="intLimitTextBox2" class="input__field" type="text" required placeholder=" " >--%>
-<%--                                    <span class="input__label">Enter your name </span>--%>
-<%--                                </label>--%>
-<%--                            </div>--%>
+                            <%--                            <div class="step-content-area">--%>
+                            <%--                                <label class="input">--%>
+                            <%--                                    <input id="intLimitTextBox2" class="input__field" type="text" required placeholder=" " >--%>
+                            <%--                                    <span class="input__label">Enter your name </span>--%>
+                            <%--                                </label>--%>
+                            <%--                            </div>--%>
                         </div>
                     </div>
                 </div>
@@ -770,36 +784,47 @@
                                 </div>
                             </div>
                             <h2>Please, choose your daily goal</h2>
-                            <p> Try to complete your daily goal in order to earn an achievement.
+<%--                            <p> Try to complete your daily goal in order to earn an achievement.--%>
                             </p>
                             <div class="step-content-field">
                                 <ul id="ulStudentGoal" class="ulGoal">
                                     <li class="liGoal">
-                                        <input onclick="takeStudentSelectedGoal(this.id, this.value)" value="Flaccid" class="inputGoal" type="radio" id="f-option" name="selector">
+                                        <input onclick="takeStudentSelectedGoal(this.id, this.value)" value="Flaccid"
+                                               class="inputGoal" type="radio" id="f-option" name="selector">
                                         <label class="goalValue" for="f-option">Flaccid 5 minutes / day</label>
 
                                         <div class="check"></div>
                                     </li>
 
                                     <li class="liGoal">
-                                        <input onclick="takeStudentSelectedGoal(this.id, this.value)" value="Ceremonious" class="inputGoal" type="radio" id="s-option" name="selector">
+                                        <input onclick="takeStudentSelectedGoal(this.id, this.value)"
+                                               value="Ceremonious" class="inputGoal" type="radio" id="s-option"
+                                               name="selector">
                                         <label class="goalValue" for="s-option">Ceremonious 10 minutes / day</label>
 
-                                        <div class="check"><div class="inside"></div></div>
+                                        <div class="check">
+                                            <div class="inside"></div>
+                                        </div>
                                     </li>
 
                                     <li class="liGoal">
-                                        <input onclick="takeStudentSelectedGoal(this.id, this.value)" value="Grave" class="inputGoal" type="radio" id="t-option" name="selector">
-                                        <label class="goalValue" for="t-option">Grave  15 minutes / day</label>
+                                        <input onclick="takeStudentSelectedGoal(this.id, this.value)" value="Grave"
+                                               class="inputGoal" type="radio" id="t-option" name="selector">
+                                        <label class="goalValue" for="t-option">Grave 15 minutes / day</label>
 
-                                        <div class="check"><div class="inside"></div></div>
+                                        <div class="check">
+                                            <div class="inside"></div>
+                                        </div>
                                     </li>
 
                                     <li class="liGoal">
-                                        <input onclick="takeStudentSelectedGoal(this.id, this.value)" value="Intensive" class="inputGoal" type="radio" id="r-option" name="selector">
+                                        <input onclick="takeStudentSelectedGoal(this.id, this.value)" value="Intensive"
+                                               class="inputGoal" type="radio" id="r-option" name="selector">
                                         <label class="goalValue" for="r-option">Intensive 20 minutes / day</label>
 
-                                        <div class="check"><div class="inside"></div></div>
+                                        <div class="check">
+                                            <div class="inside"></div>
+                                        </div>
                                     </li>
                                 </ul>
                             </div>
@@ -808,83 +833,29 @@
                 </div>
                 <!-- /.inner -->
                 <div class="actions mt-60">
-<%--                    <ul>--%>
-<%--                        <li><span class="js-btn-prev" title="BACK"><i class="fa fa-arrow-left"></i> BACK </span></li>--%>
+                    <ul>
+<%--                        <li><span class="js-btn-prev" title="BACK"><i class="fa fa-arrow-left"></i> BACK </span>--%>
+<%--                        </li>--%>
 <%--                        <li>--%>
 <%--                            <button onclick="goToDashboard()" title="NEXT">SUBMIT <i class="fa fa-arrow-right"></i></button>--%>
 <%--                        </li>--%>
-<%--                    </ul>--%>
-                    <ul>
-                        <li><span class="js-btn-prev" title="BACK"><i class="fa fa-arrow-left"></i> BACK </span>
-                        </li>
-                        <li>
-                            <button onclick="goToDashboard()" title="NEXT">SUBMIT <i class="fa fa-arrow-right"></i></button>
-                        </li>
+
+                        <li><span class="js-btn-prev" title="BACK"><i class="fa fa-arrow-left"></i> BACK </span></li>
+                        <li><span onclick="goToDashboard()" class="js-btn-next" title="NEXT">SUBMIT <i class="fa fa-arrow-right"></i></span></li>
+
                     </ul>
                 </div>
             </div>
         </div>
-</form>
+    </form>
 </div>
-
-
-<script>
-    // $("#files").change(function () {
-    //     filename = this.files[0].name
-    //     // console.log(filename);
-    // });
-
-    // function UploadFile() {
-    //     var reader = new FileReader();
-    //     var file = document.getElementById('attach').files[0];
-    //     reader.onload = function () {
-    //         document.getElementById('fileContent').value = reader.result;
-    //         document.getElementById('filename').value = file.name;
-    //         document.getElementById('wizard').submit();
-    //     }
-    //     reader.readAsDataURL(file);
-    // }
-
-    // $(document).ready(function () {
-    //     $('.conditional').conditionize();
-    // });
-    //
-    // var _gaq = _gaq || [];
-    // _gaq.push(['_setAccount', 'UA-36251023-1']);
-    // _gaq.push(['_setDomainName', 'jqueryscript.net']);
-    // _gaq.push(['_trackPageview']);
-
-    // (function () {
-    //     var ga = document.createElement('script');
-    //     ga.type = 'text/javascript';
-    //     ga.async = true;
-    //     ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-    //     var s = document.getElementsByTagName('script')[0];
-    //     s.parentNode.insertBefore(ga, s);
-    // })();
-
-    // $("#country_selector").countrySelect({
-    //     // defaultCountry: "jp",
-    //     // onlyCountries: ['us', 'gb', 'ch', 'ca', 'do'],
-    //     // responsiveDropdown: true,
-    //     preferredCountries: ['ca', 'gb', 'us']
-    // });
-
-    <%--let timer;--%>
-
-    <%--document.addEventListener('input', e => {--%>
-    <%--    const el = e.target;--%>
-
-    <%--    if( el.matches('[data-color]') ) {--%>
-    <%--        clearTimeout(timer);--%>
-    <%--        timer = setTimeout(() => {--%>
-    <%--            document.documentElement.style.setProperty(`--color-${el.dataset.color}`, el.value);--%>
-    <%--        }, 100)--%>
-    <%--    }--%>
-    <%--})--%>
-
-
-</script>
+<script src="${pageContext.request.contextPath}/resources/js/neonWizard/b4/jquery-3.3.1.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/neonWizard/b4/jquery.validate.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/neonWizard/b4/bootstrap.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/firstQuiz.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/neonWizard/b4/conditionize.flexible.jquery.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/neonWizard/b4/main.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/neonWizard/b4/switch.js"></script>
 </body>
-
-<%--</html>--%>
+</html>
