@@ -2,6 +2,19 @@ $(document).ready(function () {
 
     var userXP = $(".hiddenUserXP").attr('value');
     var userLevel = $(".hiddenUserLevel").attr('value');
+    var catOneLesOneCompletion;
+    var catOneLesTwoCompletion;
+    var catOneLesThreeCompletion;
+    var catTwoLesOneCompletion;
+    var catTwoLesTwoCompletion;
+    var catTwoLesThreeCompletion;
+    var catThreeLesOneCompletion;
+    var catThreeLesTwoCompletion;
+    var catThreeLesThreeCompletion;
+    var catFourLesOneCompletion;
+    var catFourLesTwoCompletion;
+    var catFourLesThreeCompletion;
+
 
     $.ajax({
         type: "GET",
@@ -16,11 +29,15 @@ $(document).ready(function () {
         type: "GET",
         url: "./getUserCategoryOneLessons",
         success: function (data, status) {
-            console.log("Lessons retrieved for category one");
+            // console.log("Lessons retrieved for category one");
 
             var lessonOneValue = data["lessonOne"];
             var lessonTwoValue = data["lessonTwo"];
             var lessonThreeValue = data["lessonThree"];
+
+            catOneLesOneCompletion = lessonOneValue;
+            catOneLesTwoCompletion = lessonTwoValue;
+            catOneLesThreeCompletion = lessonThreeValue;
 
             if (lessonOneValue === 1) {
                 enableNext(categoryOneDiv);
@@ -65,11 +82,15 @@ $(document).ready(function () {
         type: "GET",
         url: "./getUserCategoryTwoLessons",
         success: function (data, status) {
-            console.log("Lessons retrieved for category two");
+            // console.log("Lessons retrieved for category two");
 
             var lessonOneValue = data["lessonOne"];
             var lessonTwoValue = data["lessonTwo"];
             var lessonThreeValue = data["lessonThree"];
+
+            catTwoLesOneCompletion = lessonOneValue;
+            catTwoLesTwoCompletion = lessonTwoValue;
+            catTwoLesThreeCompletion = lessonThreeValue;
 
             if (lessonOneValue === 1 ) {
                 enableNext(categoryTwoDiv);
@@ -114,11 +135,15 @@ $(document).ready(function () {
         type: "GET",
         url: "./getUserCategoryThreeLessons",
         success: function (data, status) {
-            console.log("Lessons retrieved for category three");
+            // console.log("Lessons retrieved for category three");
 
             var lessonOneValue = data["lessonOne"];
             var lessonTwoValue = data["lessonTwo"];
             var lessonThreeValue = data["lessonThree"];
+
+            catThreeLesOneCompletion = lessonOneValue;
+            catThreeLesTwoCompletion = lessonTwoValue;
+            catThreeLesThreeCompletion = lessonThreeValue;
 
             if (lessonOneValue === 1 ) {
                 enableNext(categoryThreeDiv);
@@ -163,11 +188,15 @@ $(document).ready(function () {
         type: "GET",
         url: "./getUserCategoryFourLessons",
         success: function (data, status) {
-            console.log("Lessons retrieved for category four");
+            // console.log("Lessons retrieved for category four");
 
             var lessonOneValue = data["lessonOne"];
             var lessonTwoValue = data["lessonTwo"];
-            var lessonThreeVlue = data["lessonThree"];
+            var lessonThreeValue = data["lessonThree"];
+
+            catFourLesOneCompletion = lessonOneValue;
+            catFourLesTwoCompletion = lessonTwoValue;
+            catFourLesThreeCompletion = lessonThreeValue;
 
             if (lessonOneValue === 1 ) {
                 enableNext(categoryFourDiv);
@@ -183,16 +212,16 @@ $(document).ready(function () {
             }
 
             var h6 = document.createElement('h6');
-            if (lessonOneValue === 0 && lessonTwoValue === 0 && lessonThreeVlue === 0) {
+            if (lessonOneValue === 0 && lessonTwoValue === 0 && lessonThreeValue === 0) {
                 h6.innerHTML = "Quiz Completed : 0 / 3";
             }
-            if (lessonOneValue === 1 && lessonTwoValue === 0 && lessonThreeVlue === 0) {
+            if (lessonOneValue === 1 && lessonTwoValue === 0 && lessonThreeValue === 0) {
                 h6.innerHTML = "Quiz Completed : 1 / 3";
             }
-            if (lessonOneValue === 1 && lessonTwoValue === 1 && lessonThreeVlue === 0) {
+            if (lessonOneValue === 1 && lessonTwoValue === 1 && lessonThreeValue === 0) {
                 h6.innerHTML = "Quiz Completed : 2 / 3";
             }
-            if (lessonOneValue === 1 && lessonTwoValue === 1 && lessonThreeVlue === 1) {
+            if (lessonOneValue === 1 && lessonTwoValue === 1 && lessonThreeValue === 1) {
                 h6.innerHTML = "Quiz Completed : 3 / 3";
             }
             $('.categoryFourFooter').append(h6);
@@ -203,6 +232,10 @@ $(document).ready(function () {
         $('#Mymodal').modal('show')
     });
 
+    // $('#achievementArgs').click(function(){
+    //     createProgressBars(catOneLesOneCompletion,catOneLesTwoCompletion,catOneLesThreeCompletion,catTwoLesOneCompletion,catTwoLesTwoCompletion,catTwoLesThreeCompletion,catThreeLesOneCompletion,catThreeLesTwoCompletion,catThreeLesThreeCompletion,catFourLesOneCompletion,catFourLesTwoCompletion,catFourLesThreeCompletion);
+    // });
+
 });
 
 function raiseStars() {
@@ -210,7 +243,7 @@ function raiseStars() {
         type: "GET",
         url: "./raiseUserStars",
         success: function (data, status) {
-            console.log("Star raised successfully");
+            // console.log("Star raised successfully");
             location.replace("./dashboard");
         }
     });
@@ -233,7 +266,7 @@ function openCity(evt, cityName) {
 function enableNext(element) {
 
     var idName = element.id;
-    console.log("idName:" + idName);
+    // console.log("idName:" + idName);
     document.getElementById(idName).style.opacity = "1";
     document.getElementById(idName).style.pointerEvents = "all";
 }
@@ -241,7 +274,7 @@ function enableNext(element) {
 function createLeaderboard(data) {
 
 // Themes begin
-    console.log("Data:" + data);
+//     console.log("Data:" + data);
     am4core.useTheme(am4themes_animated);
     am4core.options.autoSetClassName = true;
 // Themes end

@@ -46,23 +46,39 @@
         height: 1000px;
     }
 
-    #progressbar {
-        background-color: black;
-        border-radius: 13px;
-        /* (height of inner div) / 2 + padding */
-        padding: 3px;
-        width: 70%;
-        margin-left: auto;
-        margin-right: auto;
-        position: relative;
-        top: 20px;
+    /*#progressbar {*/
+    /*    background-color: black;*/
+    /*    border-radius: 13px;*/
+    /*    !* (height of inner div) / 2 + padding *!*/
+    /*    padding: 3px;*/
+    /*    width: 70%;*/
+    /*    margin-left: auto;*/
+    /*    margin-right: auto;*/
+    /*    position: relative;*/
+    /*    top: 20px;*/
+    /*}*/
+
+    /*#progressbar>div {*/
+    /*    background-color: #20cb25;*/
+    /*    width: 33%;*/
+    /*    height: 13px;*/
+    /*    border-radius: 10px;*/
+    /*}*/
+
+    #tomMenuOptions a {
+        color: white!important;
     }
 
-    #progressbar>div {
-        background-color: #20cb25;
-        width: 33%;
-        height: 13px;
-        border-radius: 10px;
+    #tomMenuOptions a:hover {
+        color: #4158d0!important;
+    }
+
+    .progress {
+        width: 70%;
+        margin-right: auto;
+        margin-left: auto;
+        position: relative;
+        top: 20px;
     }
 
 </style>
@@ -78,22 +94,27 @@
         <a href="./dashboard" class="logo"><b>TECHNOLOGY<span>LITERACY</span></b></a>
         <div class="nav notify-row" id="top_menu">
             <ul id="tomMenuOptions" class="nav top-menu">
-                <li id="header_inbox_bar" class="dropdown">
-                    <a href="./achievement">
-                        <i class="fa fa-trophy fa-lg"></i> Achievements
-                    </a>
+<%--                <li id="header_inbox_bar" class="dropdown">--%>
+<%--                    <a href="./achievement">--%>
+<%--                        <i class="fa fa-trophy fa-lg"></i> Achievements--%>
+<%--                    </a>--%>
 
+<%--                </li>--%>
+                <li id="header_notification_bar" class="dropdown">
+                    <a href="./dashboard">
+                        <i class="fa fa-dashboard fa-lg"></i> Dashboard
+                    </a>
                 </li>
                 <li id="header_notification_bar" class="dropdown">
                     <a href="./analytics">
                         <i class="fa fa-bar-chart fa-lg"></i> Analytics
                     </a>
                 </li>
-                <li class="dropdown">
-                    <a href="#">
-                        <i class="fa fa-bullseye fa-lg"></i> Your Current Goal : <c:out value="${currentStudentGoal}"/>
-                    </a>
-                </li>
+<%--                <li class="dropdown">--%>
+<%--                    <a href="#">--%>
+<%--                        <i class="fa fa-bullseye fa-lg"></i> Your Current Goal : <c:out value="${currentStudentGoal}"/>--%>
+<%--                    </a>--%>
+<%--                </li>--%>
                 <li class="dropdown">
                     <a href="./leaderboard">
                         <i class="fa fa-table fa-lg"></i> Leaderboard
@@ -166,7 +187,7 @@
                     <div class="row mt">
                         <div class="col-md-12">
                             <div class="white-panel pn">
-                                <div href="./categoryOne" class="white-header">
+                                <div class="white-header">
                                     <h5><a style="color: #4158d0;font-weight: bold" href="#"> Checkout your Achievements </a></h5>
                                 </div>
                                 <body>
@@ -185,15 +206,15 @@
                         <div class="col-md-3"></div>
                         <div class="col-md-6">
                             <div class="white-panel pn">
-                                <div href="./categoryOne" class="white-header">
-                                    <h6><a style="color: #4158d0;font-weight: bold" href="#"> Overall Critical Thinking Quiz</a></h6>
+                                <div class="white-header">
+                                    <h6><a style="color: #4158d0;font-weight: bold" href="#"> Overall Completion of categories </a></h6>
                                 </div>
                                 <body>
-                                <img  src="${pageContext.request.contextPath}/resources/img/textbook.png" style="width:120px;height:120px;">
+                                    <img  src="${pageContext.request.contextPath}/resources/img/overalAchievementIcon.png" style="width:120px;height:120px;">
                                 </body>
                                 <footer>
-                                    <div id="progressbar2">
-                                        <div></div>
+                                    <div class="progress overallProgress">
+                                        <div id="overallCategoriesBar" class="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">0%</div>
                                     </div>
                                 </footer>
                             </div>
@@ -201,290 +222,70 @@
                         <div class="col-md-3"></div>
                     </div>
                     <div class="row mt">
-                        <div class="col-md-3">
+                        <div class="col-md-6">
                             <div class="white-panel pn">
                                 <div href="./categoryOne" class="white-header">
-                                    <h6><a style="color: #4158d0;font-weight: bold" href="#"> Overall Critical Thinking Quiz</a></h6>
+                                    <h6><a style="color: #4158d0;font-weight: bold" href="#"> Completion of Critical Thinking Category</a></h6>
                                 </div>
                                 <body>
-                                <img id="Myimg" src="${pageContext.request.contextPath}/resources/img/textbook.png" style="width:120px;height:120px;">
+                                    <img src="${pageContext.request.contextPath}/resources/img/minTrophy.png" style="width:120px;height:120px;">
                                 </body>
                                 <footer>
-                                    <div id="progressbar">
-                                        <div></div>
+                                    <div class="progress overallProgress">
+                                        <div id="ctBar" class="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">0%</div>
                                     </div>
                                 </footer>
                             </div>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-6">
                             <div class="white-panel pn">
                                 <div href="./categoryOne" class="white-header">
-                                    <h6><a style="color: #4158d0;font-weight: bold" href="#"> Social Media </a></h6>
+                                    <h5><a style="color: #4158d0;font-weight: bold" href="#"> Completion of social media category</a></h5>
                                 </div>
                                 <body>
-                                <img id="Myimg2" src="${pageContext.request.contextPath}/resources/img/textbook.png" style="width:120px;height:120px;">
+                                    <img src="${pageContext.request.contextPath}/resources/img/socialMediaTrophy.png" style="width:120px;height:120px;">
                                 </body>
-<%--                                <footer>--%>
-<%--                                    <div class="pull-center">--%>
-<%--                                        <h6> Achievement bar </h6>--%>
-<%--                                    </div>--%>
-<%--                                </footer>--%>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="white-panel pn">
-                                <div href="./categoryOne" class="white-header">
-                                    <h5><a style="color: #4158d0;font-weight: bold" href="#"> Information Management </a></h5>
-                                </div>
-                                <body>
-                                <img id="Myimg3" src="${pageContext.request.contextPath}/resources/img/textbook.png" style="width:120px;height:120px;">
-                                </body>
-<%--                                <footer>--%>
-<%--                                    <div class="pull-center">--%>
-<%--                                        <h6> Achievement bar </h6>--%>
-<%--                                    </div>--%>
-<%--                                </footer>--%>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="white-panel pn">
-                                <div href="./categoryOne" class="white-header">
-                                    <h5><a style="color: #4158d0;font-weight: bold" href="#"> Creativity </a></h5>
-                                </div>
-                                <body>
-                                <img id="Myimg4" src="${pageContext.request.contextPath}/resources/img/textbook.png" style="width:120px;height:120px;">
-                                </body>
-<%--                                <footer>--%>
-<%--                                    <div class="pull-center">--%>
-<%--                                        <h6> Achievement bar </h6>--%>
-<%--                                    </div>--%>
-<%--                                </footer>--%>
+                                <footer>
+                                    <div class="progress overallProgress">
+                                        <div id="smBar" class="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">0%</div>
+                                    </div>
+                                </footer>
                             </div>
                         </div>
                     </div>
                     <%--  Category 2                   --%>
                     <div class="row mt">
-                        <div class="col-md-3"></div>
                         <div class="col-md-6">
                             <div class="white-panel pn">
-                                <div href="./categoryOne" class="white-header">
-                                    <h6><a style="color: #4158d0;font-weight: bold" href="#"> Overall Critical Thinking Quiz</a></h6>
+                                <div class="white-header">
+                                    <h6><a style="color: #4158d0;font-weight: bold" href="#"> Completion of information management category</a></h6>
                                 </div>
                                 <body>
-                                <img  src="${pageContext.request.contextPath}/resources/img/textbook.png" style="width:120px;height:120px;">
+                                <img src="${pageContext.request.contextPath}/resources/img/InformationACompetitionIcon.png" style="width:120px;height:120px;">
                                 </body>
                                 <footer>
-                                    <div id="progressbar2">
-                                        <div></div>
+                                    <div class="progress overallProgress">
+                                        <div id="imBar" class="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">0%</div>
                                     </div>
                                 </footer>
                             </div>
                         </div>
-                        <div class="col-md-3"></div>
-                    </div>
-                    <div class="row mt">
-                        <div class="col-md-3">
+                        <div class="col-md-6">
                             <div class="white-panel pn">
-                                <div href="./categoryOne" class="white-header">
-                                    <h6><a style="color: #4158d0;font-weight: bold" href="#"> Overall Critical Thinking Quiz</a></h6>
+                                <div class="white-header">
+                                    <h5><a style="color: #4158d0;font-weight: bold" href="#"> Completion of creativity category </a></h5>
                                 </div>
                                 <body>
-                                <img src="${pageContext.request.contextPath}/resources/img/textbook.png" style="width:120px;height:120px;">
+                                    <img src="${pageContext.request.contextPath}/resources/img/creativityTrophy.png" style="width:120px;height:120px;">
                                 </body>
                                 <footer>
-                                    <div id="progressbar3">
-                                        <div></div>
+                                    <div class="progress overallProgress">
+                                        <div id="crtBar" class="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">0%</div>
                                     </div>
                                 </footer>
                             </div>
                         </div>
-                        <div class="col-md-3">
-                            <div class="white-panel pn">
-                                <div href="./categoryOne" class="white-header">
-                                    <h6><a style="color: #4158d0;font-weight: bold" href="#"> Social Media </a></h6>
-                                </div>
-                                <body>
-                                <img id="Myimg2" src="${pageContext.request.contextPath}/resources/img/textbook.png" style="width:120px;height:120px;">
-                                </body>
-                                <%--                                <footer>--%>
-                                <%--                                    <div class="pull-center">--%>
-                                <%--                                        <h6> Achievement bar </h6>--%>
-                                <%--                                    </div>--%>
-                                <%--                                </footer>--%>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="white-panel pn">
-                                <div href="./categoryOne" class="white-header">
-                                    <h5><a style="color: #4158d0;font-weight: bold" href="#"> Information Management </a></h5>
-                                </div>
-                                <body>
-                                <img src="${pageContext.request.contextPath}/resources/img/textbook.png" style="width:120px;height:120px;">
-                                </body>
-                                <%--                                <footer>--%>
-                                <%--                                    <div class="pull-center">--%>
-                                <%--                                        <h6> Achievement bar </h6>--%>
-                                <%--                                    </div>--%>
-                                <%--                                </footer>--%>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="white-panel pn">
-                                <div href="./categoryOne" class="white-header">
-                                    <h5><a style="color: #4158d0;font-weight: bold" href="#"> Creativity </a></h5>
-                                </div>
-                                <body>
-                                <img src="${pageContext.request.contextPath}/resources/img/textbook.png" style="width:120px;height:120px;">
-                                </body>
-                                <%--                                <footer>--%>
-                                <%--                                    <div class="pull-center">--%>
-                                <%--                                        <h6> Achievement bar </h6>--%>
-                                <%--                                    </div>--%>
-                                <%--                                </footer>--%>
-                            </div>
-                        </div>
                     </div>
-
-<%--                    <div class="row mt">--%>
-<%--                        <div class="col-md-6 col-sm-6 mb" id="categoryOneDiv">--%>
-<%--                            &lt;%&ndash;                            <div class="row">&ndash;%&gt;--%>
-<%--                            &lt;%&ndash;                                <div class="col-md-6">&ndash;%&gt;--%>
-<%--                            <div class="white-panel pn">--%>
-<%--                                <div class="white-header">--%>
-<%--                                    <h5 style="color: #4158d0;font-weight: bold"> Critical Thinking </h5>--%>
-<%--                                </div>--%>
-<%--                                <div class="row lessonOneQuizzes">--%>
-<%--                                    <div id="catOneQuizOne" class="col-md-4">--%>
-<%--                                        <h6> Quiz One </h6>--%>
-<%--                                        <a href="./categoryOneQuizOne">--%>
-<%--                                            <img id="c1quizOneId" src="${pageContext.request.contextPath}/resources/img/l1q1.webp" style="width:80px;height:80px;">--%>
-<%--                                        </a>--%>
-<%--                                    </div>--%>
-<%--                                    <div id="catOneQuizTwo" class="col-md-4">--%>
-<%--                                        <h6> Quiz Two </h6>--%>
-<%--                                        <a href="./categoryOneQuizTwo">--%>
-<%--                                            <img id="c1quizTwoId" src="${pageContext.request.contextPath}/resources/img/l2q2.png" style="width:80px;height:80px;">--%>
-<%--                                        </a>--%>
-<%--                                    </div>--%>
-<%--                                    <div id="catOneQuizThree" class="col-md-4">--%>
-<%--                                        <h6> Quiz Three </h6>--%>
-<%--                                        <a href="./categoryOneQuizThree">--%>
-<%--                                            <img id="c1quizThreeId" src="${pageContext.request.contextPath}/resources/img/lOneQThree.png" style="width:80px;height:80px;">--%>
-<%--                                        </a>--%>
-<%--                                    </div>--%>
-<%--                                </div>--%>
-<%--                                <footer>--%>
-<%--                                    <div class="pull-center categoryOneFooter">--%>
-<%--                                    </div>--%>
-<%--                                </footer>--%>
-<%--                            </div>--%>
-<%--                        </div>--%>
-
-<%--                        <div class="col-md-6 col-sm-6 mb" id="categoryTwoDiv">--%>
-<%--                            <div class="white-panel pn">--%>
-<%--                                <div class="white-header">--%>
-<%--                                    <h5 style="color: #4158d0;font-weight: bold">Social Media </h5>--%>
-<%--                                </div>--%>
-<%--                                <div class="row lessonOneQuizzes">--%>
-<%--                                    <div id="catTwoQuizOne" class="col-md-4">--%>
-<%--                                        <h6> Quiz One </h6>--%>
-<%--                                        <a href="./categoryTwoQuizOne">--%>
-<%--                                            <img id="c2quizOneId" src="${pageContext.request.contextPath}/resources/img/sm1.png" style="width:80px;height:80px;">--%>
-<%--                                        </a>--%>
-<%--                                    </div>--%>
-<%--                                    <div id="catTwoQuizTwo" class="col-md-4">--%>
-<%--                                        <h6> Quiz Two </h6>--%>
-<%--                                        <a href="./categoryTwoQuizTwo">--%>
-<%--                                            <img id="c2quizTwoId" src="${pageContext.request.contextPath}/resources/img/sm2.png" style="width:80px;height:80px;">--%>
-<%--                                        </a>--%>
-<%--                                    </div>--%>
-<%--                                    <div id="catTwoQuizThree" class="col-md-4">--%>
-<%--                                        <h6> Quiz Three </h6>--%>
-<%--                                        <a href="./categoryTwoQuizThree">--%>
-<%--                                            <img id="c2quizThreeId" src="${pageContext.request.contextPath}/resources/img/sm3.png" style="width:80px;height:80px;">--%>
-<%--                                        </a>--%>
-<%--                                    </div>--%>
-<%--                                </div>--%>
-<%--                                &lt;%&ndash;                                <p>April 17, 2014</p>&ndash;%&gt;--%>
-<%--                                <footer>--%>
-<%--                                    <div class="pull-center categoryTwoFooter">--%>
-
-<%--                                    </div>--%>
-<%--                                </footer>--%>
-<%--                            </div>--%>
-<%--                            <!--  /darkblue panel -->--%>
-<%--                        </div>--%>
-<%--                        <div class="col-md-6 col-sm-6 mb" id="categoryThreeDiv">--%>
-<%--                            <div class="white-panel pn">--%>
-<%--                                <div class="white-header">--%>
-<%--                                    <h5 style="color: #4158d0;font-weight: bold"> Information Management </h5>--%>
-<%--                                </div>--%>
-<%--                                <div class="row lessonOneQuizzes">--%>
-<%--                                    <div id="catThreeQuizOne" class="col-md-4">--%>
-<%--                                        <h6> Quiz One </h6>--%>
-<%--                                        <a href="./categoryThreeQuizOne">--%>
-<%--                                            <img id="c3quizOneId" src="${pageContext.request.contextPath}/resources/img/ia1.png" style="width:80px;height:80px;">--%>
-<%--                                        </a>--%>
-<%--                                    </div>--%>
-<%--                                    <div id="catThreeQuizTwo" class="col-md-4">--%>
-<%--                                        <h6> Quiz Two </h6>--%>
-<%--                                        <a href="./categoryThreeQuizTwo">--%>
-<%--                                            <img id="c3quizTwoId" src="${pageContext.request.contextPath}/resources/img/ia2.png" style="width:80px;height:80px;">--%>
-<%--                                        </a>--%>
-<%--                                    </div>--%>
-<%--                                    <div id="catThreeQuizThree" class="col-md-4">--%>
-<%--                                        <h6> Quiz Three </h6>--%>
-<%--                                        <a href="./categoryThreeQuizThree">--%>
-<%--                                            <img id="c3quizThreeId" src="${pageContext.request.contextPath}/resources/img/ia3.png" style="width:80px;height:80px;">--%>
-<%--                                        </a>--%>
-<%--                                    </div>--%>
-<%--                                </div>--%>
-
-<%--                                <footer>--%>
-<%--                                    <div class="pull-center categoryThreeFooter">--%>
-
-<%--                                    </div>--%>
-<%--                                </footer>--%>
-<%--                            </div>--%>
-<%--                            <!--  /darkblue panel -->--%>
-<%--                        </div>--%>
-<%--                        <div class="col-md-6 col-sm-6 mb" id="categoryFourDiv">--%>
-<%--                            <div class="white-panel pn">--%>
-<%--                                <div class="white-header">--%>
-<%--                                    <h5 style="color: #4158d0;font-weight: bold"> Creativity </h5>--%>
-<%--                                </div>--%>
-<%--                                <div class="row lessonOneQuizzes">--%>
-<%--                                    <div id="catFourQuizOne" class="col-md-4">--%>
-<%--                                        <h6> Quiz One </h6>--%>
-<%--                                        <a href="./categoryFourQuizOne">--%>
-<%--                                            <img id="c4quizOneId" src="${pageContext.request.contextPath}/resources/img/cr1.png" style="width:80px;height:80px;">--%>
-<%--                                        </a>--%>
-<%--                                    </div>--%>
-<%--                                    <div id="catFourQuizTwo" class="col-md-4">--%>
-<%--                                        <h6> Quiz Two </h6>--%>
-<%--                                        <a href="./categoryFourQuizTwo">--%>
-<%--                                            <img id="c4quizTwoId" src="${pageContext.request.contextPath}/resources/img/cr2.png" style="width:80px;height:80px;">--%>
-<%--                                        </a>--%>
-<%--                                    </div>--%>
-<%--                                    <div id="catFourQuizThree" class="col-md-4">--%>
-<%--                                        <h6> Quiz Three </h6>--%>
-<%--                                        <a href="./categoryFourQuizThree">--%>
-<%--                                            <img id="c4quizThreeId" src="${pageContext.request.contextPath}/resources/img/cr3.png" style="width:80px;height:80px;">--%>
-<%--                                        </a>--%>
-<%--                                    </div>--%>
-<%--                                </div>--%>
-
-<%--                                &lt;%&ndash;                                <p>April 17, 2014</p>&ndash;%&gt;--%>
-<%--                                <footer>--%>
-<%--                                    <div class="pull-center categoryFourFooter">--%>
-
-<%--                                    </div>--%>
-<%--                                </footer>--%>
-<%--                            </div>--%>
-<%--                            <!--  /darkblue panel -->--%>
-<%--                        </div>--%>
-<%--                    </div>--%>
-                    <!-- /row -->
                 </div>
                 <div class="col-lg-3 ds">
                     <div class="donut-main">

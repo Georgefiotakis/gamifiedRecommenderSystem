@@ -125,8 +125,31 @@
         padding-top: 10px;
     }
 
-</style>
+    .modal-full {
+        width: 500px;
+        height: 300px;
+        margin: 0 auto;
+        display: table;
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 30%;
+        /*border: 1px solid;*/
+        -webkit-transform: translateY(-50%);
+        -moz-transform: translateY(-50%);
+        -ms-transform: translateY(-50%);
+        -o-transform: translateY(-50%);
+        transform: translateY(-50%);
+    }
 
+</style>
+<script>
+
+    function returnToDashboard() {
+        location.replace("./dashboard");
+    }
+
+</script>
 <body class="dark-version">
 <%--<div id="switch-color" class="color-switcher">--%>
 <%--    <div class="open"><i class="fas fa-cog"></i></div>--%>
@@ -169,7 +192,7 @@
                             <br>
                             <br>
                             <br>
-                            <label id="minutes">00</label>:<label id="seconds">00</label>
+<%--                            <label id="minutes">00</label>:<label id="seconds">00</label>--%>
                         </div>
                         <div class="wizard-form-input mb-60 mt-60" style="display: none;">
                             <div class="line line2"></div>

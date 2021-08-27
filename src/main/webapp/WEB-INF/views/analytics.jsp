@@ -35,6 +35,14 @@
         height: 500px;
     }
 
+    #tomMenuOptions a {
+        color: white!important;
+    }
+
+    #tomMenuOptions a:hover {
+        color: #4158d0!important;
+    }
+
 </style>
 <header class="header black-bg">
     <div class="sidebar-toggle-box">
@@ -42,34 +50,33 @@
     </div>
     <a href="./dashboard" class="logo"><b>TECHNOLOGY<span>LITERACY</span></b></a>
     <div class="nav notify-row" id="top_menu">
-        <ul class="nav top-menu">
-<%--            <li>--%>
-<%--                <a>--%>
-<%--                    <i class="fa fa-user fa-lg"></i> XP points : <c:out value="${currentUserCoins}"/>--%>
-<%--                </a>--%>
-<%--            </li>--%>
+        <ul id="tomMenuOptions" class="nav top-menu">
+            <%--                <li id="header_inbox_bar" class="dropdown">--%>
+            <%--                    <a href="./achievement">--%>
+            <%--                        <i class="fa fa-trophy fa-lg"></i> Achievements--%>
+            <%--                    </a>--%>
 
-<%--            <li>--%>
-<%--                <a>--%>
-<%--                    <i class="fa fa-star fa-lg"></i> Stars : <c:out value="${currentUserLevel}"/>--%>
-<%--                </a>--%>
-<%--            </li>--%>
-<%--            <li id="header_inbox_bar" class="dropdown">--%>
-<%--                <a href="./achievement">--%>
-<%--                    <i class="fa fa-trophy fa-lg"></i> Achievements--%>
-<%--                </a>--%>
-
-<%--            </li>--%>
-<%--            <li id="header_notification_bar" class="dropdown">--%>
-<%--                <a href="./analytics">--%>
-<%--                    <i class="fa fa-bar-chart fa-lg"></i> Analytics--%>
-<%--                </a>--%>
-<%--            </li>--%>
-<%--            <li class="dropdown">--%>
-<%--                <a href="./analytics">--%>
-<%--                    <i class="fa fa-bullseye fa-lg"></i> Your Current Goal : <c:out value="${currentStudentGoal}"/>--%>
-<%--                </a>--%>
-<%--            </li>--%>
+            <%--                </li>--%>
+            <li id="header_notification_bar" class="dropdown">
+                <a href="./dashboard">
+                    <i class="fa fa-dashboard fa-lg"></i> Dashboard
+                </a>
+            </li>
+            <li id="header_notification_bar" class="dropdown">
+                <a href="./achievement">
+                    <i class="fa fa-trophy fa-lg"></i> Achievements
+                </a>
+            </li>
+            <%--                <li class="dropdown">--%>
+            <%--                    <a href="#">--%>
+            <%--                        <i class="fa fa-bullseye fa-lg"></i> Your Current Goal : <c:out value="${currentStudentGoal}"/>--%>
+            <%--                    </a>--%>
+            <%--                </li>--%>
+            <li class="dropdown">
+                <a href="./leaderboard">
+                    <i class="fa fa-table fa-lg"></i> Leaderboard
+                </a>
+            </li>
         </ul>
     </div>
     <div class="top-menu">

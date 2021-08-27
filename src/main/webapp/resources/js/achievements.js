@@ -1,3 +1,16 @@
+var catOneLesOneCompletion;
+var catOneLesTwoCompletion;
+var catOneLesThreeCompletion;
+var catTwoLesOneCompletion;
+var catTwoLesTwoCompletion;
+var catTwoLesThreeCompletion;
+var catThreeLesOneCompletion;
+var catThreeLesTwoCompletion;
+var catThreeLesThreeCompletion;
+var catFourLesOneCompletion;
+var catFourLesTwoCompletion;
+var catFourLesThreeCompletion;
+
 $(document).ready(function () {
 
     $.ajax({
@@ -9,12 +22,200 @@ $(document).ready(function () {
         }
     });
 
+    $.ajax({
+        type: "GET",
+        url: "./getUserCategoryOneLessons",
+        success: function (data, status) {
+            // console.log("Lessons retrieved for category one");
+
+            var lessonOneValue = data["lessonOne"];
+            var lessonTwoValue = data["lessonTwo"];
+            var lessonThreeValue = data["lessonThree"];
+
+            catOneLesOneCompletion = lessonOneValue;
+            catOneLesTwoCompletion = lessonTwoValue;
+            catOneLesThreeCompletion = lessonThreeValue;
+
+            // console.log(catOneLesOneCompletion);
+            // console.log(catOneLesTwoCompletion);
+            // console.log(catOneLesThreeCompletion);
+
+        }, complete: function () {
+            getUserCategoryTwoLessons();
+        }
+    });
 });
+
+function getUserCategoryTwoLessons() {
+    $.ajax({
+        type: "GET",
+        url: "./getUserCategoryTwoLessons",
+        success: function (data, status) {
+            // console.log("Lessons retrieved for category two");
+
+            var lessonOneValue = data["lessonOne"];
+            var lessonTwoValue = data["lessonTwo"];
+            var lessonThreeValue = data["lessonThree"];
+
+            catTwoLesOneCompletion = lessonOneValue;
+            catTwoLesTwoCompletion = lessonTwoValue;
+            catTwoLesThreeCompletion = lessonThreeValue;
+
+            // console.log(catTwoLesOneCompletion);
+            // console.log(catTwoLesTwoCompletion);
+            // console.log(catTwoLesThreeCompletion);
+
+        }, complete: function () {
+            getUserCategoryThreeLessons();
+        }
+    });
+}
+
+function getUserCategoryThreeLessons() {
+    $.ajax({
+        type: "GET",
+        url: "./getUserCategoryThreeLessons",
+        success: function (data, status) {
+            // console.log("Lessons retrieved for category three");
+
+            var lessonOneValue = data["lessonOne"];
+            var lessonTwoValue = data["lessonTwo"];
+            var lessonThreeValue = data["lessonThree"];
+
+            catThreeLesOneCompletion = lessonOneValue;
+            catThreeLesTwoCompletion = lessonTwoValue;
+            catThreeLesThreeCompletion = lessonThreeValue;
+
+            // console.log(catThreeLesOneCompletion);
+            // console.log(catThreeLesTwoCompletion);
+            // console.log(catThreeLesThreeCompletion);
+
+        },complete: function () {
+            getUserCategoryFourLessons();
+        }
+    });
+}
+
+function getUserCategoryFourLessons() {
+    $.ajax({
+        type: "GET",
+        url: "./getUserCategoryFourLessons",
+        success: function (data, status) {
+            // console.log("Lessons retrieved for category four");
+
+            var lessonOneValue = data["lessonOne"];
+            var lessonTwoValue = data["lessonTwo"];
+            var lessonThreeValue = data["lessonThree"];
+
+            catFourLesOneCompletion = lessonOneValue;
+            catFourLesTwoCompletion = lessonTwoValue;
+            catFourLesThreeCompletion = lessonThreeValue;
+
+            // console.log(catFourLesOneCompletion);
+            // console.log(catFourLesTwoCompletion);
+            // console.log(catFourLesThreeCompletion);
+
+        }, complete: function () {
+            createProgressBars();
+        }
+    });
+}
+
+function createProgressBars() {
+
+    //Category One
+    if (catOneLesOneCompletion === 1 && catOneLesTwoCompletion === 0 && catOneLesThreeCompletion === 0) {
+        $('#ctBar').css("width","33%");
+        $('#ctBar').html("33%");
+        $('#overallCategoriesBar').css("width","8%");
+        $('#overallCategoriesBar').html("8%");
+    }
+    if (catOneLesOneCompletion === 1 && catOneLesTwoCompletion === 1 && catOneLesThreeCompletion === 0) {
+        $('#ctBar').css("width","66%");
+        $('#ctBar').html("66%");
+        $('#overallCategoriesBar').css("width","16%");
+        $('#overallCategoriesBar').html("16%");
+    }
+    if (catOneLesOneCompletion === 1 && catOneLesTwoCompletion === 1 && catOneLesThreeCompletion === 1) {
+        // $('#ctBar').css("width","100%");
+        // $('#ctBar').html("100%");
+        $('#ctBar').css("width","100%");
+        $('#ctBar').css("background-color","green");
+        $('#ctBar').html("100% Completed &#10004");
+        $('#overallCategoriesBar').css("width","25%");
+        $('#overallCategoriesBar').html("25%");
+    }
+
+    //Category Two
+    if (catTwoLesOneCompletion === 1 && catTwoLesTwoCompletion === 0 && catTwoLesThreeCompletion === 0) {
+        $('#smBar').css("width","33%");
+        $('#smBar').html("33%");
+        $('#overallCategoriesBar').css("width","33%");
+        $('#overallCategoriesBar').html("33%");
+    }
+    if (catTwoLesOneCompletion === 1 && catTwoLesTwoCompletion === 1 && catTwoLesThreeCompletion === 0) {
+        $('#smBar').css("width","66%");
+        $('#smBar').html("66%");
+        $('#overallCategoriesBar').css("width","41%");
+        $('#overallCategoriesBar').html("41%");
+    }
+    if (catTwoLesOneCompletion === 1 && catTwoLesTwoCompletion === 1 && catTwoLesThreeCompletion === 1) {
+        $('#smBar').css("width","100%");
+        $('#smBar').css("background-color","green");
+        $('#smBar').html("100% Completed &#10004");
+        $('#overallCategoriesBar').css("width","50%");
+        $('#overallCategoriesBar').html("50%");
+    }
+
+    //Category Three
+    if (catThreeLesOneCompletion === 1 && catThreeLesTwoCompletion === 0 && catThreeLesThreeCompletion === 0) {
+        $('#imBar').css("width","33%");
+        $('#imBar').html("33%");
+        $('#overallCategoriesBar').css("width","58%");
+        $('#overallCategoriesBar').html("58%");
+    }
+    if (catThreeLesOneCompletion === 1 && catThreeLesTwoCompletion === 1 && catThreeLesThreeCompletion === 0) {
+        $('#imBar').css("width","66%");
+        $('#imBar').html("66%");
+        $('#overallCategoriesBar').css("width","66%");
+        $('#overallCategoriesBar').html("66%");
+    }
+    if (catThreeLesOneCompletion === 1 && catThreeLesTwoCompletion === 1 && catThreeLesThreeCompletion === 1) {
+        $('#imBar').css("width","100%");
+        $('#imBar').css("background-color","green");
+        $('#imBar').html("100% Completed &#10004");
+        $('#overallCategoriesBar').css("width","75%");
+        $('#overallCategoriesBar').html("75%");
+    }
+
+    //Category Four
+    if (catFourLesOneCompletion === 1 && catFourLesTwoCompletion === 0 && catFourLesThreeCompletion === 0) {
+        $('#crtBar').css("width","33%");
+        $('#crtBar').html("33%");
+        $('#overallCategoriesBar').css("width","83%");
+        $('#overallCategoriesBar').html("83%");
+    }
+    if (catFourLesOneCompletion === 1 && catFourLesTwoCompletion === 1 && catFourLesThreeCompletion === 0) {
+        $('#crtBar').css("width","66%");
+        $('#crtBar').html("66%");
+        $('#overallCategoriesBar').css("width","91%");
+        $('#overallCategoriesBar').html("91%");
+    }
+    if (catFourLesOneCompletion === 1 && catFourLesTwoCompletion === 1 && catFourLesThreeCompletion === 1) {
+        $('#crtBar').css("width","100%");
+        $('#crtBar').css("background-color","green");
+        $('#crtBar').html("100% Completed &#10004");
+
+        $('#overallCategoriesBar').css("width","100%");
+        $('#overallCategoriesBar').css("background-color","green");
+        $('#overallCategoriesBar').html("100% Completed &#10004");
+    }
+}
 
 function createLeaderboard(data) {
 
 // Themes begin
-    console.log("Data:" + data);
+//     console.log("Data:" + data);
     am4core.useTheme(am4themes_animated);
     am4core.options.autoSetClassName = true;
 // Themes end

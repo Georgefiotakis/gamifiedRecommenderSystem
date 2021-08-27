@@ -33,6 +33,7 @@
     <script src="https://cdn.amcharts.com/lib/4/charts.js"></script>
     <script src="https://cdn.amcharts.com/lib/4/themes/animated.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/Chart.js"></script>
+<%--    <script src="${pageContext.request.contextPath}/resources/js/achievements.js"></script>--%>
     <script src="${pageContext.request.contextPath}/resources/js/dashboard.js"></script>
 </head>
 <style>
@@ -189,7 +190,7 @@
                     </a>
                 </li>
                 <li id="header_inbox_bar" class="dropdown">
-                    <a href="./achievement">
+                    <a id="achievementArgs" href="./achievement">
                         <i class="fa fa-trophy fa-lg"></i> Achievements
                     </a>
 

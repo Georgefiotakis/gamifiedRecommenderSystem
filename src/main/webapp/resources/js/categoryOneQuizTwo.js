@@ -66,44 +66,28 @@ function createModal(totalCorrect) {
     $(modalContentDiv).addClass("modal-content");
     var modalHeaderDiv = document.createElement('div');
     $(modalHeaderDiv).addClass("modal-header");
-    // var closeButton = document.createElement('button');
-    // $(closeButton).addClass("btn-close");
-    // closeButton.setAttribute("type","button");
-    // closeButton.setAttribute("data-bs-dismiss","modal");
-    // closeButton.setAttribute("aria-label","Close");
-    // closeButton.innerHTML = "x" ;
     var modalTitleH5 = document.createElement('h5');
-    modalTitleH5.innerHTML = "Chech your Results";
+    modalTitleH5.innerHTML = "Check your Results";
     $(modalHeaderDiv).append(modalTitleH5);
     // $(modalHeaderDiv).append(closeButton);
     var modalBodyDiv = document.createElement('div');
     $(modalBodyDiv).addClass("modal-body");
-
-    // var image = document.createElement('img');
-    // image.setAttribute("src","${pageContext.request.contextPath}/resources/img/textbook.png");
-    // $(image).css("width","120px");
-    // $(modalBodyDiv).append(image);
-
+    $(modalBodyDiv).css("background-color","white");
     var resultsH6 = document.createElement('h6');
-    $(resultsH6).css("color","white");
     resultsH6.innerHTML = "Your correct answers are : " + totalCorrect + " / 5" ;
-
     var correctAnswersH6 = document.createElement('h6');
-    $(correctAnswersH6).css("color","white");
-
     correctAnswersH6.innerHTML = "These are the correct answers for that Quiz : " + "<br>" + "Answer 1 : " + correctAnswers[0] + "<br>" + "Answer 2 : " + correctAnswers[1] + "<br>" + "Answer 3 : " + correctAnswers[2] + "<br>" + "Answer 4 : " + correctAnswers[3] + "<br>" + "Answer 5 : " + correctAnswers[4];
-
     $(modalBodyDiv).append(resultsH6);
     $(modalBodyDiv).append(correctAnswersH6);
-
     var modalFooterDiv = document.createElement('div');
     $(modalFooterDiv).addClass("modal-footer");
+    $(modalFooterDiv).css("background-color","white");
     var returnButton = document.createElement("button");
     $(returnButton).addClass("btn btn-primary");
     returnButton.setAttribute("data-dismiss","modal");
     returnButton.setAttribute("type","button");
     returnButton.setAttribute("onclick","returnToDashboard()");
-    $(returnButton).css("backgroundColor","green");
+
     returnButton.innerHTML = "Return to Dashboard"
     $(modalFooterDiv).append(returnButton);
 
