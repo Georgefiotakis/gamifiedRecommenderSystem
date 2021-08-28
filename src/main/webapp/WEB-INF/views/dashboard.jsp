@@ -136,8 +136,8 @@
                         </div>
 
                         <div id="London" class="w3-container city" style="display:none">
-                            <h2>London</h2>
-                            <p>London is the capital city of England.</p>
+<%--                            <h2>London</h2>--%>
+<%--                            <p>London is the capital city of England.</p>--%>
                             <button onclick="enableNext(categoryOneDiv)" type="button" class="btn btn-primary" data-dismiss="modal">I'm ready</button>
                         </div>
 

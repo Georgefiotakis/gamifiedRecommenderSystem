@@ -43,7 +43,7 @@
 
     #userLeaderboardDiv {
         width: 100%;
-        height: 1000px;
+        height: 600px;
     }
 
     /*#progressbar {*/
@@ -289,7 +289,7 @@
                 </div>
                 <div class="col-lg-3 ds">
                     <div class="donut-main">
-                        <h4 style="color: #5425ff">USERS' LEADERBOARD</h4>
+                        <h4 style="color: #5425ff">USERS' PER GENDER</h4>
                         <div id="userLeaderboardDiv"></div>
                         <canvas id="newchart" height="130" width="130"></canvas>
                     </div>

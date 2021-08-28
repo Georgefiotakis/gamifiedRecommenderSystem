@@ -547,19 +547,11 @@ public class HomeController {
 	@RequestMapping(value = "/getUserCategoryOneLessons", method = RequestMethod.GET)
 	public @ResponseBody CategoryOne getUserCategoryOneLessons(Model model) {
 
-		//		model.addAttribute("categoryOneLessonOne",categoryOne.getLessonOne());
-//		model.addAttribute("categoryOneLessonTwo",categoryOne.getLessonTwo());
-//		model.addAttribute("categoryOneLessonThree",categoryOne.getLessonThree());
-
 		return userManagementService.getCategoryOneLessonsByUserId(currentUserId);
 	}
 
 	@RequestMapping(value = "/getUserCategoryTwoLessons", method = RequestMethod.GET)
 	public @ResponseBody CategoryTwo getUserCategoryTwoLessons(Model model) {
-
-		//		model.addAttribute("categoryTwoLessonOne",categoryTwo.getLessonOne());
-//		model.addAttribute("categoryTwoLessonTwo",categoryTwo.getLessonTwo());
-//		model.addAttribute("categoryTwoLessonThree",categoryTwo.getLessonThree());
 
 		return userManagementService.getCategoryTwoLessonsByUserId(currentUserId);
 	}
@@ -736,4 +728,42 @@ public class HomeController {
 		return "redirect:/dashboard";
 	}
 
+	@RequestMapping(value = "/analytics/userPerGender", method = RequestMethod.GET)
+	public @ResponseBody UserPerGender[] userPerGender() {
+		List<User> userList = userManagementService.getAllUsers();
+		HashMap<Integer,String> usersListMap = new HashMap<>();
+		for (int i = 0; i < userList.size(); i++) {
+			usersListMap.put(i,userList.get(i).getGender());
+		}
+
+		Map<String, Integer> result = new TreeMap<String, Integer>();
+		for (Map.Entry<Integer, String> entry : usersListMap.entrySet()) {
+			String value = entry.getValue();
+			Integer count = result.get(value);
+			if (count == null)
+				result.put(value, new Integer(1));
+			else
+				result.put(value, new Integer(count+1));
+		}
+		Integer i = 0;
+		UserPerGender[] userPerGenders = new UserPerGender[result.size()];
+		for (Map.Entry<String, Integer> entry : result.entrySet()) {
+			UserPerGender userPerGender = new UserPerGender();
+			userPerGender.setGender(entry.getKey());
+			userPerGender.setUsers(entry.getValue());
+			if (entry.getKey().toLowerCase().equals("male")) {
+				userPerGender.setBullet("https://www.amcharts.com/lib/images/faces/C01.png");
+				userPerGender.setColor("blue");
+			} else {
+				userPerGender.setBullet("https://www.amcharts.com/lib/images/faces/FB03.png");
+				userPerGender.setColor("pink");
+			}
+			userPerGenders[i] = userPerGender;
+			i++;
+		}
+
+
+
+		return userPerGenders;
+	}
 }
